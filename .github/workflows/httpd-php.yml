@@ -1,10 +1,10 @@
-name: Build and Push httpd-php
+name: Build httpd-php
 on: 
   workflow_dispatch:
 
 jobs:
   build:
-    name: They took our jobs!
+    name: Build and push image
     runs-on: ubuntu-20.04
 
     steps:

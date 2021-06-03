@@ -10,9 +10,9 @@ Do not publish the generated image to a public access registry as it contains yo
 
 ## Instructions
 
-### GitHub
+### GitHub Setup
 
-- Click the "Use this template" button
+- Click the [Use this template](https://github.com/chevereto/docker-builder/generate) button
 - Provide the following repository secrets
 
 | Key               | Description                                     |
@@ -25,6 +25,7 @@ Do not publish the generated image to a public access registry as it contains yo
 
 This repo uses RedHat Actions [buildah-build](https://github.com/redhat-actions/buildah-build), [podman-login](https://github.com/redhat-actions/podman-login) and [push-to-registry](https://github.com/redhat-actions/push-to-registry).
 
-- Go to "Actions"
-- Run the workflow for the target image
+### Creating Builds
 
+- Go to "Actions"
+- Run the workflow accordingly the wanted image
