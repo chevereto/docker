@@ -2,6 +2,12 @@
 
 Dockerfile template project for building and distributing container images for Chevereto (ahead) releases.
 
+## Note
+
+Do not publish the generated image to a public access registry as it contains your licensed installation files (including your key).
+
+🧐 Handle it with care or your license details could be stolen.
+
 ## Instructions
 
 ### GitHub
@@ -21,3 +27,4 @@ This repo uses RedHat Actions [buildah-build](https://github.com/redhat-actions/
 
 - Go to "Actions"
 - Run the workflow for the target image
+
