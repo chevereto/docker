@@ -1,11 +1,6 @@
 name: Build and Push httpd-php
 on: 
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'     
-        required: true
-        default: 'warning'
 
 jobs:
   build:
@@ -19,7 +14,7 @@ jobs:
       id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
-        image: my-chevereto
+        image: ${{ secrets.REGISTRY_IMAGE }}
         tags: latest ${{ github.sha }}
         dockerfiles: |
           ./httpd-php.Dockerfile
