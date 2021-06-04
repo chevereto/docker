@@ -15,7 +15,7 @@ jobs:
       uses: redhat-actions/buildah-build@v2
       with:
         image: ${{ secrets.REGISTRY_IMAGE }}
-        tags: latest ${{ github.sha }}
+        tags: latest-httpd-php
         dockerfiles: |
           ./httpd-php.Dockerfile
         build-args: |
