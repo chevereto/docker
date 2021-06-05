@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+PORT="8080"
+PROJECT="/var/www/html/chevereto.loc/public_html"
+IMAGE="rodber/docker-build:latest-httpd-php"
+
+echo "* Setup project at $PROJECT"
+sudo mkdir -p $PROJECT/{images,importing}
+RESULT=$?
+if [ $RESULT -eq 1 ]; then
+    echo "[ERR] Unable to setup project"
+    exit 1
+fi
+sudo mkdir -p $PROJECT/importing/{no-parse,parse-users,parse-albums}
+RESULT=$?
+if [ $RESULT -eq 1 ]; then
+    echo "[ERR] Unable to setup project directories"
+    exit 1
+fi
+
+docker network inspect chv-network >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -eq 1 ]; then
+    echo "* Setup Network"
+    docker network create chv-network
+fi
+
+docker container inspect chv-build >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -eq 0 ]; then
+    echo "* Removing existing chv-build"
+    docker rm -f chv-build >/dev/null 2>&1
+fi
+
+docker container inspect chv-build-mariadb >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -eq 0 ]; then
+    echo "* Removing existing chv-build-mariadb"
+    docker rm -f chv-build-mariadb >/dev/null 2>&1
+fi
+
+echo "* Setup MySQL"
+docker run -d \
+    -e MYSQL_ROOT_PASSWORD=password \
+    --name chv-build-mariadb \
+    --network chv-network \
+    --network-alias build-mariadb \
+    --health-cmd='mysqladmin ping --silent' \
+    mariadb:focal
+
+printf "* Starting mysqld"
+while [ $(docker inspect --format "{{json .State.Health.Status }}" chv-build-mariadb) != "\"healthy\"" ]; do
+    printf "."
+    sleep 1
+done
+echo ""
+
+echo "* Setup MySQL user"
+docker exec chv-build-mariadb mysql -uroot -ppassword -e "CREATE DATABASE chevereto; \
+    CREATE USER 'chevereto' IDENTIFIED BY 'user_database_password'; \
+    GRANT ALL ON chevereto.* TO 'chevereto' IDENTIFIED BY 'user_database_password';"
+
+echo "* Pull Chevereto"
+
+docker pull $IMAGE
+RESULT=$?
+if [ $RESULT -eq 1 ]; then
+    echo "[ERR] Unable to pull Chevereto image"
+    exit 1
+fi
+
+echo "* Setup Chevereto"
+docker run -d \
+    -p "$PORT:80" \
+    -e "CHEVERETO_DB_HOST=build-mariadb" \
+    -e "CHEVERETO_DB_USER=chevereto" \
+    -e "CHEVERETO_DB_PASS=user_database_password" \
+    -e "CHEVERETO_DB_NAME=chevereto" \
+    -e "CHEVERETO_ASSET_STORAGE_NAME=build-assets" \
+    -e "CHEVERETO_ASSET_STORAGE_TYPE=local" \
+    --name chv-build \
+    --network chv-network \
+    --network-alias build \
+    --mount src="$PROJECT/images",target=/var/www/html/images,type=bind \
+    --mount src="$PROJECT/importing/no-parse",target=/var/www/html/importing/no-parse,type=bind \
+    --mount src="$PROJECT/importing/parse-users",target=/var/www/html/importing/parse-users,type=bind \
+    --mount src="$PROJECT/importing/parse-albums",target=/var/www/html/importing/parse-albums,type=bind \
+    $IMAGE
+
+RESULT=$?
+if [ $RESULT -eq 1 ]; then
+    echo "[ERR] Unable to setup Chevereto"
+    exit 1
+fi
+
+echo "[OK] Chevereto is running at localhost:$PORT"
+echo "-------------------------------------------"
+echo "All done!"
+echo "- Front http://localhost:$PORT"
+echo "- Dashboard http://localhost:$PORT/dashboard"
