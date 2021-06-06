@@ -1,6 +1,6 @@
-# docker-builder
+# container-builder
 
-Dockerfile template project for building and distributing container images for Chevereto (ahead) releases.
+Dockerfile template project for building and distributing container images for Chevereto (ahead) releases to any container registry.
 
 ## Note
 
