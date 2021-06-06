@@ -29,3 +29,5 @@ This repo uses RedHat Actions [buildah-build](https://github.com/redhat-actions/
 
 - Go to "Actions"
 - Run the workflow accordingly the wanted image
+
+The build will be available at your target container registry.
