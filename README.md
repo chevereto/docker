@@ -46,3 +46,22 @@ For custom application, put the contents in the `/chevereto` folder before build
 ```sh
 docker build -t tag . -f httpd-php.Dockerfile --build-arg CHEVERETO_LICENSE=<license>
 ```
+
+## Updating
+
+* Add the main template repository as remote `template`
+
+This is required just once.
+  
+```sh
+git remote add template https://github.com/chevereto/container-builder 
+```
+
+* Fetch `template` and merge it with `main`
+
+This will pull all updates.
+
+```sh
+git fetch --all
+git merge template/main
+```
