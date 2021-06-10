@@ -10,6 +10,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Checkout custom application
+      env:
+        USE_CUSTOM_APP: ${{ secrets.REPO_APP }}
+      if: env.USE_CUSTOM_APP != null
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ secrets.REPO_APP }}
+        token: ${{ secrets.REPO_APP_ACCESS_TOKEN }}
+        path: chevereto
+
     - name: Build Image
       id: build-image
       uses: redhat-actions/buildah-build@v2
