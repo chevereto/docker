@@ -6,7 +6,7 @@ cd /chevereto/download
 curl -S -o installer.tar.gz -L "https://github.com/chevereto/installer/archive/${CHEVERETO_INSTALLER_TAG}.tar.gz"
 tar -xvzf installer.tar.gz
 mv -v installer-"${CHEVERETO_INSTALLER_TAG}"/* /chevereto/installer/
-if [ -f "$WORKING_DIR/composer.js" ]; then
+if [ -f "$WORKING_DIR/composer.json" ]; then
     echo "[SKIP] Installer provisioning"
 else
     cd /chevereto/installer
@@ -49,4 +49,5 @@ set -eux
 } >$WORKING_DIR/app/settings.php
 chown www-data: $WORKING_DIR -R
 cd $WORKING_DIR
+rm -rf .gitkeep
 ls -la
