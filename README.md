@@ -8,12 +8,10 @@ Do not publish the generated image to a public access registry as it contains yo
 
 🧐 Handle it with care or your license details could be stolen.
 
-## Instructions
+## GitHub Setup
 
-### GitHub Setup
-
-- Click the [Use this template](https://github.com/chevereto/docker-builder/generate) button
-- Provide the following repository secrets
+* Click the [Use this template](https://github.com/chevereto/docker-builder/generate) button
+* Provide the following repository secrets
 
 | Key               | Description                                     |
 | ----------------- | ----------------------------------------------- |
@@ -25,9 +23,26 @@ Do not publish the generated image to a public access registry as it contains yo
 
 This repo uses RedHat Actions [buildah-build](https://github.com/redhat-actions/buildah-build), [podman-login](https://github.com/redhat-actions/podman-login) and [push-to-registry](https://github.com/redhat-actions/push-to-registry).
 
+### Custom application
+
+You can use the following repository secrets for your custom application:
+
+| Key                   | Description                                    |
+| --------------------- | ---------------------------------------------- |
+| REPO_APP              | Repository for the application as `owner/repo` |
+| REPO_APP_ACCESS_TOKEN | Personal Access Token for the above            |
+
 ### Creating Builds
 
-- Go to "Actions"
-- Run the workflow accordingly the wanted image
+* Go to "Actions"
+* Run the workflow accordingly the wanted image
 
 The build will be available at your target container registry.
+
+## Manual setup
+
+For custom application, put the contents in the `/chevereto` folder before building the image.
+
+```sh
+docker build -t tag . -f httpd-php.Dockerfile --build-arg CHEVERETO_LICENSE=<license>
+```
