@@ -1,6 +1,14 @@
-# container-builder
+# Container builder
 
-Dockerfile template project for building and distributing container images for Chevereto (ahead) releases to any container registry.
+> 🔔 [Subscribe](https://newsletter.chevereto.com/subscription?f=PmL892XuTdfErVq763PCycJQrvZ8PYc9JbsVUttqiPV1zXt6DDtf7lhepEStqE8LhGs8922ZYmGT7CYjMH5uSx23pL6Q) to don't miss any update regarding Chevereto.
+
+![Chevereto](LOGO.svg)
+
+[![Community](https://img.shields.io/badge/chv.to-community-blue?style=flat-square)](https://chv.to/community)
+[![Discord](https://img.shields.io/discord/759137550312407050?style=flat-square)](https://chv.to/discord)
+[![Twitter Follow](https://img.shields.io/twitter/follow/chevereto?style=social)](https://twitter.com/chevereto)
+
+Dockerfile template project for building and distributing container images for Chevereto (ahead) releases to any container registry. It also works with custom applications.
 
 ## Note
 
@@ -25,7 +33,7 @@ This repo uses RedHat Actions [buildah-build](https://github.com/redhat-actions/
 
 ### Custom application
 
-You can use the following repository secrets for your custom application:
+By default this repository uses your Chevereto license to download the latest Chevereto release. By adding the the following repository secrets you can use your own custom application:
 
 | Key                   | Description                                    |
 | --------------------- | ---------------------------------------------- |
@@ -46,7 +54,6 @@ docker build -t tag . -f httpd-php.Dockerfile --build-arg CHEVERETO_LICENSE=<lic
 ```
 
 For custom application, put the contents in the `/chevereto` folder before building the image.
-
 
 ## Updating
 
