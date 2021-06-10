@@ -15,7 +15,7 @@ Do not publish the generated image to a public access registry as it contains yo
 
 | Key               | Description                                     |
 | ----------------- | ----------------------------------------------- |
-| CHEVERETO_LICENSE | Chevereto license key                           |
+| CHEVERETO_LICENSE | Chevereto license key (*)                       |
 | REGISTRY_IMAGE    | Image to be build (at), `owner/chevereto-build` |
 | REGISTRY_LABEL    | `ghcr.io/owner`, `docker.io`, `quay.io`         |
 | REGISTRY_PASSWORD | Password (registry access token)                |
@@ -41,11 +41,12 @@ The build will be available at your target container registry.
 
 ## Manual setup
 
-For custom application, put the contents in the `/chevereto` folder before building the image.
-
 ```sh
 docker build -t tag . -f httpd-php.Dockerfile --build-arg CHEVERETO_LICENSE=<license>
 ```
+
+For custom application, put the contents in the `/chevereto` folder before building the image.
+
 
 ## Updating
 
