@@ -6,9 +6,13 @@ cd /chevereto/download
 curl -S -o installer.tar.gz -L "https://github.com/chevereto/installer/archive/${CHEVERETO_INSTALLER_TAG}.tar.gz"
 tar -xvzf installer.tar.gz
 mv -v installer-"${CHEVERETO_INSTALLER_TAG}"/* /chevereto/installer/
-cd /chevereto/installer
-php installer.php -a download -s $CHEVERETO_SOFTWARE -t=$CHEVERETO_TAG -l=$CHEVERETO_LICENSE
-php installer.php -a extract -s $CHEVERETO_SOFTWARE -f chevereto-pkg-*.zip -p $WORKING_DIR
+if [ -f "$WORKING_DIR/composer.js" ]; then
+    echo "[SKIP] Installer provisioning"
+else
+    cd /chevereto/installer
+    php installer.php -a download -s $CHEVERETO_SOFTWARE -t=$CHEVERETO_TAG -l=$CHEVERETO_LICENSE
+    php installer.php -a extract -s $CHEVERETO_SOFTWARE -f chevereto-pkg-*.zip -p $WORKING_DIR
+fi
 mkdir -p $WORKING_DIR/app
 set -eux
 {
@@ -45,3 +49,4 @@ set -eux
 } >$WORKING_DIR/app/settings.php
 chown www-data: $WORKING_DIR -R
 cd $WORKING_DIR
+ls -la

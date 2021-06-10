@@ -84,5 +84,6 @@ VOLUME /var/www/html/importing/no-parse
 VOLUME /var/www/html/importing/parse-albums
 VOLUME /var/www/html/importing/parse-users
 
+COPY --chown=www-data:www-data chevereto/ /var/www/html
 COPY chevereto.sh /chevereto.sh
 RUN chmod +x /chevereto.sh && /chevereto.sh
