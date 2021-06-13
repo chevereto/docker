@@ -1,1 +1,1 @@
-bin/clean.sh
+bin/*.sh
