@@ -81,6 +81,7 @@ RUN mkdir -p /var/www/html/importing && \
     mkdir -p /var/www/html/importing/parse-users
 
 VOLUME /var/www/html/images
+VOLUME /var/www/html/importing
 VOLUME /var/www/html/importing/no-parse
 VOLUME /var/www/html/importing/parse-albums
 VOLUME /var/www/html/importing/parse-users
