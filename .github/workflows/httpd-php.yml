@@ -1,6 +1,11 @@
 name: Build httpd-php
 on: 
   workflow_dispatch:
+    inputs:
+      useCustomApp:
+        description: 'Use REPO_APP?'
+        required: false
+        default: '0'
 
 jobs:
   build:
@@ -12,8 +17,9 @@ jobs:
 
     - name: Checkout custom application
       env:
-        USE_CUSTOM_APP: ${{ secrets.REPO_APP }}
-      if: env.USE_CUSTOM_APP != null
+        REPO_CUSTOM_APP: ${{ secrets.REPO_APP }}
+        USE_CUSTOM_APP: ${{ github.event.inputs.useCustomApp }}
+      if: env.REPO_CUSTOM_APP != null && env.USE_CUSTOM_APP > 0
       uses: actions/checkout@v2
       with:
         repository: ${{ secrets.REPO_APP }}
