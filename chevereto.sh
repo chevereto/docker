@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 set -e
 DIR="/var/www"
 WORKING_DIR="$DIR/html"
