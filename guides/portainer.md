@@ -21,7 +21,7 @@ Build your own `docker-compose` file by grabbing [httpd-php.dist.yml](../docker-
     image: rodber/docker-build:latest-httpd-php
 ```
 
-To this:
+To this, where `your_image_here` references your private image tag.
 
 ```yml
   chv-build:
@@ -34,11 +34,11 @@ To this:
 2. Go to **App Templates** and then click on **Custom Templates**
 3. Click on **Add Custom Template**
 4. Fill the required information
-   1. Title: Chevereto
-   2. Description: My Chevereto
-   3. Icon URL: `https://chevereto.com/src/icons/logo.svg`
-   4. Platform: **Linux**
-   5. Type: **Standalone**
+   1. **Title:** Chevereto
+   2. **Description:** My Chevereto
+   3. **Icon URL:** `https://chevereto.com/src/icons/logo.svg`
+   4. **Platform:** Linux
+   5. **Type:** Standalone
 5. **Under Build method** select **Web editor** and provide your [docker-compose](#docker-compose) file contents
 6. Finish by clicking on **Create custom template**
 
@@ -52,13 +52,38 @@ When done, Chevereto will be available in the custom applications list.
 
 ## Filesystem permissions
 
-Permissions in the mount path must be `www-data:www-data`.
+Permissions in the mount path must be `www-data:www-data` to enable Chevereto to write those volumes.
 
-1. Go to the `chv-build-*` container under **Containers**
-2. Click on **Console**
-3. Enable **Use custom command**
-4. Paste command: `bash -c 'chown www-data: . -R'`
-5. Finish by clicking **Connect** to run as root user
+1. Go to your `*chv-build-*` container under **Containers**
+2. Click on **Console** then enable **Use custom command**
+3. Finish by clicking **Connect** to run (root user) the **command below**
+
+```sh
+/bin/bash -c 'chown -R www-data: _assets/ images/ importing/'
+```
+
+### Permissions check
+
+Run command `/bin/bash` (root user) and once in the container's console run `ls -la`. You should see something like this:
+
+```plain
+root@688cf7e6d94f:/var/www/html# ls -la
+total 188
+drwxrwxrwx  1 www-data www-data   4096 Jun 23 15:13 .
+drwxr-xr-x  1 root     root       4096 Jun 23 15:13 ..
+-rw-r--r--  1 www-data www-data   1310 Jun 23 15:13 .htaccess
+drwxr-xr-x  2 www-data www-data   4096 Jun 23 15:13 _assets
+drwxr-xr-x 10 www-data www-data   4096 Jun 23 15:13 app
+-rw-r--r--  1 www-data www-data    982 Jun 23 15:13 cli.php
+-rw-r--r--  1 www-data www-data   1184 Jun 23 15:13 composer.json
+-rw-r--r--  1 www-data www-data 138063 Jun 23 15:13 composer.lock
+drwxr-xr-x  4 www-data www-data   4096 Jun 23 15:13 content
+drwxr-xr-x  2 www-data www-data   4096 Jun 23 15:13 images
+drwxr-xr-x  6 www-data www-data   4096 Jun 23 16:47 importing
+-rw-r--r--  1 www-data www-data    599 Jun 23 15:13 index.php
+drwxr-xr-x  4 www-data www-data   4096 Jun 23 15:13 lib
+drwxr-xr-x  2 www-data www-data   4096 Jun 23 15:13 sdk
+```
 
 ## Volumes
 
