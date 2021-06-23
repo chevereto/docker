@@ -1,0 +1,15 @@
+name: Update template
+on:
+  workflow_dispatch:
+jobs:
+  update-template:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: actions-template-sync
+        uses: AndreasAugustin/actions-template-sync@v0.1.3-draft
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          source_repo_path: chevereto/container-builder
+          upstream_branch: main
