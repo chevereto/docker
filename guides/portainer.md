@@ -30,16 +30,17 @@ To this:
 
 ### Adding Chevereto as a Portainer custom application
 
-1. Go to **App Templates** and then click on **Custom Templates**
-1. Click on **Add Custom Template**
-2. Fill the required information
+1. Open Portainer and go to endpoint **Dashboard**
+2. Go to **App Templates** and then click on **Custom Templates**
+3. Click on **Add Custom Template**
+4. Fill the required information
    1. Title: Chevereto
    2. Description: My Chevereto
    3. Icon URL: `https://chevereto.com/src/icons/logo.svg`
    4. Platform: **Linux**
    5. Type: **Standalone**
-3. **Under Build method** select **Web editor** and provide your [docker-compose](#docker-compose) file contents
-4. Finish by clicking on **Create custom template**
+5. **Under Build method** select **Web editor** and provide your [docker-compose](#docker-compose) file contents
+6. Finish by clicking on **Create custom template**
 
 When done, Chevereto will be available in the custom applications list.
 
@@ -49,14 +50,22 @@ When done, Chevereto will be available in the custom applications list.
 2. Choose your deploy options
 3. Finish by clicking on **Deploy the stack**
 
-## Volumes & Permissions
+## Filesystem permissions
+
+Permissions in the mount path must be `www-data:www-data`.
+
+1. Go to the `chv-build-*` container under **Containers**
+2. Click on **Console**
+3. Enable **Use custom command**
+4. Paste command: `bash -c 'chown www-data: . -R'`
+5. Finish by clicking **Connect** to run as root user
+
+## Volumes
 
 | Volume      | Mount path             | Purpose                              |
 | ----------- | ---------------------- | ------------------------------------ |
 | chv-storage | /var/www/html/images/  | User uploads                         |
 | chv-assets  | /var/www/html/_assets/ | Website assets (avatars, logos, etc) |
-
-Permissions in the mount path must be `www-data:www-data`
 
 ### `chv-storage`
 
