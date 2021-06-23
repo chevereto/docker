@@ -2,13 +2,13 @@
 
 ## Requirements
 
-To use this system with [Portainer](https://www.portainer.io/) you need the Chevereto image build already made and available in the private container registry of your choice.
+To use Chevereto with [Portainer](https://www.portainer.io/) you need the Chevereto image build already made and available in the private container registry of your choice.
 
 ## Installation
 
-1. Install Portainer
+1. Install **Portainer**
 2. Once installed, go to **Registries**
-3. Add the user credentials for your container registry
+3. Add the user credentials for your **container registry**
 
 ## Chevereto in Portainer
 
@@ -99,6 +99,15 @@ This volume is used to store user uploaded images in the same filesystem where C
 ### `chv-assets`
 
 This volume is used to store the Chevereto assets namely user avatars, website logos, background images, etc. This is used when you configure asset storage for use the `local` External Storage API.
+
+## Updating
+
+You will need to [update your container image](../README.md#updating) then re-create the new image build. Once done:
+
+1. Go to your `*chv-build-*` container and click on **Recreate**
+2. Make sure to enable **Pull latest image**
+
+The container will be re-created with the updated application layer. Data in your volumes will persist.
 
 ## Useful links
 

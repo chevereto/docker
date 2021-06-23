@@ -73,3 +73,7 @@ This will pull all updates.
 git fetch template
 git merge template/main --allow-unrelated-histories
 ```
+
+## Guides
+
+* [Portainer](guides/portainer.md)
