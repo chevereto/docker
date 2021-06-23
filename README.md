@@ -70,7 +70,7 @@ git remote add template https://github.com/chevereto/container-builder
 This will pull all updates.
 
 ```sh
-git fetch template
+git fetch template main
 git merge template/main --allow-unrelated-histories
 ```
 
