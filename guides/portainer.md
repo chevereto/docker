@@ -10,9 +10,7 @@ To use Chevereto with [Portainer](https://www.portainer.io/) you need the Chever
 2. Once installed, go to **Registries**
 3. Add the user credentials for your **container registry**
 
-## Chevereto in Portainer
-
-### docker-compose
+## docker-compose
 
 Build your own `docker-compose` file by grabbing [httpd-php.dist.yml](../docker-compose/httpd-php.dist.yml) and change:
 
@@ -28,7 +26,7 @@ To this, where `your_image_here` references your private image tag.
     image: your_image_here
 ```
 
-### Adding Chevereto as a Portainer custom application
+## Adding Chevereto as a Portainer custom application
 
 1. Open Portainer and go to endpoint **Dashboard**
 2. Go to **App Templates** and then click on **Custom Templates**
@@ -44,11 +42,15 @@ To this, where `your_image_here` references your private image tag.
 
 When done, Chevereto will be available in the custom applications list.
 
-### Deploying Chevereto in Portainer
+## Deploying
 
 1. Go to **Custom Templates**, click **Chevereto**
 2. Choose your deploy options
 3. Finish by clicking on **Deploy the stack**
+
+By default, Chevereto will be available at [localhost:8016](http://localhost:8016)
+
+When deploying for the **first time**, the volumes will be created and you will **require to fix its permissions**.
 
 ## Filesystem permissions
 
@@ -85,7 +87,43 @@ drwxr-xr-x  4 www-data www-data   4096 Jun 23 15:13 lib
 drwxr-xr-x  2 www-data www-data   4096 Jun 23 15:13 sdk
 ```
 
-## Volumes
+### Multiple instances
+
+To deploy multiple instances using Portainer:
+
+1. Go to **Custom Templates**, click **Chevereto**
+2. Choose your deploy options
+3. Click **Customize stack** and **change port `8016`  references** to another port in your host machine
+4. Finish by clicking on **Deploy the stack**
+
+`docker-compose` port `8016` references:
+
+```yaml
+ports:
+    - 8016:80
+```
+
+```yaml
+CHEVERETO_ASSET_STORAGE_URL: http://localhost:8016/_assets/
+```
+
+## Updating
+
+You will need to [update your container image](../README.md#updating) then re-create the new image build.
+
+Once the container image gets re-build, you can re-create the container:
+
+1. Go to your `*chv-build-*` container and click on **Recreate**
+2. Make sure to enable **Pull latest image**
+
+The container will be re-created with the updated application layer. Data in your volumes will persist.
+
+## Useful links
+
+* Chevereto [Environment](https://v3-docs.chevereto.com/setup/system/environment.html)
+* Chevereto [External Storage](https://v3-docs.chevereto.com/features/integrations/external-storage.html)
+
+## Volume reference
 
 | Volume      | Mount path             | Purpose                              |
 | ----------- | ---------------------- | ------------------------------------ |
@@ -99,17 +137,3 @@ This volume is used to store user uploaded images in the same filesystem where C
 ### `chv-assets`
 
 This volume is used to store the Chevereto assets namely user avatars, website logos, background images, etc. This is used when you configure asset storage for use the `local` External Storage API.
-
-## Updating
-
-You will need to [update your container image](../README.md#updating) then re-create the new image build. Once done:
-
-1. Go to your `*chv-build-*` container and click on **Recreate**
-2. Make sure to enable **Pull latest image**
-
-The container will be re-created with the updated application layer. Data in your volumes will persist.
-
-## Useful links
-
-* Chevereto [Environment](https://v3-docs.chevereto.com/setup/system/environment.html)
-* Chevereto [External Storage](https://v3-docs.chevereto.com/features/integrations/external-storage.html)
