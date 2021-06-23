@@ -58,7 +58,7 @@ ENV CHEVERETO_SOFTWARE=$CHEVERETO_SOFTWARE \
     CHEVERETO_ASSET_STORAGE_NAME=assets \
     CHEVERETO_ASSET_STORAGE_TYPE=local \
     CHEVERETO_ASSET_STORAGE_KEY= \
-    CHEVERETO_ASSET_STORAGE_SECRET= \
+    CHEVERETO_ASSET_STORAGE_SECRET=/var/www/html/_assets/ \
     CHEVERETO_ASSET_STORAGE_BUCKET= \
     CHEVERETO_ASSET_STORAGE_URL= \
     CHEVERETO_ASSET_STORAGE_REGION= \
@@ -82,6 +82,7 @@ RUN mkdir -p /var/www/html/importing && \
     mkdir -p /var/www/html/importing/parse-album && \
     mkdir -p /var/www/html/importing/parse-users
 
+VOLUME /var/www/html/_assets
 VOLUME /var/www/html/images
 VOLUME /var/www/html/importing
 VOLUME /var/www/html/importing/no-parse

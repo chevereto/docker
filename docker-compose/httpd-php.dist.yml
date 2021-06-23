@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  chv-database:
+    image: mariadb:focal
+    networks:
+      - chv-network
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping --silent"]
+    volumes:
+      - chv-data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: chevereto
+      MYSQL_USER: chevereto
+      MYSQL_PASSWORD: user_database_password
+
+  chv-build:
+    image: rodber/docker-build:latest-httpd-php
+    networks:
+      - chv-network
+    volumes:
+      - chv-storage:/var/www/html/images/
+      - chv-assets:/var/www/html/_assets/
+    ports:
+      - 8016:80
+    restart: always
+    environment:
+      CHEVERETO_DB_HOST: chv-database
+      CHEVERETO_DB_USER: chevereto
+      CHEVERETO_DB_PASS: user_database_password
+      CHEVERETO_DB_PORT: 3306
+      CHEVERETO_DB_NAME: chevereto
+      CHEVERETO_HTTPS: 0
+      CHEVERETO_ASSET_STORAGE_TYPE: local
+      CHEVERETO_ASSET_STORAGE_URL: http://localhost:8016/_assets/
+      CHEVERETO_ASSET_STORAGE_BUCKET: /var/www/html/_assets/
+
+volumes:
+  chv-data:
+  chv-assets:
+  chv-storage:
+
+networks:
+  chv-network:
