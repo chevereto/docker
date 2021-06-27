@@ -3,7 +3,7 @@
 The build process consist in build the container image that you will use to deploy your container instances.
 
 1. Go to **Actions**
-2. Select **Update template** under **Workflows**
+2. Select the target **Build** under **Workflows**
 3. Click on **Run Workflow** and confirm
 
 ![Build](src/build.png)
