@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ARG CHEVERETO_SOFTWARE=chevereto
-ARG CHEVERETO_TAG=3.20.6
+ARG CHEVERETO_TAG=3.20.7
 ARG CHEVERETO_INSTALLER_TAG=2.2.3
 ARG CHEVERETO_SERVICING=docker
 ARG CHEVERETO_LICENSE
