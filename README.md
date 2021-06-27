@@ -12,7 +12,7 @@ Dockerfile template project for building and distributing container images for C
 
 ## Note
 
-Do not publish the generated image to a public access registry as it contains your licensed installation files (including your key).
+**Do not publish** the generated image to a public access registry as it contains your licensed installation files (including your key).
 
 🧐 Handle it with care or your license details could be stolen.
 
