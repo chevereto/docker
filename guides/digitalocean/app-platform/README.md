@@ -1,4 +1,6 @@
-# DigitalOcean App Platform
+# DigitalOcean App Platform (WIP)
+
+`this guide is a work in progress`
 
 ## Requirements
 
