@@ -2,7 +2,7 @@
 
 ## Requirements
 
-To use Chevereto with [Portainer](https://www.portainer.io/) you need the Chevereto image build already made and available in the private container registry of your choice.
+To use Chevereto with [Portainer](https://www.portainer.io/) you need the **Chevereto image build** already made and available in the private container registry of your choice.
 
 ## Installation
 
@@ -12,7 +12,7 @@ To use Chevereto with [Portainer](https://www.portainer.io/) you need the Chever
 
 ## docker-compose
 
-Build your own `docker-compose` file by grabbing [httpd-php.dist.yml](../docker-compose/httpd-php.dist.yml) and change:
+Build your own `docker-compose` file by grabbing [httpd-php.dist.yml](./httpd-php.dist.yml) and change:
 
 ```yml
   chv-build:
@@ -25,6 +25,8 @@ To this, where `your_image_here` references your private image tag.
   chv-build:
     image: your_image_here
 ```
+
+You may alter the default provisioning to change HTTPS behavior, set a external storage provider for assets, etc. By default this guide only uses local volumes.
 
 ## Adding Chevereto as a Portainer custom application
 
@@ -109,9 +111,9 @@ CHEVERETO_ASSET_STORAGE_URL: http://localhost:8016/_assets/
 
 ## Updating
 
-You will need to [update your container image](../README.md#updating) then re-create the new image build.
+You will need to [update your template](../../UPDATING.md) then [re-create the build](../../BUILDING.md).
 
-Once the container image gets re-build, you can re-create the container:
+Once the container image gets re-build, you can re-create the container in Portainer:
 
 1. Go to your `*chv-build-*` container and click on **Recreate**
 2. Make sure to enable **Pull latest image**
@@ -124,6 +126,8 @@ The container will be re-created with the updated application layer. Data in you
 * Chevereto [External Storage](https://v3-docs.chevereto.com/features/integrations/external-storage.html)
 
 ## Volume reference
+
+In this Portainer guide persisten storage is provided using volumes. This volume reference is just for purposes of this Portainer guide.
 
 | Volume      | Mount path             | Purpose                              |
 | ----------- | ---------------------- | ------------------------------------ |
