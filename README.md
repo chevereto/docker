@@ -16,7 +16,7 @@ Dockerfile template project for building and distributing container images for C
 
 🧐 Handle it with care or your license details could be stolen.
 
-## REFERENCE
+## Reference
 
 * [SETUP](SETUP.md)
 * [BUILDING](BUILDING.md)
@@ -24,4 +24,5 @@ Dockerfile template project for building and distributing container images for C
 
 ## Guides
 
-* [Portainer](guides/portainer.md)
+* [Portainer](guides/portainer/README.md)
+* [DigitalOcean App Platform](guides/digitalocean/app-platform/README.md)
