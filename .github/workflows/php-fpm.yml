@@ -1,4 +1,4 @@
-name: Build httpd-php
+name: Build php-fpm
 on:
   workflow_dispatch:
 
@@ -25,9 +25,9 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           image: ${{ secrets.REGISTRY_IMAGE }}
-          tags: latest-httpd-php
+          tags: latest-php-fpm
           dockerfiles: |
-            ./httpd-php.Dockerfile
+            ./php-fpm.Dockerfile
           build-args: |
             CHEVERETO_LICENSE=${{ secrets.CHEVERETO_LICENSE }}
 
