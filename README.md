@@ -25,4 +25,3 @@ Dockerfile template project for building and distributing container images for C
 ## Guides
 
 * [Portainer](guides/portainer/README.md)
-* [DigitalOcean App Platform](guides/digitalocean/app-platform/README.md)
