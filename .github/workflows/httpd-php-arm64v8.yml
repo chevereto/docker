@@ -5,7 +5,7 @@ on:
 jobs:
   build:
     name: Build and push image
-    runs-on: macOS 10.15
+    runs-on: macos-10.15
     env:
       arch: arm64v8
 
