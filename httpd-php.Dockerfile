@@ -1,4 +1,5 @@
-FROM php:7.4-apache
+ARG ARCH
+FROM docker.io/\${ARCH}/php:7.4-apache
 
 RUN apt-get update && apt-get install -y \
     libfreetype6-dev \

@@ -6,9 +6,18 @@ jobs:
   build:
     name: Build and push image
     runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [amd64, i386, arm64v8]
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Install qemu dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu-user-static
 
       - name: Checkout custom application
         env:
@@ -26,9 +35,11 @@ jobs:
         with:
           image: ${{ secrets.REGISTRY_IMAGE }}
           tags: latest-httpd-php
+          arch: ${{ matrix.arch }}
           dockerfiles: |
             ./httpd-php.Dockerfile
           build-args: |
+            ARCH=${{ matrix.arch }}
             CHEVERETO_LICENSE=${{ secrets.CHEVERETO_LICENSE }}
 
       - name: Log in to container registry
