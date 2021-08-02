@@ -4,6 +4,12 @@
 
 To use Chevereto with [Portainer](https://www.portainer.io/) you need the **Chevereto image build** already made and available in the private container registry of your choice.
 
+## Compatibility remark
+
+**NOTE:** [Portainer CE 2.1.1](https://www.portainer.io/blog/portainer-release-2.1.1) supports docker-compose > 3 for standalone hosts ONLY for AMD64. This guide won't work when using ARM/ARM64:
+
+> The team (Portainer) are still working on creating a standalone binary for Compose that works on ARM/ARM64
+
 ## Installation
 
 1. Install **Portainer**
