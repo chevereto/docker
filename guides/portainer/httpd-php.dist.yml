@@ -17,7 +17,7 @@ services:
       MYSQL_PASSWORD: user_database_password
 
   chv-build:
-    image: rodber/docker-build:latest-httpd-php
+    image: wea
     networks:
       - chv-network
     volumes:

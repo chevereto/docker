@@ -6,10 +6,8 @@ jobs:
   build:
     name: Build and push image
     runs-on: ubuntu-20.04
-    strategy:
-      fail-fast: false
-      matrix:
-        arch: [amd64, i386, arm64v8]
+    env:
+      arch: amd64
 
     steps:
       - uses: actions/checkout@v2
@@ -34,12 +32,12 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           image: ${{ secrets.REGISTRY_IMAGE }}
-          tags: latest-httpd-php
-          arch: ${{ matrix.arch }}
+          tags: latest-httpd-php-${{ env.arch }}
+          arch: ${{ env.arch }}
           dockerfiles: |
             ./httpd-php.Dockerfile
           build-args: |
-            ARCH=${{ matrix.arch }}
+            ARCH=${{ env.arch }}
             CHEVERETO_LICENSE=${{ secrets.CHEVERETO_LICENSE }}
 
       - name: Log in to container registry
