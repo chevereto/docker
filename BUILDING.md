@@ -14,6 +14,4 @@ The build process consist in build the container image that you will use to depl
 
 ## Manual building
 
-```sh
-docker build -t tag . -f httpd-php.Dockerfile --build-arg CHEVERETO_LICENSE=<license>
-```
+Refer to the [MANUAL GUIDE](guides/manual/README.md).

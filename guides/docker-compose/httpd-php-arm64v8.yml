@@ -17,7 +17,7 @@ services:
       MYSQL_PASSWORD: user_database_password
 
   chv-build:
-    image: wea
+    image: chevereto-build:latest-httpd-php-arm64v8
     networks:
       - chv-network
     volumes:

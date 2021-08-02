@@ -21,7 +21,4 @@ Dockerfile template project for building and distributing container images for C
 * [SETUP](SETUP.md)
 * [BUILDING](BUILDING.md)
 * [UPDATING](UPDATING.md)
-
-## Guides
-
-* [Portainer](guides/portainer/README.md)
+* [GUIDES](guides/README.md)
