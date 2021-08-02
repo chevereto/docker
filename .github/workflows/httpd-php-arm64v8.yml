@@ -1,11 +1,11 @@
-name: Build httpd-php
+name: Build httpd-php (arm64v8)
 on:
   workflow_dispatch:
 
 jobs:
   build:
     name: Build and push image
-    runs-on: macos-10.15
+    runs-on: ubuntu-20.04
     env:
       arch: arm64v8
 
