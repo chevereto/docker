@@ -4,37 +4,18 @@
 
 To use Chevereto with [Portainer](https://www.portainer.io/) you need the **Chevereto image build** already made and available in the private container registry of your choice.
 
-## Compatibility remark
-
-**NOTE:** [Portainer CE 2.1.1](https://www.portainer.io/blog/portainer-release-2.1.1) supports docker-compose > 3 for standalone hosts ONLY for AMD64. This guide won't work when using ARM/ARM64:
-
-> The team (Portainer) are still working on creating a standalone binary for Compose that works on ARM/ARM64
-
 ## Installation
 
-1. Install **Portainer**
-2. Once installed, go to **Registries**
-3. Add the user credentials for your **container registry**
+1. Install **Portainer** following the instructions for your system.
 
-## docker-compose
+If you are using a remote container registry such as Docker hub and others:
 
-Build your own `docker-compose` file by grabbing [httpd-php.dist.yml](./httpd-php.dist.yml) and change:
-
-```yml
-  chv-build:
-    image: rodber/docker-build:latest-httpd-php
-```
-
-To this, where `your_image_here` references your private image tag.
-
-```yml
-  chv-build:
-    image: your_image_here
-```
-
-You may alter the default provisioning to change HTTPS behavior, set a external storage provider for assets, etc. By default this guide only uses local volumes.
+1. Go to **Registries**
+2. Add the user credentials for your **container registry**
 
 ## Adding Chevereto as a Portainer custom application
+
+**NOTE:** [Portainer CE 2.1.1](https://www.portainer.io/blog/portainer-release-2.1.1) supports docker-compose > 3 for standalone hosts **ONLY for amd64** architecture. This guide won't work when using arm64, for which case you can manually run `docker compose` following our [MANUAL GUIDE](../manual/README.md).
 
 1. Open Portainer and go to endpoint **Dashboard**
 2. Go to **App Templates** and then click on **Custom Templates**
@@ -49,6 +30,27 @@ You may alter the default provisioning to change HTTPS behavior, set a external 
 6. Finish by clicking on **Create custom template**
 
 When done, Chevereto will be available in the custom applications list.
+
+### docker-compose
+
+* [httpd-php-amd64.dist.yml](../docker-compose/httpd-php-amd64.dist.yml)
+* [httpd-php-arm64v8.dist.yml](../docker-compose/httpd-php-arm64v8.dist.yml)
+
+If you want to use a custom image tag or registry change:
+
+```yml
+  chv-build:
+    image: chevereto-build:latest-httpd-php-amd64
+```
+
+To this, where `your_image_here` references your private image tag.
+
+```yml
+  chv-build:
+    image: your_image_here
+```
+
+You may alter the default provisioning to change HTTPS behavior, set a external storage provider for assets, etc. By default this guide only uses local volumes.
 
 ## Deploying
 
@@ -94,27 +96,6 @@ drwxr-xr-x  6 www-data www-data   4096 Jun 23 16:47 importing
 drwxr-xr-x  4 www-data www-data   4096 Jun 23 15:13 lib
 drwxr-xr-x  2 www-data www-data   4096 Jun 23 15:13 sdk
 ```
-
-### Multiple instances
-
-To deploy multiple instances using Portainer:
-
-1. Go to **Custom Templates**, click **Chevereto**
-2. Choose your deploy options
-3. Click **Customize stack** and **change port `8016`  references** to another port in your host machine
-4. Finish by clicking on **Deploy the stack**
-
-`docker-compose` port `8016` references:
-
-```yaml
-ports:
-    - 8016:80
-```
-
-```yaml
-CHEVERETO_ASSET_STORAGE_URL: http://localhost:8016/_assets/
-```
-
 ## Updating
 
 You will need to [update your template](../../UPDATING.md) then [re-create the build](../../BUILDING.md).

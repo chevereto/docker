@@ -1,4 +1,7 @@
-FROM php:7.4-apache
+ARG ARCH
+FROM docker.io/$ARCH/composer:latest as base
+FROM docker.io/$ARCH/php:7.4-apache
+COPY --from=base /usr/bin/composer /usr/local/bin/composer
 
 RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
@@ -19,8 +22,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-enable imagick opcache \
     && php -m  \
     && a2enmod rewrite
-
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ARG CHEVERETO_SOFTWARE=chevereto
 ARG CHEVERETO_TAG=3.20.10
@@ -53,8 +54,8 @@ ENV CHEVERETO_SOFTWARE=$CHEVERETO_SOFTWARE \
     CHEVERETO_HOSTNAME_PATH=/ \
     CHEVERETO_SESSION_SAVE_HANDLER=files \
     CHEVERETO_SESSION_SAVE_PATH=/tmp \
-    CHEVERETO_UPLOAD_MAX_FILESIZE=25M \
-    CHEVERETO_POST_MAX_SIZE=25M \
+    CHEVERETO_UPLOAD_MAX_FILESIZE=64M \
+    CHEVERETO_POST_MAX_SIZE=64M \
     CHEVERETO_MAX_EXECUTION_TIME=30 \
     CHEVERETO_MEMORY_LIMIT=512M \
     CHEVERETO_ASSET_STORAGE_NAME=assets \

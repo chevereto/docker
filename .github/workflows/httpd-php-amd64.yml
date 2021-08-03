@@ -1,0 +1,54 @@
+name: Build httpd-php (amd64)
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and push image
+    runs-on: ubuntu-20.04
+    env:
+      arch: amd64
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Checkout custom application
+        env:
+          REPO_CUSTOM_APP: ${{ secrets.REPO_APP }}
+        if: env.REPO_CUSTOM_APP != null
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ secrets.REPO_APP }}
+          token: ${{ secrets.REPO_APP_ACCESS_TOKEN }}
+          path: chevereto
+
+      - name: Build Image
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ secrets.REGISTRY_IMAGE }}
+          tags: latest-httpd-php-${{ env.arch }}
+          arch: ${{ env.arch }}
+          dockerfiles: |
+            ./httpd-php.Dockerfile
+          build-args: |
+            ARCH=${{ env.arch }}
+            CHEVERETO_LICENSE=${{ secrets.CHEVERETO_LICENSE }}
+
+      - name: Log in to container registry
+        uses: redhat-actions/podman-login@v1
+        with:
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          registry: ${{ secrets.REGISTRY_LABEL }}
+
+      - name: Push to container registry
+        id: push-to-registry
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: ${{ secrets.REGISTRY_LABEL }}
+
+      - name: Print image url
+        run: echo "Image pushed to ${{ steps.push-to-quay.outputs.registry-paths }}"
