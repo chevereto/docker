@@ -12,11 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install qemu dependency
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y qemu-user-static
-
       - name: Checkout custom application
         env:
           REPO_CUSTOM_APP: ${{ secrets.REPO_APP }}
