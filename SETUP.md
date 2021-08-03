@@ -1,5 +1,11 @@
 # Setup
 
+## Manual setup
+
+Refer to the [CONSOLE GUIDE](guides/console/SETUP.md).
+
+## GitHub repo setup
+
 * Click the [Use this template](https://github.com/chevereto/docker-builder/generate) button
 
 A prompt like this will appear, we recommend using a private repo.
@@ -30,7 +36,3 @@ By default this repository uses your Chevereto license to download the latest Ch
 | REPO_APP_ACCESS_TOKEN | Personal Access Token for the repo above |
 
 You can also put the contents of your custom Chevereto based application in the `/chevereto` folder before building the image.
-
-## Manual setup
-
-Refer to the [CONSOLE GUIDE](guides/console/SETUP.md).
