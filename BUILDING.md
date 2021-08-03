@@ -14,4 +14,4 @@ The build process consist in build the container image that you will use to depl
 
 ## Manual building
 
-Refer to the [MANUAL GUIDE](guides/manual/README.md).
+Refer to the [MANUAL GUIDE](guides/console/BUILDING.md).
