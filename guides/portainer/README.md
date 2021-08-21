@@ -33,8 +33,8 @@ When done, Chevereto will be available in the custom applications list.
 
 ### docker-compose
 
-* [httpd-php-amd64.dist.yml](../docker-compose/httpd-php-amd64.dist.yml)
-* [httpd-php-arm64v8.dist.yml](../docker-compose/httpd-php-arm64v8.dist.yml)
+* [httpd-php-amd64.yml](../../docker-compose/httpd-php-amd64.yml)
+* [httpd-php-arm64v8.yml](../../docker-compose/httpd-php-arm64v8.yml)
 
 If you want to use a custom image tag or registry change:
 

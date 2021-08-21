@@ -16,4 +16,4 @@ Refer to the [CONSOLE GUIDE](guides/console/UPDATING.md).
 
 🤖 When done **a bot will create a pull request** in your repo so you can review and confirm the changes.
 
-![Update template](src/update-merge.png)
+![Update merge](src/update-merge.png)
