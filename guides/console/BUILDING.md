@@ -2,6 +2,8 @@
 
 > Note: Running the command from the top folder of this repository.
 
+* Change `<license>` with your Chevereto license.
+
 * **amd64**
 
 ```sh

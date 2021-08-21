@@ -15,7 +15,7 @@ If you are using a remote container registry such as Docker hub and others:
 
 ## Adding Chevereto as a Portainer custom application
 
-**NOTE:** [Portainer CE 2.1.1](https://www.portainer.io/blog/portainer-release-2.1.1) supports docker-compose > 3 for standalone hosts **ONLY for amd64** architecture. This guide won't work when using arm64, for which case you can manually run `docker compose` following our [MANUAL GUIDE](../manual/README.md).
+**NOTE:** [Portainer CE 2.1.1](https://www.portainer.io/blog/portainer-release-2.1.1) supports docker-compose > 3 for standalone hosts **ONLY for amd64** architecture. This guide won't work when using arm64, for which case you can manual run `docker compose` following our [CONSOLE GUIDE](../console/docker-compose.md).
 
 1. Open Portainer and go to endpoint **Dashboard**
 2. Go to **App Templates** and then click on **Custom Templates**
