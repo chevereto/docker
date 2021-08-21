@@ -62,40 +62,8 @@ By default, Chevereto will be available at [localhost:8016](http://localhost:801
 
 When deploying for the **first time**, the volumes will be created and you will **require to fix its permissions**.
 
-## Filesystem permissions
+* Check [PERSISTENT](../PERSISTENT.md#using-volumes)
 
-Permissions in the mount path must be `www-data:www-data` to enable Chevereto to write those volumes.
-
-1. Go to your `*chv-build-*` container under **Containers**
-2. Click on **Console** then enable **Use custom command**
-3. Finish by clicking **Connect** to run (root user) the **command below**
-
-```sh
-/bin/bash -c 'chown -R www-data: _assets/ images/ importing/'
-```
-
-### Permissions check
-
-Run command `/bin/bash` (root user) and once in the container's console run `ls -la`. You should see something like this:
-
-```plain
-root@688cf7e6d94f:/var/www/html# ls -la
-total 188
-drwxrwxrwx  1 www-data www-data   4096 Jun 23 15:13 .
-drwxr-xr-x  1 root     root       4096 Jun 23 15:13 ..
--rw-r--r--  1 www-data www-data   1310 Jun 23 15:13 .htaccess
-drwxr-xr-x  2 www-data www-data   4096 Jun 23 15:13 _assets
-drwxr-xr-x 10 www-data www-data   4096 Jun 23 15:13 app
--rw-r--r--  1 www-data www-data    982 Jun 23 15:13 cli.php
--rw-r--r--  1 www-data www-data   1184 Jun 23 15:13 composer.json
--rw-r--r--  1 www-data www-data 138063 Jun 23 15:13 composer.lock
-drwxr-xr-x  4 www-data www-data   4096 Jun 23 15:13 content
-drwxr-xr-x  2 www-data www-data   4096 Jun 23 15:13 images
-drwxr-xr-x  6 www-data www-data   4096 Jun 23 16:47 importing
--rw-r--r--  1 www-data www-data    599 Jun 23 15:13 index.php
-drwxr-xr-x  4 www-data www-data   4096 Jun 23 15:13 lib
-drwxr-xr-x  2 www-data www-data   4096 Jun 23 15:13 sdk
-```
 ## Updating
 
 You will need to [update your template](../../UPDATING.md) then [re-create the build](../../BUILDING.md).
