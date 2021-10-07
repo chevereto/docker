@@ -5,4 +5,4 @@ This section outlines command-line instructions to build and deploy images made 
 * [SETUP](SETUP.md)
 * [BUILDING](BUILDING.md)
 * [UPDATING](UPDATING.md)
-* [docker-compose](docker-compose.md)
+* [DOCKER-COMPOSE](DOCKER-COMPOSE.md)
