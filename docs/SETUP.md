@@ -2,7 +2,7 @@
 
 ## Manual setup
 
-Refer to the [CONSOLE GUIDE](guides/console/SETUP.md).
+Refer to the [CONSOLE GUIDE](console/SETUP.md).
 
 ## GitHub repo setup
 

@@ -4,7 +4,7 @@ The update process consist in that you pull our `chevereto/container-builder` re
 
 ## Manual updating
 
-Refer to the [CONSOLE GUIDE](guides/console/UPDATING.md).
+Refer to the [CONSOLE GUIDE](console/UPDATING.md).
 
 ## GitHub one-click updating
 

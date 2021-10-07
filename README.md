@@ -7,7 +7,7 @@
 [![Community](https://img.shields.io/badge/chv.to-community-blue?style=flat-square)](https://chv.to/community)
 [![Discord](https://img.shields.io/discord/759137550312407050?style=flat-square)](https://chv.to/discord)
 
-Dockerfile template project for building and distributing container images for Chevereto (ahead) releases to any container registry. It also works with custom applications.
+Dockerfile template project for building and distributing container images for Chevereto projects to any container registry.
 
 ## Note
 
@@ -15,9 +15,6 @@ Dockerfile template project for building and distributing container images for C
 
 🧐 Handle it with care or your license details could be stolen.
 
-## Reference
+## Documentation
 
-* [SETUP](SETUP.md)
-* [BUILDING](BUILDING.md)
-* [UPDATING](UPDATING.md)
-* [GUIDES](guides/README.md)
+* [DOCS](docs/README.md)

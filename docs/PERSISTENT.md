@@ -41,3 +41,18 @@ drwxr-xr-x  6 www-data www-data   4096 Jun 23 16:47 importing
 drwxr-xr-x  4 www-data www-data   4096 Jun 23 15:13 lib
 drwxr-xr-x  2 www-data www-data   4096 Jun 23 15:13 sdk
 ```
+
+## Volume reference
+
+| Volume      | Mount path             | Purpose                              |
+| ----------- | ---------------------- | ------------------------------------ |
+| chv-storage | /var/www/html/images/  | User uploads                         |
+| chv-assets  | /var/www/html/_assets/ | Website assets (avatars, logos, etc) |
+
+### `chv-storage`
+
+This volume is used to store user uploaded images in the same filesystem where Chevereto is running. This is used when you don't add any External Storage provider to Chevereto.
+
+### `chv-assets`
+
+This volume is used to store the Chevereto assets namely user avatars, website logos, background images, etc. This is used when you configure asset storage for use the `local` External Storage API.
