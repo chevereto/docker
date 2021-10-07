@@ -2,8 +2,6 @@
 
 > Run all the following commands from the top folder of this repository.
 
-Refer to [docker-compose/](../../docker-compose/) directory for all the compose files examples you can use.
-
 ## Up
 
 Run Chevereto, it will be available at [https://localhost:8096](https://localhost:8096) by default:
@@ -12,7 +10,7 @@ Run Chevereto, it will be available at [https://localhost:8096](https://localhos
 
 ```sh
 docker compose \
-    -f docker-compose/httpd-php-arm64v8.yml \
+    -f httpd-php-arm64v8.yml \
     up -d
 ```
 
@@ -20,7 +18,7 @@ docker compose \
 
 ```sh
 docker compose \
-    -f docker-compose/httpd-php-amd64.yml \
+    -f httpd-php-amd64.yml \
     up -d
 ```
 
@@ -30,7 +28,7 @@ docker compose \
 
 ```sh
 docker compose \
-    -f docker-compose/httpd-php-arm64v8.yml \
+    -f httpd-php-arm64v8.yml \
     stop
 ```
 
@@ -38,7 +36,7 @@ docker compose \
 
 ```sh
 docker compose \
-    -f docker-compose/httpd-php-amd64.yml \
+    -f httpd-php-amd64.yml \
     stop
 ```
 
@@ -48,7 +46,7 @@ docker compose \
 
 ```sh
 docker compose \
-    -f docker-compose/httpd-php-arm64v8.yml \
+    -f httpd-php-arm64v8.yml \
     start
 ```
 
@@ -56,7 +54,7 @@ docker compose \
 
 ```sh
 docker compose \
-    -f docker-compose/httpd-php-amd64.yml \
+    -f httpd-php-amd64.yml \
     start
 ```
 
@@ -66,7 +64,7 @@ docker compose \
 
 ```sh
 docker compose \
-    -f docker-compose/httpd-php-arm64v8.yml \
+    -f httpd-php-arm64v8.yml \
     down
 ```
 
@@ -74,7 +72,7 @@ docker compose \
 
 ```sh
 docker compose \
-    -f docker-compose/httpd-php-amd64.yml \
+    -f httpd-php-amd64.yml \
     down
 ```
 

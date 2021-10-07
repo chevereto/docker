@@ -5,8 +5,6 @@ services:
     image: mariadb:focal
     networks:
       - chv-network
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping --silent"]
     volumes:
       - chv-data:/var/lib/mysql
     restart: always
@@ -17,7 +15,7 @@ services:
       MYSQL_PASSWORD: user_database_password
 
   chv-build:
-    image: chevereto-build:latest-httpd-php-arm64v8
+    image: chevereto-build:latest-httpd-php-amd64
     networks:
       - chv-network
     volumes:
