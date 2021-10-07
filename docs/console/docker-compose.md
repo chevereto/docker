@@ -4,7 +4,7 @@
 
 ## Up
 
-Run Chevereto, it will be available at [https://localhost:8096](https://localhost:8096) by default:
+Run Chevereto, it will be available at [http://localhost:8030](http://localhost:8030) by default:
 
 * **arm64v8**
 
