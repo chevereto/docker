@@ -4,6 +4,6 @@ This section outlines command-line instructions to build and deploy images made 
 
 * [SETUP](SETUP.md)
 * [BUILDING](BUILD.md)
-* [COMPOSE](COMPOSE.md)
+* [DOCKER-COMPOSE](DOCKER-COMPOSE.md)
 * [LOGS](LOGS.md)
 * [UPDATING](UPDATING.md)
