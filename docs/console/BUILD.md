@@ -1,5 +1,7 @@
 # Build (console)
 
+## Build container images
+
 ```sh
 make build <options>
 ```

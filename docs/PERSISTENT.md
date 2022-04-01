@@ -24,35 +24,44 @@ Run this command in the Chevereto container to set the right permissions:
 Enter to the container console `/bin/bash`. Once there, run `ls -la` and you should see something like this:
 
 ```plain
-root@688cf7e6d94f:/var/www/html# ls -la
-total 188
-drwxrwxrwx  1 www-data www-data   4096 Jun 23 15:13 .
-drwxr-xr-x  1 root     root       4096 Jun 23 15:13 ..
--rw-r--r--  1 www-data www-data   1310 Jun 23 15:13 .htaccess
-drwxr-xr-x  2 www-data www-data   4096 Jun 23 15:13 _assets
-drwxr-xr-x 10 www-data www-data   4096 Jun 23 15:13 app
--rw-r--r--  1 www-data www-data    982 Jun 23 15:13 cli.php
--rw-r--r--  1 www-data www-data   1184 Jun 23 15:13 composer.json
--rw-r--r--  1 www-data www-data 138063 Jun 23 15:13 composer.lock
-drwxr-xr-x  4 www-data www-data   4096 Jun 23 15:13 content
-drwxr-xr-x  2 www-data www-data   4096 Jun 23 15:13 images
-drwxr-xr-x  6 www-data www-data   4096 Jun 23 16:47 importing
--rw-r--r--  1 www-data www-data    599 Jun 23 15:13 index.php
-drwxr-xr-x  4 www-data www-data   4096 Jun 23 15:13 lib
-drwxr-xr-x  2 www-data www-data   4096 Jun 23 15:13 sdk
+www-data@20d1427c6727:~/html$ ls -la
+total 52
+drwxrwxrwx  8 www-data www-data 4096 Apr  1 18:56 .
+drwxr-xr-x  1 root     root     4096 Mar 29 01:50 ..
+-rw-r--r--  1 www-data www-data    0 Aug  2  2021 .gitkeep
+-rw-r--r--  1 www-data www-data 1342 Mar 21 20:26 .htaccess
+-rw-r--r--  1 www-data www-data 6009 Mar 21 20:26 LICENSE
+drwxr-xr-x  2 root     root     4096 Apr  1 18:52 _assets
+drwxr-xr-x 11 www-data www-data 4096 Apr  1 18:55 app
+drwxr-xr-x  5 www-data www-data 4096 Apr  1 18:56 content
+drwxr-xr-x  3 www-data www-data 4096 Apr  1 18:53 images
+drwxr-xr-x  5 www-data www-data 4096 Apr  1 18:56 importing
+-rw-r--r--  1 www-data www-data  290 Mar 21 20:26 index.php
+drwxr-xr-x  2 www-data www-data 4096 Apr  1 18:56 sdk
 ```
 
 ## Volume reference
 
-| Volume      | Mount path             | Purpose                              |
-| ----------- | ---------------------- | ------------------------------------ |
-| chv-storage | /var/www/html/images/  | User uploads                         |
-| chv-assets  | /var/www/html/_assets/ | Website assets (avatars, logos, etc) |
+| Volume              | Mount path             | Purpose                              |
+| ------------------- | ---------------------- | ------------------------------------ |
+| [app](#app)         | /var/www/html/         | Application files                    |
+| [storage](#storage) | /var/www/html/images/  | User uploads                         |
+| [assets](#assets)   | /var/www/html/_assets/ | Website assets (avatars, logos, etc) |
 
-### `chv-storage`
+### App
 
-This volume is used to store user uploaded images in the same filesystem where Chevereto is running. This is used when you don't add any External Storage provider to Chevereto.
+This volume is for storing the application files shared between containers `php` and `http`.
 
-### `chv-assets`
+👉 This keep the application files shared between containers.
 
-This volume is used to store the Chevereto assets namely user avatars, website logos, background images, etc. This is used when you configure asset storage for use the `local` External Storage API.
+### Storage
+
+This volume is for storing user uploaded images.
+
+👉 This is used when you don't add any External Storage provider to Chevereto.
+
+### Assets
+
+This volume is used for storing Chevereto assets namely user avatars, website logos, background images, etc.
+
+👉 This is used when you configure asset storage for use the `local` External Storage API.

@@ -16,4 +16,8 @@ Dockerfile template project for building and distributing container images for C
 
 ## Documentation
 
-* [DOCS](docs/README.md)
+* [SETUP](./docs/SETUP.md)
+* [BUILDING](./docs/BUILDING.md)
+* [UPDATING](./docs/UPDATING.md)
+* [PERSISTENT](./docs/PERSISTENT.md)
+* [CONSOLE](./docs/console/README.md)

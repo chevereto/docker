@@ -4,7 +4,7 @@ The build process consist in build the container image that you will use to depl
 
 ## Manual building
 
-Refer to the [CONSOLE GUIDE](console/BUILDING.md).
+Refer to the [CONSOLE GUIDE](console/BUILD.md).
 
 ## GitHub workflow-based building
 
