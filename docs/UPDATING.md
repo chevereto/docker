@@ -1,9 +1,9 @@
 # Updating
 
-* Pull `chevereto/container-builder` repo changes for updating the Dockerfile
-* Re-build the images
-* Down containers (keep volumes!)
-* Start updated containers
+* Pull `chevereto/container-builder` repo changes
+* Re-build the images `make build`
+* Down containers `make down`
+* Start updated containers `make up--d`
 
 ## Manual updating
 
