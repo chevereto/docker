@@ -1,4 +1,4 @@
-name: Build httpd-php (amd64)
+name: Build (amd64)
 on:
   workflow_dispatch:
 

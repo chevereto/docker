@@ -1,4 +1,4 @@
-name: Build httpd-php (arm64v8)
+name: Build (arm64v8)
 on:
   workflow_dispatch:
 
