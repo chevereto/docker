@@ -1,4 +1,4 @@
-# Docker compose
+# Docker compose (console)
 
 ```sh
 make <command> <options>
