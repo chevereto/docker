@@ -1,79 +1,47 @@
 # Docker compose
 
-> Run all the following commands from the top folder of this repository.
+```sh
+make <command> <options>
+```
+
+Available options:
+
+* ARCH=arm64v8
+* PORT=8040
+* VERSION=4.0
 
 ## Up
 
-Run Chevereto, it will be available at [http://localhost:8030](http://localhost:8030) by default:
-
-* **arm64v8**
-
 ```sh
-docker compose \
-    -f httpd-php-arm64v8.yml \
-    up -d
+make up
 ```
 
-* **amd64**
+## Up daemonized
 
 ```sh
-docker compose \
-    -f httpd-php-amd64.yml \
-    up -d
+make up--d
 ```
 
 ## Stop
 
-* **arm64v8**
-
 ```sh
-docker compose \
-    -f httpd-php-arm64v8.yml \
-    stop
-```
-
-* **amd64**
-
-```sh
-docker compose \
-    -f httpd-php-amd64.yml \
-    stop
+make stop
 ```
 
 ## Start
 
-* **arm64v8**
-
 ```sh
-docker compose \
-    -f httpd-php-arm64v8.yml \
-    start
-```
-
-* **amd64**
-
-```sh
-docker compose \
-    -f httpd-php-amd64.yml \
-    start
+make start
 ```
 
 ## Down
 
-* **arm64v8**
-
 ```sh
-docker compose \
-    -f httpd-php-arm64v8.yml \
-    down
+make down
 ```
 
-* **amd64**
+## Down volumes
 
 ```sh
-docker compose \
-    -f httpd-php-amd64.yml \
-    down
+make down--volumes
 ```
-
-**Note**: This won't remove the volumes for persistent data storage.

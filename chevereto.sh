@@ -2,19 +2,34 @@
 set -e
 DIR="/var/www"
 WORKING_DIR="$DIR/html"
-CHEVERETO_INSTALLER_DOWNLOAD="https://github.com/chevereto/installer/releases/download/"
-mkdir -p /chevereto && mkdir -p /chevereto/download
-cd /chevereto/download
-curl -SOJL "${CHEVERETO_INSTALLER_DOWNLOAD}${CHEVERETO_INSTALLER_TAG}/installer.php"
+ls -la $WORKING_DIR
+CHEVERETO_PACKAGE=$CHEVERETO_TAG"-lite"
+CHEVERETO_API_DOWNLOAD="https://chevereto.com/api/download/"
+chv_install() {
+    rm -rf /chevereto/download
+    echo "Making working dir /chevereto/download"
+    mkdir -p /chevereto/download
+    echo "cd /chevereto/download"
+    cd /chevereto/download
+    echo "* Downloading chevereto/v4 $CHEVERETO_PACKAGE package"
+    curl -f -SOJL \
+        -H "License: $CHEVERETO_LICENSE" \
+        "${CHEVERETO_API_DOWNLOAD}${CHEVERETO_PACKAGE}"
+    echo "* Extracting package"
+    unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
+    echo "* Installing dependencies"
+    composer install \
+        --working-dir=$WORKING_DIR/app \
+        --no-progress \
+        --classmap-authoritative \
+        --ignore-platform-reqs
+}
+
 if [ -f "$WORKING_DIR/composer.json" ]; then
-    echo "[SKIP] Installer provisioning"
+    echo "[NOTICE] Sourcing app from ./app"
 else
-    php installer.php -a download -t=$CHEVERETO_TAG -l=$CHEVERETO_LICENSE
-    php installer.php -a extract -f chevereto-pkg-*.zip -p $WORKING_DIR
+    chv_install
 fi
-mkdir -p $WORKING_DIR/app
-touch $WORKING_DIR/app/settings.php
 chown www-data: $WORKING_DIR -R
 cd $WORKING_DIR
-rm -rf .gitkeep
 ls -la

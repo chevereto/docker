@@ -1,6 +1,9 @@
 # Updating
 
-The update process consist in that you pull our `chevereto/container-builder` repo changes for updating the Dockerfile. From there you can re-build the image, with the updated changes.
+* Pull `chevereto/container-builder` repo changes for updating the Dockerfile
+* Re-build the images
+* Down containers (keep volumes!)
+* Start updated containers
 
 ## Manual updating
 

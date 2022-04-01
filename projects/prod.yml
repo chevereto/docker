@@ -1,0 +1,83 @@
+version: "3.4"
+
+services:
+  database:
+    container_name: ${CONTAINER_BASENAME}_database
+    image: mariadb:focal
+    networks:
+      - chevereto
+    volumes:
+      - database:/var/lib/mysql
+    restart: always
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-u",
+          "root",
+          "-p$${MYSQL_ROOT_PASSWORD?REQUIRED}",
+        ]
+      interval: 15s
+      timeout: 30s
+      retries: 5
+      start_period: 15s
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: chevereto
+      MYSQL_USER: chevereto
+      MYSQL_PASSWORD: user_database_password
+
+  php:
+    container_name: ${CONTAINER_BASENAME}_php
+    image: ${TAG}
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - chevereto
+    volumes:
+      - storage:/var/www/html/images/
+      - assets:/var/www/html/_assets/
+      - app:/var/www/html/
+    ports:
+      - 9000
+    restart: always
+    environment:
+      CHEVERETO_DB_HOST: database
+      CHEVERETO_DB_USER: chevereto
+      CHEVERETO_DB_PASS: user_database_password
+      CHEVERETO_DB_PORT: 3306
+      CHEVERETO_DB_NAME: chevereto
+      CHEVERETO_HTTPS: 0
+      CHEVERETO_ASSET_STORAGE_TYPE: local
+      CHEVERETO_ASSET_STORAGE_URL: http://localhost:${PORT}/_assets/
+      CHEVERETO_ASSET_STORAGE_BUCKET: /var/www/html/_assets/
+
+  http:
+    container_name: ${CONTAINER_BASENAME}_http
+    image: httpd:2.4
+    depends_on:
+      - php
+    networks:
+      - chevereto
+    volumes:
+      - storage:/var/www/html/images/:ro
+      - assets:/var/www/html/_assets/:ro
+      - app:/var/www/html/:ro
+      - type: bind
+        source: ${PWD}/httpd.conf
+        target: /usr/local/apache2/conf/httpd.conf
+    ports:
+      - ${PORT}:80
+    restart: always
+
+volumes:
+  database:
+  assets:
+  storage:
+  app:
+
+networks:
+  chevereto:

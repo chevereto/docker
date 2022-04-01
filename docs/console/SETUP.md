@@ -8,4 +8,4 @@ git clone https://github.com/chevereto/container-builder.git
 
 ## Custom application
 
-Put the contents of your custom Chevereto based application in the `/chevereto` folder before building the image.
+Put the contents of your custom Chevereto based application in the `/app` folder before building the image.

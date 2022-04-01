@@ -1,4 +1,4 @@
-name: Build httpd-php (amd64)
+name: Build httpd-php (arm64v8)
 on:
   workflow_dispatch:
 
@@ -7,10 +7,15 @@ jobs:
     name: Build and push image
     runs-on: ubuntu-20.04
     env:
-      arch: amd64
+      arch: arm64v8
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Install qemu dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu-user-static
 
       - name: Checkout custom application
         env:
@@ -30,10 +35,10 @@ jobs:
           tags: latest-httpd-php-${{ env.arch }}
           arch: ${{ env.arch }}
           dockerfiles: |
-            ./httpd-php.Dockerfile
+            ./Dockerfile
           build-args: |
             ARCH=${{ env.arch }}
-            CHEVERETO_LICENSE=${{ secrets.CHEVERETO_LICENSE }}
+            LICENSE=${{ secrets.CHEVERETO_LICENSE }}
 
       - name: Log in to container registry
         uses: redhat-actions/podman-login@v1
