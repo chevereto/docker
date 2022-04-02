@@ -33,7 +33,7 @@ build-httpd:
 
 # Docker
 
-build:
+image:
 	@echo "${FEEDBACK_SHORT}"
 	@docker build . \
 		--build-arg LICENSE=${LICENSE} \
@@ -51,7 +51,7 @@ log-access: arguments
 log-error: arguments
 	@docker logs ${CONTAINER_BASENAME}_${SERVICE} -f 1>/dev/null
 
-# Docker compose
+# docker compose
 
 up: arguments
 	@ARCH=${ARCH} \

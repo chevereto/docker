@@ -82,19 +82,16 @@ RUN set -eux; \
     echo "upload_max_filesize = \${CHEVERETO_UPLOAD_MAX_FILESIZE}"; \
     } > $PHP_INI_DIR/conf.d/php.ini
 
-RUN mkdir -p /var/www/html/importing && \
+RUN mkdir -p /var/www/html && \
+    mkdir -p /var/www/html/_assets && \
+    mkdir -p /var/www/html/images && \
     mkdir -p /var/www/html/importing/no-parse && \
     mkdir -p /var/www/html/importing/parse-albums && \
     mkdir -p /var/www/html/importing/parse-users
 
-VOLUME /var/www/html
-VOLUME /var/www/html/_assets
-VOLUME /var/www/html/images
-VOLUME /var/www/html/importing
-VOLUME /var/www/html/importing/no-parse
-VOLUME /var/www/html/importing/parse-albums
-VOLUME /var/www/html/importing/parse-users
+COPY app/ /var/www/html
 
-COPY --chown=www-data:www-data app/ /var/www/html
+RUN chown www-data:www-data /var/www/html -R
+
 COPY chevereto.sh /chevereto.sh
 RUN chmod +x /chevereto.sh && /chevereto.sh

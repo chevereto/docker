@@ -1,4 +1,4 @@
-version: "3.4"
+version: "3.8"
 
 services:
   database:
@@ -63,9 +63,9 @@ services:
     networks:
       - chevereto
     volumes:
-      - storage:/var/www/html/images/:ro
-      - assets:/var/www/html/_assets/:ro
-      - app:/var/www/html/:ro
+      - storage:/var/www/html/images/
+      - assets:/var/www/html/_assets/
+      - app:/var/www/html/
       - type: bind
         source: ${PWD}/httpd.conf
         target: /usr/local/apache2/conf/httpd.conf
