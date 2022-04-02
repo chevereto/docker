@@ -24,9 +24,8 @@ chv_install() {
         --classmap-authoritative \
         --ignore-platform-reqs
 }
-
-if [ -f "$WORKING_DIR/composer.json" ]; then
-    echo "[NOTICE] Sourcing app from ./app"
+if [ -f "$WORKING_DIR/app/composer.json" ]; then
+    echo "[NOTICE] Sourcing app from ./chevereto"
 else
     chv_install
 fi

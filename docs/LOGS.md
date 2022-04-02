@@ -1,4 +1,4 @@
-# Logs (console)
+# Logs
 
 ```sh
 make <command> <options>

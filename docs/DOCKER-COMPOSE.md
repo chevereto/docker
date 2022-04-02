@@ -1,4 +1,6 @@
-# Docker compose (console)
+# docker compose
+
+* Requires `docker compose >= 2.0`
 
 ```sh
 make <command> <options>

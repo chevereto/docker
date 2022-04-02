@@ -1,13 +1,12 @@
 # Updating
 
+To update it is required to follow these steps:
+
 * Pull `chevereto/container-builder` repo changes
-* Re-build the images `make build`
+* Re-build the images `make image` (see [BUILD]())
 * Down containers `make down`
-* Start updated containers `make up--d`
-
-## Manual updating
-
-Refer to the [CONSOLE GUIDE](console/UPDATING.md).
+* [Flush application volume](#flush-application-volume)
+* [Re-up containers](DOCKER-COMPOSE.md)
 
 ## GitHub one-click updating
 
@@ -20,3 +19,13 @@ Refer to the [CONSOLE GUIDE](console/UPDATING.md).
 🤖 When done **a bot will create a pull request** in your repo so you can review and confirm the changes.
 
 ![Update merge](src/update-merge.png)
+
+## Flush application volume
+
+Run the following command to wipe the application volume:
+
+```sh
+make app-volume--flush <options>
+```
+
+Once removed, on new container `up` the application volume will be re-created with the updated Chevereto files.

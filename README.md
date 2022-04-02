@@ -10,9 +10,11 @@ Dockerfile template project for building and distributing container images for C
 
 ## Note
 
-**Do not publish** the generated image to a public access registry as it contains your licensed installation files (including your key).
+**Do not publish** the generated image to a public registry as the Chevereto License restricts re-distribution rights.
 
-🧐 Handle it with care or your license details could be stolen.
+## Requirements
+
+* docker compose >= 2.0
 
 ## Documentation
 

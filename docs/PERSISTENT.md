@@ -42,13 +42,13 @@ drwxr-xr-x  2 www-data www-data 4096 Apr  1 18:56 sdk
 
 ## Volume reference
 
-| Volume              | Mount path             | Purpose                              |
-| ------------------- | ---------------------- | ------------------------------------ |
-| [app](#app)         | /var/www/html/         | Application files                    |
-| [storage](#storage) | /var/www/html/images/  | User uploads                         |
-| [assets](#assets)   | /var/www/html/_assets/ | Website assets (avatars, logos, etc) |
+| Volume                  | Mount path             | Purpose                              |
+| ----------------------- | ---------------------- | ------------------------------------ |
+| [chevereto](#chevereto) | /var/www/html/         | Chevereto application files          |
+| [storage](#storage)     | /var/www/html/images/  | User uploads                         |
+| [assets](#assets)       | /var/www/html/_assets/ | Website assets (avatars, logos, etc) |
 
-### App
+### Chevereto
 
 This volume is for storing the application files shared between containers `php` and `http`.
 

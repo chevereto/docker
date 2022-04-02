@@ -1,19 +1,21 @@
-# Building
+# Build
 
-The build process consist in build the container image that you will use to deploy your container instances.
+## Build container image
 
-## Manual building
+```sh
+make image <options>
+```
 
-Refer to the [CONSOLE GUIDE](console/BUILD.md).
+Available options:
 
-## GitHub workflow-based building
+* ARCH=arm64v8
+* VERSION=4.0
+* TAG=chevereto-build:${VERSION}-${ARCH}
 
-1. Go to **Actions**
-2. Select the target **Build** under **Workflows**
-3. Click on **Run Workflow** and confirm
+## Build httpd.conf
 
-![Build](src/build.png)
+To build your custom [httpd.conf](../../httpd.conf), edit the contents of [chevereto.conf](../../chevereto.conf) and run:
 
-✅ When done **the build will be available** at your target container registry.
-
-![Build log](src/build-log.png)
+```sh
+make build-httpd
+```

@@ -40,7 +40,7 @@ services:
     volumes:
       - storage:/var/www/html/images/
       - assets:/var/www/html/_assets/
-      - app:/var/www/html/
+      - chevereto:/var/www/html/
     ports:
       - 9000
     restart: always
@@ -63,9 +63,9 @@ services:
     networks:
       - chevereto
     volumes:
-      - storage:/var/www/html/images/
-      - assets:/var/www/html/_assets/
-      - app:/var/www/html/
+      - storage:/var/www/html/images/:ro
+      - assets:/var/www/html/_assets/:ro
+      - chevereto:/var/www/html/:ro
       - type: bind
         source: ${PWD}/httpd.conf
         target: /usr/local/apache2/conf/httpd.conf
@@ -77,7 +77,7 @@ volumes:
   database:
   assets:
   storage:
-  app:
+  chevereto:
 
 networks:
   chevereto:
