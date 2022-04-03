@@ -89,5 +89,5 @@ RUN mkdir -p /var/www/html && \
     mkdir -p /var/www/html/importing/parse-users
 COPY chevereto/ /var/www/html
 RUN chown www-data:www-data /var/www/html -R
-COPY chevereto.sh /chevereto.sh
+COPY scripts/chevereto.sh /chevereto.sh
 RUN chmod +x /chevereto.sh && /chevereto.sh

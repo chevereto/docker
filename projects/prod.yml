@@ -31,10 +31,6 @@ services:
 
   php:
     container_name: ${CONTAINER_BASENAME}_php
-    build:
-      context: ${PWD}
-      args:
-        LICENSE: ${LICENSE}
     image: ${TAG}
     depends_on:
       database:
@@ -71,7 +67,7 @@ services:
       - assets:/var/www/html/_assets/:ro
       - chevereto:/var/www/html/:ro
       - type: bind
-        source: ${PWD}/httpd.conf
+        source: ${PWD}/httpd/httpd.conf
         target: /usr/local/apache2/conf/httpd.conf
     ports:
       - ${PORT}:80

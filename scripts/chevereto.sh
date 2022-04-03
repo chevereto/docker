@@ -29,6 +29,6 @@ if [ -f "$WORKING_DIR/app/composer.json" ]; then
 else
     chv_install
 fi
-chown www-data: $WORKING_DIR -R
 cd $WORKING_DIR
+chown www-data: . -R
 ls -la

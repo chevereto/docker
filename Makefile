@@ -25,10 +25,10 @@ arguments:
 
 build-httpd: 
 	@echo "👉 Downloading source httpd.conf"
-	@docker run --rm httpd:2.4 cat /usr/local/apache2/conf/httpd.conf > httpd.conf
+	@docker run --rm httpd:2.4 cat /usr/local/apache2/conf/httpd.conf > httpd/httpd.conf
 	@echo "👉 Adding chevereto.conf to httpd.conf"
-	@cat chevereto.conf >> httpd.conf
-	@echo "✅ httpd.conf updated"
+	@cat httpd/chevereto.conf >> httpd/httpd.conf
+	@echo "✅ httpd/httpd.conf updated"
 
 # Docker
 
