@@ -18,7 +18,7 @@ Available options:
 make up
 ```
 
-## Up daemonized
+## Up (daemon)
 
 ```sh
 make up--d

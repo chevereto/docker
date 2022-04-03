@@ -18,9 +18,22 @@ Dockerfile template project for building and distributing container images for C
 
 ## Quick start
 
-1. Clone this repository (see [SETUP](docs/SETUP.md))
-2. Create your image `make image`
-3. Start your containers `make up--d`
+* Get Docker in your system
+* Clone this repository [chevereto/v4-container-builder](https://github.com/chevereto/v4-container-builder) (see [SETUP](docs/SETUP.md))
+
+```sh
+git clone https://github.com/v4-container-builder.git
+```
+
+* From the repository folder run:
+
+```sh
+make image
+```
+
+```sh
+make up--d
+```
 
 ## Documentation
 
