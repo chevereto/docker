@@ -14,12 +14,18 @@ Dockerfile template project for building and distributing container images for C
 
 ## Requirements
 
-* docker compose >= 2.0
+* `docker compose` >= 2.0
+
+## Quick start
+
+1. Clone this repository (see [SETUP](docs/SETUP.md))
+2. Create your image `make image`
+3. Start your containers `make up--d`
 
 ## Documentation
 
 * [SETUP](./docs/SETUP.md)
 * [BUILDING](./docs/BUILDING.md)
+* [DOCKER-COMPOSE](./docs/DOCKER-COMPOSE.md)
 * [UPDATING](./docs/UPDATING.md)
 * [PERSISTENT](./docs/PERSISTENT.md)
-* [CONSOLE](./docs/console/README.md)

@@ -1,14 +1,12 @@
 # Updating
 
-To update it is required to follow these steps:
+## Repository update
 
-* Pull `chevereto/container-builder` repo changes
-* Re-build the images `make image` (see [BUILD]())
-* Down containers `make down`
-* [Flush application volume](#flush-application-volume)
-* [Re-up containers](DOCKER-COMPOSE.md)
+### Manual updating
 
-## GitHub one-click updating
+Pull this updated repo changes in your fork.
+
+### GitHub one-click updating
 
 1. Go to **Actions**
 2. Select **Update** under **Workflows**
@@ -20,7 +18,16 @@ To update it is required to follow these steps:
 
 ![Update merge](src/update-merge.png)
 
-## Flush application volume
+## Chevereto update
+
+To update Chevereto make sure to update this repository, then follow these steps:
+
+1. Re-build the images (see [BUILDING](BUILDING.md))
+2. Down containers (see [DOCKER-COMPOSE](DOCKER-COMPOSE.md#down))
+3. [Flush application volume](#flush-application-volume)
+4. [Re-up containers](DOCKER-COMPOSE.md#up-daemonized)
+
+### Flush application volume
 
 Run the following command to wipe the application volume:
 
