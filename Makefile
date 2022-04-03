@@ -7,11 +7,11 @@ CONTAINER_BASENAME ?= chevereto-build-${VERSION}
 TAG ?= chevereto-build:${VERSION}-${NAMESPACE}
 # SERVICE php|database|http
 SERVICE ?= php
+LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: " license; stty echo; echo $$license)
 PORT ?= 8040
 # NAMESPACE prefix in project's name
-NAMESPACE = local
+NAMESPACE ?= local
 VERSION_DOTLESS = $(shell echo \${VERSION} | tr -d '.')
-LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: " license; stty echo; echo $$license)
 # Echo doing
 FEEDBACK = $(shell echo 👉 V\${VERSION} \${NAMESPACE} [PHP \${PHP}] \(\${DOCKER_USER}\))
 FEEDBACK_SHORT = $(shell echo 👉 V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
@@ -75,7 +75,6 @@ up--d: arguments
 stop: arguments
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
-	TAG=${TAG} \
 	VERSION=${VERSION} \
 	docker compose \
 		-p ${PROJECT} \
@@ -85,7 +84,6 @@ stop: arguments
 down: arguments
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
-	TAG=${TAG} \
 	VERSION=${VERSION} \
 	docker compose \
 		-p ${PROJECT} \
@@ -95,7 +93,6 @@ down: arguments
 down--volumes: arguments
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
-	TAG=${TAG} \
 	VERSION=${VERSION} \
 	docker compose \
 		-p ${PROJECT} \
