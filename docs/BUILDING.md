@@ -8,9 +8,9 @@ make image <options>
 
 Available options:
 
-* ARCH=arm64v8
+* NAMESPACE=local
 * VERSION=4.0
-* TAG=chevereto-build:${VERSION}-${ARCH}
+* TAG=chevereto-build:${VERSION}-${NAMESPACE}
 
 ## Build httpd.conf
 

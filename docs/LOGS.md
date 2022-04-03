@@ -6,9 +6,9 @@ make <command> <options>
 
 Available options:
 
-* ARCH=arm64v8
-* VERSION=4.0
+* NAMESPACE=local
 * SERVICE=php
+* VERSION=4.0
 
 (*) For `SERVICE` you can use `php`, `database` and `http`.
 

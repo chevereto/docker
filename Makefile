@@ -1,11 +1,10 @@
 # Default arguments
 VERSION ?= 4.0
 PHP ?= 8.1
-ARCH ?= arm64v8
 DOCKER_USER ?= www-data
 PROTOCOL ?= http
-CONTAINER_BASENAME ?= chevereto-build-${VERSION}-${ARCH}
-TAG ?= chevereto-build:${VERSION}-${ARCH}
+CONTAINER_BASENAME ?= chevereto-build-${VERSION}
+TAG ?= chevereto-build:${VERSION}-${NAMESPACE}
 # SERVICE php|database|http
 SERVICE ?= php
 PORT ?= 8040
@@ -14,10 +13,10 @@ NAMESPACE = local
 VERSION_DOTLESS = $(shell echo \${VERSION} | tr -d '.')
 LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: " license; stty echo; echo $$license)
 # Echo doing
-FEEDBACK = $(shell echo 👉 V\${VERSION} \${ARCH} [PHP \${PHP}] \(\${DOCKER_USER}\))
+FEEDBACK = $(shell echo 👉 V\${VERSION} \${NAMESPACE} [PHP \${PHP}] \(\${DOCKER_USER}\))
 FEEDBACK_SHORT = $(shell echo 👉 V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
 # Project's name
-PROJECT = ${NAMESPACE}-chevereto-build-${ARCH}
+PROJECT = ${NAMESPACE}-chevereto-build
 
 arguments:
 	@echo "${FEEDBACK}"
@@ -37,7 +36,6 @@ image:
 	@echo "${FEEDBACK_SHORT}"
 	@docker build . \
 		--build-arg LICENSE=${LICENSE} \
-		--build-arg ARCH=${ARCH} \
 		-t ${TAG}
 
 bash: arguments
@@ -54,8 +52,7 @@ log-error: arguments
 # docker compose
 
 up: arguments
-	@ARCH=${ARCH} \
-	CONTAINER_BASENAME=${CONTAINER_BASENAME} \
+	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	TAG=${TAG} \
 	VERSION=${VERSION} \
@@ -65,8 +62,7 @@ up: arguments
 		up
 
 up--d: arguments
-	@ARCH=${ARCH} \
-	CONTAINER_BASENAME=${CONTAINER_BASENAME} \
+	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	TAG=${TAG} \
 	VERSION=${VERSION} \
@@ -77,8 +73,7 @@ up--d: arguments
 	@echo "👉 http://localhost:${PORT}"
 
 stop: arguments
-	@ARCH=${ARCH} \
-	CONTAINER_BASENAME=${CONTAINER_BASENAME} \
+	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	TAG=${TAG} \
 	VERSION=${VERSION} \
@@ -88,8 +83,7 @@ stop: arguments
 		stop
 
 down: arguments
-	@ARCH=${ARCH} \
-	CONTAINER_BASENAME=${CONTAINER_BASENAME} \
+	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	TAG=${TAG} \
 	VERSION=${VERSION} \
@@ -99,8 +93,7 @@ down: arguments
 		down
 
 down--volumes: arguments
-	@ARCH=${ARCH} \
-	CONTAINER_BASENAME=${CONTAINER_BASENAME} \
+	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	TAG=${TAG} \
 	VERSION=${VERSION} \

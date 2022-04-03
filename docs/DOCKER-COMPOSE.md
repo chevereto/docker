@@ -8,10 +8,9 @@ make <command> <options>
 
 Available options:
 
-* ARCH=arm64v8
+* NAMESPACE=local
 * PORT=8040
 * VERSION=4.0
-* NAMESPACE=local
 
 ## Up
 

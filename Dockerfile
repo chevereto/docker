@@ -1,7 +1,6 @@
 ARG PHP=8.1
-ARG ARCH
-FROM docker.io/$ARCH/composer:latest as composer
-FROM docker.io/$ARCH/php:${PHP}-fpm
+FROM composer:latest as composer
+FROM php:${PHP}-fpm
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
 RUN apt-get update && apt-get install -y \

@@ -31,6 +31,10 @@ services:
 
   php:
     container_name: ${CONTAINER_BASENAME}_php
+    build:
+      context: ${PWD}
+      args:
+        LICENSE: ${LICENSE}
     image: ${TAG}
     depends_on:
       database:
