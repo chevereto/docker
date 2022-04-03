@@ -87,7 +87,8 @@ RUN mkdir -p /var/www/html && \
     mkdir -p /var/www/html/importing/no-parse && \
     mkdir -p /var/www/html/importing/parse-albums && \
     mkdir -p /var/www/html/importing/parse-users
-COPY chevereto/ /var/www/html
-RUN chown www-data:www-data /var/www/html -R
+
+COPY --chown=www-data chevereto/ /var/www/html
+
 COPY scripts/chevereto.sh /chevereto.sh
 RUN chmod +x /chevereto.sh && /chevereto.sh
