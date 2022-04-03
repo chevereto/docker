@@ -4,9 +4,9 @@ PHP ?= 8.1
 DOCKER_USER ?= www-data
 PROTOCOL ?= http
 CONTAINER_BASENAME ?= chevereto-build-${VERSION}
-TAG ?= chevereto-build:${VERSION}-${NAMESPACE}
+TAG_BASENAME ?= chevereto-build:${VERSION}-${NAMESPACE}
 # SERVICE php|database|http
-SERVICE ?= php
+SERVICE ?= http
 LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: " license; stty echo; echo $$license)
 PORT ?= 8040
 # NAMESPACE prefix in project's name
@@ -34,9 +34,22 @@ build-httpd:
 
 image:
 	@echo "${FEEDBACK_SHORT}"
+	@chmod +x ./scripts/chevereto.sh
+	@LICENSE=${LICENSE} \
+	VERSION=${VERSION} \
+	./scripts/chevereto.sh
+	image-build
+
+image-build:
+	@echo "${FEEDBACK_SHORT}"
+	@echo "* Building PHP image"
 	@docker build . \
-		--build-arg LICENSE=${LICENSE} \
-		-t ${TAG}
+		-f php.Dockerfile \
+		-t ${TAG_BASENAME}_php
+	@echo "* Building httpd image"
+	@docker build . \
+		-f http.Dockerfile \
+		-t ${TAG_BASENAME}_http
 
 bash: arguments
 	@docker exec -it --user ${DOCKER_USER} \
@@ -54,7 +67,7 @@ log-error: arguments
 up: arguments
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
-	TAG=${TAG} \
+	TAG_BASENAME=${TAG_BASENAME} \
 	VERSION=${VERSION} \
 	docker compose \
 		-p ${PROJECT} \
@@ -64,7 +77,7 @@ up: arguments
 up--d: arguments
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
-	TAG=${TAG} \
+	TAG_BASENAME=${TAG_BASENAME} \
 	VERSION=${VERSION} \
 	docker compose \
 		-p ${PROJECT} \

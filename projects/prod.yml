@@ -31,7 +31,7 @@ services:
 
   php:
     container_name: ${CONTAINER_BASENAME}_php
-    image: ${TAG}
+    image: ${TAG_BASENAME}_php
     depends_on:
       database:
         condition: service_healthy
@@ -40,7 +40,6 @@ services:
     volumes:
       - storage:/var/www/html/images/
       - assets:/var/www/html/_assets/
-      - chevereto:/var/www/html/
     ports:
       - 9000
     restart: always
@@ -57,7 +56,7 @@ services:
 
   http:
     container_name: ${CONTAINER_BASENAME}_http
-    image: httpd:2.4
+    image: ${TAG_BASENAME}_http
     depends_on:
       - php
     networks:
@@ -65,7 +64,6 @@ services:
     volumes:
       - storage:/var/www/html/images/:ro
       - assets:/var/www/html/_assets/:ro
-      - chevereto:/var/www/html/:ro
       - type: bind
         source: ${PWD}/httpd/httpd.conf
         target: /usr/local/apache2/conf/httpd.conf
@@ -77,7 +75,6 @@ volumes:
   database:
   assets:
   storage:
-  chevereto:
 
 networks:
   chevereto:

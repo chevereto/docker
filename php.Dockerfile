@@ -23,14 +23,13 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-enable imagick opcache \
     && php -m 
 
-ARG LICENSE
 ARG VERSION=4.0
 ARG SERVICING=docker
 
 ENV CHEVERETO_SOFTWARE=chevereto \
     CHEVERETO_TAG=$VERSION \
     CHEVERETO_SERVICING=$SERVICING \
-    CHEVERETO_LICENSE=$LICENSE \
+    CHEVERETO_LICENSE= \
     CHEVERETO_ASSET_STORAGE_ACCOUNT_ID= \
     CHEVERETO_ASSET_STORAGE_ACCOUNT_NAME= \
     CHEVERETO_ASSET_STORAGE_BUCKET= \
@@ -81,14 +80,13 @@ RUN set -eux; \
     echo "upload_max_filesize = \${CHEVERETO_UPLOAD_MAX_FILESIZE}"; \
     } > $PHP_INI_DIR/conf.d/php.ini
 
-RUN mkdir -p /var/www/html && \
-    mkdir -p /var/www/html/_assets && \
-    mkdir -p /var/www/html/images && \
-    mkdir -p /var/www/html/importing/no-parse && \
-    mkdir -p /var/www/html/importing/parse-albums && \
-    mkdir -p /var/www/html/importing/parse-users
+WORKDIR /var/www/html
 
-COPY --chown=www-data chevereto/ /var/www/html
+RUN mkdir -p ./_assets && \
+    mkdir -p ./images && \
+    mkdir -p ./importing/no-parse && \
+    mkdir -p ./importing/parse-albums && \
+    mkdir -p ./importing/parse-users
 
-COPY scripts/chevereto.sh /chevereto.sh
-RUN chmod +x /chevereto.sh && /chevereto.sh
+RUN chown www-data: . -R
+COPY --chown=www-data chevereto/ .

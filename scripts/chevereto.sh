@@ -1,34 +1,30 @@
 #!/usr/bin/env bash
 set -e
-DIR="/var/www"
-WORKING_DIR="$DIR/html"
-ls -la $WORKING_DIR
-CHEVERETO_PACKAGE=$CHEVERETO_TAG"-lite"
-CHEVERETO_API_DOWNLOAD="https://chevereto.com/api/download/"
-chv_install() {
-    rm -rf /chevereto/download
-    echo "Making working dir /chevereto/download"
-    mkdir -p /chevereto/download
-    echo "cd /chevereto/download"
-    cd /chevereto/download
-    echo "* Downloading chevereto/v4 $CHEVERETO_PACKAGE package"
+DOWNLOAD_DIR=${PWD}"/.temp"
+WORKING_DIR=${PWD}"/chevereto"
+PACKAGE=${VERSION}"-lite"
+API_DOWNLOAD="https://chevereto.com/api/download/"
+chv_download() {
+    echo "* Downloading Chevereto"
+    rm -rf $DOWNLOAD_DIR $WORKING_DIR
+    mkdir -p $DOWNLOAD_DIR
+    mkdir -p $WORKING_DIR
+    echo "* Downloading chevereto/v4 $PACKAGE package"
+    echo "> ${API_DOWNLOAD}${PACKAGE}"
+    cd $DOWNLOAD_DIR
     curl -f -SOJL \
-        -H "License: $CHEVERETO_LICENSE" \
-        "${CHEVERETO_API_DOWNLOAD}${CHEVERETO_PACKAGE}"
+        -H "License: $LICENSE" \
+        "${API_DOWNLOAD}${PACKAGE}"
     echo "* Extracting package"
     unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
+    rm -rf *.zip $DOWNLOAD_DIR
     echo "* Installing dependencies"
     composer install \
         --working-dir=$WORKING_DIR/app \
         --no-progress \
         --classmap-authoritative \
         --ignore-platform-reqs
+    cd -
 }
-if [ -f "$WORKING_DIR/app/composer.json" ]; then
-    echo "[NOTICE] Sourcing app from ./chevereto"
-else
-    chv_install
-fi
-cd $WORKING_DIR
-chown www-data: . -R
+chv_download
 ls -la
