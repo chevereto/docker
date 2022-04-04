@@ -32,7 +32,7 @@ To update Chevereto make sure to update this repository, then follow these steps
 Run the following command to wipe the application volume:
 
 ```sh
-make app-volume--flush <options>
+make chevereto-volume-rm <options>
 ```
 
 Once removed, on new container `up` the application volume will be re-created with the updated Chevereto files.

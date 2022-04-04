@@ -119,7 +119,3 @@ down--volumes: arguments
 		-p ${PROJECT} \
 		-f projects/prod.yml \
 		down --volumes
-
-app-volume--flush: down
-	@docker volume rm \
-		${PROJECT}_app
