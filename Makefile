@@ -6,7 +6,7 @@ PROTOCOL ?= http
 CONTAINER_BASENAME ?= chevereto-build-${VERSION}
 TAG_BASENAME ?= chevereto-build:${VERSION}-${NAMESPACE}
 # SERVICE php|database|http
-SERVICE ?= http
+SERVICE ?= php
 LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: " license; stty echo; echo $$license)
 PORT ?= 8040
 # NAMESPACE prefix in project's name
@@ -38,7 +38,15 @@ image:
 	@LICENSE=${LICENSE} \
 	VERSION=${VERSION} \
 	./scripts/chevereto.sh
-	image-build
+	@echo "* Building httpd image"
+	@rm -rf ./chevereto/app/vendor
+	@docker build . \
+		-f http.Dockerfile \
+		-t ${TAG_BASENAME}_http
+	@echo "* Building PHP image"
+	@docker build . \
+		-f php.Dockerfile \
+		-t ${TAG_BASENAME}_php
 
 image-build:
 	@echo "${FEEDBACK_SHORT}"

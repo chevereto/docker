@@ -82,11 +82,16 @@ RUN set -eux; \
 
 WORKDIR /var/www/html
 
-RUN mkdir -p ./_assets && \
-    mkdir -p ./images && \
-    mkdir -p ./importing/no-parse && \
-    mkdir -p ./importing/parse-albums && \
-    mkdir -p ./importing/parse-users
+RUN mkdir -p ./_assets ./images \
+    ./importing/no-parse \
+    ./importing/parse-albums \
+    ./importing/parse-users
 
-RUN chown www-data: . -R
+RUN chown www-data: . -R && ls -la
+
 COPY --chown=www-data chevereto/ .
+RUN composer install \
+    --working-dir=app \
+    --no-progress \
+    --ignore-platform-reqs && \
+    chown www-data: app -R
