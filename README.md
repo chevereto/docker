@@ -32,7 +32,7 @@ make image
 ```
 
 ```sh
-make up--d
+make up-d
 ```
 
 ## Documentation

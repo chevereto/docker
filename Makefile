@@ -3,20 +3,20 @@ VERSION ?= 4.0
 PHP ?= 8.1
 DOCKER_USER ?= www-data
 PROTOCOL ?= http
-CONTAINER_BASENAME ?= chevereto-build-${VERSION}
+# NAMESPACE prefix in project's name
+NAMESPACE ?= local
+# Project's name
+PROJECT = ${NAMESPACE}_chevereto-build
+CONTAINER_BASENAME ?= ${NAMESPACE}_chevereto-build-${VERSION}
 TAG_BASENAME ?= chevereto-build:${VERSION}-${NAMESPACE}
 # SERVICE php|database|http
 SERVICE ?= php
 LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: " license; stty echo; echo $$license)
 PORT ?= 8040
-# NAMESPACE prefix in project's name
-NAMESPACE ?= local
 VERSION_DOTLESS = $(shell echo \${VERSION} | tr -d '.')
 # Echo doing
 FEEDBACK = $(shell echo 👉 V\${VERSION} \${NAMESPACE} [PHP \${PHP}] \(\${DOCKER_USER}\))
 FEEDBACK_SHORT = $(shell echo 👉 V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
-# Project's name
-PROJECT = ${NAMESPACE}-chevereto-build
 
 arguments:
 	@echo "${FEEDBACK}"
@@ -82,7 +82,7 @@ up: arguments
 		-f projects/prod.yml \
 		up
 
-up--d: arguments
+up-d: arguments
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	TAG_BASENAME=${TAG_BASENAME} \

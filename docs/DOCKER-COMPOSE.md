@@ -21,7 +21,7 @@ make up
 ## Up (daemon)
 
 ```sh
-make up--d
+make up-d
 ```
 
 ## Stop
