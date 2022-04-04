@@ -8,7 +8,7 @@ NAMESPACE ?= local
 # Project's name
 PROJECT = ${NAMESPACE}_chevereto-build
 CONTAINER_BASENAME ?= ${NAMESPACE}_chevereto-build-${VERSION}
-TAG_BASENAME ?= chevereto-build:${VERSION}-${NAMESPACE}
+TAG_BASENAME ?= ${NAMESPACE}_chevereto-build:${VERSION}
 # SERVICE php|database|http
 SERVICE ?= php
 LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: " license; stty echo; echo $$license)
