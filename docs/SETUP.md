@@ -3,7 +3,7 @@
 * Clone the repository
 
 ```sh
-git clone https://github.com/chevereto/container-builder.git
+git clone https://github.com/chevereto/v4-docker-production.git
 ```
 
 ## Custom application
