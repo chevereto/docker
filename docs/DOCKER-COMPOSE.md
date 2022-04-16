@@ -1,6 +1,6 @@
 # docker compose
 
-* Requires `docker compose >= 2.0`
+* Requires [Compose V2](https://docs.docker.com/compose/cli-command/)
 
 ```sh
 make <command> <options>
@@ -47,3 +47,7 @@ make down
 ```sh
 make down--volumes
 ```
+
+## Troubleshoot
+
+Check if you are running [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose` (not `docker-compose`).

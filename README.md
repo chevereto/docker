@@ -14,11 +14,12 @@ Dockerfile template project for building and distributing container images for C
 
 ## Requirements
 
-* `docker compose` >= 2.0
+* [Docker](https://docs.docker.com/)
+* [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
 
 ## Quick start
 
-* Get Docker in your system
+* [Get Docker](https://docs.docker.com/get-docker/) in your system
 * Clone this repository [chevereto/v4-container-builder](https://github.com/chevereto/v4-container-builder) (see [SETUP](docs/SETUP.md))
 
 ```sh
