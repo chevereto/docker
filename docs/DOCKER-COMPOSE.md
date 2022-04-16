@@ -50,4 +50,6 @@ make down--volumes
 
 ## Troubleshoot
 
-Check if you are running [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose` (not `docker-compose`).
+Check if you are running latest Docker version with [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose` (not `docker-compose`).
+
+If Docker was included with your Linux distribution check for [Install Docker Engine](https://docs.docker.com/engine/install/) on Linux. Some distributions may be providing old docker engine for LTS compliance, make sure to follow Docker instructions.
