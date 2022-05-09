@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) exif gd pdo_mysql zip opcache bcmath \
     && pecl install imagick \
     && docker-php-ext-enable imagick opcache \
-    && php -m 
+    && php -m
 
 ARG VERSION=4.0
 ARG SERVICING=docker
@@ -63,7 +63,8 @@ ENV CHEVERETO_SOFTWARE=chevereto \
     CHEVERETO_POST_MAX_SIZE=64M \
     CHEVERETO_SESSION_SAVE_HANDLER=files \
     CHEVERETO_SESSION_SAVE_PATH=/tmp \
-    CHEVERETO_UPLOAD_MAX_FILESIZE=64M 
+    CHEVERETO_UPLOAD_MAX_FILESIZE=64M \
+    CHEVERETO_USER_ALBUMS_LIST_LIMIT=
 
 RUN set -eux; \
     { \
