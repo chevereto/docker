@@ -1,6 +1,6 @@
 # V4 Docker production
 
-> 🔔 [Subscribe](https://newsletter.chevereto.com/subscription?f=PmL892XuTdfErVq763PCycJQrvZ8PYc9JbsVUttqiPV1zXt6DDtf7lhepEStqE8LhGs8922ZYmGT7CYjMH5uSx23pL6Q) to don't miss any update regarding Chevereto.
+> 🔔 [Subscribe](https://chv.to/newsletter) to don't miss any update regarding Chevereto.
 
 <img alt="Chevereto" src="chevereto.svg" width="100%">
 
