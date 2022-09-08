@@ -21,15 +21,6 @@ FEEDBACK_SHORT = $(shell echo 👉 V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\
 arguments:
 	@echo "${FEEDBACK}"
 
-# Tools
-
-build-httpd: 
-	@echo "👉 Downloading source httpd.conf"
-	@docker run --rm httpd:2.4 cat /usr/local/apache2/conf/httpd.conf > httpd/httpd.conf
-	@echo "👉 Adding chevereto.conf to httpd.conf"
-	@cat httpd/chevereto.conf >> httpd/httpd.conf
-	@echo "✅ httpd/httpd.conf updated"
-
 # Docker
 
 image:
@@ -48,7 +39,7 @@ image:
 		-f php.Dockerfile \
 		-t ${TAG_BASENAME}_php
 
-image-build:
+image-custom:
 	@echo "${FEEDBACK_SHORT}"
 	@echo "* Building PHP image"
 	@docker build . \
@@ -58,6 +49,13 @@ image-build:
 	@docker build . \
 		-f http.Dockerfile \
 		-t ${TAG_BASENAME}_http
+
+image-httpd:
+	@echo "👉 Downloading source httpd.conf"
+	@docker run --rm httpd:2.4 cat /usr/local/apache2/conf/httpd.conf > httpd/httpd.conf
+	@echo "👉 Adding chevereto.conf to httpd.conf"
+	@cat httpd/chevereto.conf >> httpd/httpd.conf
+	@echo "✅ httpd/httpd.conf updated"
 
 bash: arguments
 	@docker exec -it --user ${DOCKER_USER} \

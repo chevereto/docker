@@ -53,6 +53,7 @@ services:
       CHEVERETO_ASSET_STORAGE_TYPE: local
       CHEVERETO_ASSET_STORAGE_URL: http://localhost:${PORT}/_assets/
       CHEVERETO_ASSET_STORAGE_BUCKET: /var/www/html/_assets/
+      CHEVERETO_ENCRYPTION_KEY:
 
   http:
     container_name: ${CONTAINER_BASENAME}_http

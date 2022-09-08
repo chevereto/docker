@@ -6,11 +6,9 @@
 
 [![Community](https://img.shields.io/badge/chv.to-community-blue?style=flat-square)](https://chv.to/community)
 
-Dockerfile template project for building and distributing container images for Chevereto projects to any container registry.
+Dockerfile driven template project for building and running container images for Chevereto V4 projects.
 
-## Note
-
-**Do not publish** the generated image to a public registry as the Chevereto License restricts re-distribution rights.
+> **Warning**: Do not publish generated image to a public registry as the Chevereto License restricts re-distribution rights.
 
 ## Requirements
 
@@ -20,10 +18,10 @@ Dockerfile template project for building and distributing container images for C
 ## Quick start
 
 * [Get Docker](https://docs.docker.com/get-docker/) in your system
-* Clone this repository [chevereto/v4-container-builder](https://github.com/chevereto/v4-container-builder) (see [SETUP](docs/SETUP.md))
+* Clone this repository [chevereto/v4-docker-production](https://github.com/chevereto/v4-docker-production) (see [SETUP](docs/SETUP.md))
 
 ```sh
-git clone https://github.com/v4-container-builder.git
+git clone https://github.com/chevereto/v4-docker-production.git
 ```
 
 * From the repository folder run:
