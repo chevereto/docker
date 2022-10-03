@@ -12,6 +12,7 @@ Dockerfile driven template project for building and running container images for
 
 ## Requirements
 
+* Chevereto V4 [license key](https://chevereto.com/pricing)
 * [Docker](https://docs.docker.com/)
 * [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
 
