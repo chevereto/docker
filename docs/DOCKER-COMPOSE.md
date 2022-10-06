@@ -9,8 +9,8 @@ make <command> <options>
 Available options:
 
 * NAMESPACE=local
-* PORT=8040
 * VERSION=4.0
+* PORT=8420
 
 ## Up
 

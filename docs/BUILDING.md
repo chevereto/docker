@@ -12,7 +12,6 @@ Available options:
 
 * NAMESPACE=local
 * VERSION=4.0
-* TAG_BASENAME=${NAMESPACE}_chevereto-build:${VERSION}
 
 ## Make custom images
 

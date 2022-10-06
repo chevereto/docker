@@ -1,30 +1,45 @@
-# Default arguments
 VERSION ?= 4.0
 PHP ?= 8.1
 DOCKER_USER ?= www-data
+HOSTNAME ?= localhost
+HOSTNAME_PATH ?= /
 PROTOCOL ?= http
-# NAMESPACE prefix in project's name
+
 NAMESPACE ?= local
-# Project's name
 PROJECT = ${NAMESPACE}_chevereto-build
 CONTAINER_BASENAME ?= ${NAMESPACE}_chevereto-build-${VERSION}
 TAG_BASENAME ?= ${NAMESPACE}_chevereto-build:${VERSION}
-# SERVICE php|database|http
+
 SERVICE ?= php
-LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: " license; stty echo; echo $$license)
-PORT ?= 8040
+LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: 🔑" license; stty echo; echo $$license)
+
 VERSION_DOTLESS = $(shell echo \${VERSION} | tr -d '.')
-# Echo doing
+PHP_DOTLESS = $(shell echo \${PHP} | tr -d '.')
+
+PORT ?= 8420
+VERSION_DOTLESS = $(shell echo \${VERSION} | tr -d '.')
+
 FEEDBACK = $(shell echo 👉 V\${VERSION} \${NAMESPACE} [PHP \${PHP}] \(\${DOCKER_USER}\))
 FEEDBACK_SHORT = $(shell echo 👉 V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
 
-arguments:
+ENDPOINT = ${PROTOCOL}://${HOSTNAME}
+ENDPOINT_CONTEXT = ${PORT}${HOSTNAME_PATH}
+
+URL_PROD = ${ENDPOINT}:${ENDPOINT_CONTEXT}
+
+feedback:
+	@./scripts/logo.sh
 	@echo "${FEEDBACK}"
+
+feedback--short:
+	@echo "${FEEDBACK_SHORT}"
+
+feedback--prod:
+	@echo "${URL_PROD}"
 
 # Docker
 
-image:
-	@echo "${FEEDBACK_SHORT}"
+image: feedback--short
 	@chmod +x ./scripts/chevereto.sh
 	@LICENSE=${LICENSE} \
 	VERSION=${VERSION} \
@@ -39,8 +54,7 @@ image:
 		-f php.Dockerfile \
 		-t ${TAG_BASENAME}_php
 
-image-custom:
-	@echo "${FEEDBACK_SHORT}"
+image-custom: feedback--short
 	@echo "* Building PHP image"
 	@docker build . \
 		-f php.Dockerfile \
@@ -50,48 +64,54 @@ image-custom:
 		-f http.Dockerfile \
 		-t ${TAG_BASENAME}_http
 
-image-httpd:
+image-httpd: feedback--short
 	@echo "👉 Downloading source httpd.conf"
 	@docker run --rm httpd:2.4 cat /usr/local/apache2/conf/httpd.conf > httpd/httpd.conf
 	@echo "👉 Adding chevereto.conf to httpd.conf"
 	@cat httpd/chevereto.conf >> httpd/httpd.conf
 	@echo "✅ httpd/httpd.conf updated"
 
-bash: arguments
+bash: feedback
 	@docker exec -it --user ${DOCKER_USER} \
 		${CONTAINER_BASENAME}_${SERVICE} \
 		bash
 
-log-access: arguments
+log-access: feedback
 	@docker logs ${CONTAINER_BASENAME}_${SERVICE} -f 2>/dev/null
 
-log-error: arguments
+log-error: feedback
 	@docker logs ${CONTAINER_BASENAME}_${SERVICE} -f 1>/dev/null
 
 # docker compose
 
-up: arguments
+up: feedback feedback--prod
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	TAG_BASENAME=${TAG_BASENAME} \
 	VERSION=${VERSION} \
+	HOSTNAME=${HOSTNAME} \
+	HOSTNAME_PATH=${HOSTNAME_PATH} \
+	URL_PROD=${URL_PROD} \
 	docker compose \
 		-p ${PROJECT} \
 		-f projects/prod.yml \
 		up
 
-up-d: arguments
+up-d: feedback feedback--prod
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	TAG_BASENAME=${TAG_BASENAME} \
 	VERSION=${VERSION} \
+	HOSTNAME=${HOSTNAME} \
+	HOSTNAME_PATH=${HOSTNAME_PATH} \
+	URL_PROD=${URL_PROD} \
 	docker compose \
 		-p ${PROJECT} \
 		-f projects/prod.yml \
 		up -d
-	@echo "👉 http://localhost:${PORT}"
+	@echo "👉 ${URL_PROD}"
 
-stop: arguments
+stop: feedback
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	VERSION=${VERSION} \
@@ -100,7 +120,7 @@ stop: arguments
 		-f projects/prod.yml \
 		stop
 
-down: arguments
+down: feedback
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	VERSION=${VERSION} \
@@ -109,7 +129,7 @@ down: arguments
 		-f projects/prod.yml \
 		down
 
-down--volumes: arguments
+down--volumes: feedback
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	VERSION=${VERSION} \

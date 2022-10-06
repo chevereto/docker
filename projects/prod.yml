@@ -49,11 +49,13 @@ services:
       CHEVERETO_DB_PASS: user_database_password
       CHEVERETO_DB_PORT: 3306
       CHEVERETO_DB_NAME: chevereto
+      CHEVERETO_HOSTNAME: ${HOSTNAME}
+      CHEVERETO_HOSTNAME_PATH: ${HOSTNAME_PATH}
       CHEVERETO_HTTPS: 0
       CHEVERETO_ASSET_STORAGE_TYPE: local
-      CHEVERETO_ASSET_STORAGE_URL: http://localhost:${PORT}/_assets/
+      CHEVERETO_ASSET_STORAGE_URL: ${URL_PROD}_assets/
       CHEVERETO_ASSET_STORAGE_BUCKET: /var/www/html/_assets/
-      CHEVERETO_ENCRYPTION_KEY:
+      CHEVERETO_ENCRYPTION_KEY: yUwfiRh6anwqC/sIx3COCIZeMT9rxdbXkMDdfgyrM2M=
 
   http:
     container_name: ${CONTAINER_BASENAME}_http
