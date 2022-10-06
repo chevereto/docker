@@ -11,6 +11,9 @@ Available options:
 * NAMESPACE=local
 * VERSION=4.0
 * PORT=8420
+* HOSTNAME=localhost
+* HOSTNAME_PATH=/
+* PROTOCOL=http
 
 ## Up
 
