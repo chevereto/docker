@@ -27,6 +27,11 @@ ENDPOINT_CONTEXT = ${PORT}${HOSTNAME_PATH}
 
 URL_PROD = ${ENDPOINT}:${ENDPOINT_CONTEXT}
 
+PROJECT ?= compose
+PROJECT_COMPOSE = projects/${COMPOSE}.yml
+COMPOSE_SAMPLE = projects/prod.yml
+COMPOSE_FILE = $(shell [[ -f \${PROJECT_COMPOSE} ]] && echo \${PROJECT_COMPOSE} || echo \${COMPOSE_SAMPLE})
+
 feedback:
 	@./scripts/logo.sh
 	@echo "${FEEDBACK}"
@@ -36,6 +41,9 @@ feedback--short:
 
 feedback--prod:
 	@echo "${URL_PROD}"
+
+feedback--compose:
+	@echo "🐋 ${COMPOSE_FILE}"
 
 # Docker
 
@@ -84,7 +92,7 @@ log-error: feedback
 
 # docker compose
 
-up: feedback feedback--prod
+up: feedback feedback--compose feedback--prod
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	TAG_BASENAME=${TAG_BASENAME} \
@@ -94,10 +102,10 @@ up: feedback feedback--prod
 	URL_PROD=${URL_PROD} \
 	docker compose \
 		-p ${PROJECT} \
-		-f projects/prod.yml \
+		-f ${COMPOSE_FILE} \
 		up
 
-up-d: feedback feedback--prod
+up-d: feedback feedback--compose feedback--prod
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	TAG_BASENAME=${TAG_BASENAME} \
@@ -107,33 +115,33 @@ up-d: feedback feedback--prod
 	URL_PROD=${URL_PROD} \
 	docker compose \
 		-p ${PROJECT} \
-		-f projects/prod.yml \
+		-f ${COMPOSE_FILE} \
 		up -d
 	@echo "👉 ${URL_PROD}"
 
-stop: feedback
+stop: feedback feedback--compose
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	VERSION=${VERSION} \
 	docker compose \
 		-p ${PROJECT} \
-		-f projects/prod.yml \
+		-f ${COMPOSE_FILE} \
 		stop
 
-down: feedback
+down: feedback feedback--compose
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	VERSION=${VERSION} \
 	docker compose \
 		-p ${PROJECT} \
-		-f projects/prod.yml \
+		-f ${COMPOSE_FILE} \
 		down
 
-down--volumes: feedback
+down--volumes: feedback feedback--compose
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	VERSION=${VERSION} \
 	docker compose \
 		-p ${PROJECT} \
-		-f projects/prod.yml \
+		-f ${COMPOSE_FILE} \
 		down --volumes
