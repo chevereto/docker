@@ -15,6 +15,12 @@ Available options:
 * HOSTNAME_PATH=/
 * PROTOCOL=http
 
+Example:
+
+```sh
+make up HOSTNAME=que.chevere.org PORT=80
+```
+
 ## Up
 
 ```sh

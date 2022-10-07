@@ -13,6 +13,12 @@ Available options:
 * NAMESPACE=local
 * VERSION=4.0
 
+Example:
+
+```sh
+make image VERSION=4.0 NAMESPACE=donchecho
+```
+
 ## Make custom images
 
 Same as production, but it sources the software from `./chevereto` rather than downloading it.
@@ -26,6 +32,12 @@ Available options:
 * NAMESPACE=local
 * VERSION=4.0
 * TAG_BASENAME=${NAMESPACE}_chevereto-build:${VERSION}
+
+Example:
+
+```sh
+make image-custom VERSION=4.0 NAMESPACE=donchecho TAG_BASENAME=mywea
+```
 
 ## Make custom HTTP
 

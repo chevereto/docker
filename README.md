@@ -8,7 +8,7 @@
 
 Dockerfile driven template project for building and running container images for Chevereto V4 projects.
 
-> **Warning**: Do not publish generated image to a public registry as the Chevereto License restricts re-distribution rights.
+> **Warning**: Do not publish image to a public registry as the Chevereto License restricts re-distribution rights.
 
 ## Requirements
 

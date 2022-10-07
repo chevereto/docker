@@ -29,7 +29,7 @@ To update Chevereto make sure to update this repository, then follow these steps
 
 ### Flush application volume
 
-Run the following command to wipe the application volume:
+Run the following command to wipe the application volume. This only affects the application layer.
 
 ```sh
 make chevereto-volume-rm <options>

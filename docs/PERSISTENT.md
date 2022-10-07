@@ -2,12 +2,12 @@
 
 ## Using Services
 
-Chevereto supports using external storage providers for user provided content and website assets. It support any mixture of configurations as you may need to customize.
+Chevereto supports external storage providers for user generated content and website assets. It support any mixture of configurations as you may need to customize.
 
 For more information:
 
-* [External Storage](https://v3-docs.chevereto.com/features/integrations/external-storage.html) documentation
-* [Assets Variables](https://v3-docs.chevereto.com/setup/system/environment.html#assets-variables) reference
+* [External Storage](https://v4-admin.chevereto.com/features/external-storage.html) documentation
+* [Assets Variables](https://v4-docs.chevereto.com/application/configuration/environment.html#assets-variables) reference
 
 ## Using Volumes
 
