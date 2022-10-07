@@ -6,7 +6,7 @@
 
 [![Community](https://img.shields.io/badge/chv.to-community-blue?style=flat-square)](https://chv.to/community)
 
-Dockerfile driven template project for building and running container images for Chevereto V4 projects.
+Dockerfile driven template project for building and running container images for Chevereto V4 projects. This is for production usage, for development purposes check [chevereto/v4-docker](https://github.com/chevereto/v4-docker).
 
 > **Warning**: Do not publish image to a public registry as the Chevereto License restricts re-distribution rights.
 
