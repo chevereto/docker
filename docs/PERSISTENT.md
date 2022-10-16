@@ -94,11 +94,10 @@ After that, [restart](DOCKER-COMPOSE.md#restart) containers:
 make restart
 ```
 
-If everything went well the system will reflect the existing persistance layer, from there you can [remove](VOLUMES.md#volume-remove) the old volumes:
+If everything went well the system will reflect the existing persistance layer, from there you can [remove](VOLUMES.md#volume-remove) the old volumes from (1):
 
 ```sh
 make volume-rm local_chevereto-build_database
 make volume-rm local_chevereto-build_assets
 make volume-rm local_chevereto-build_storage
 ```
-

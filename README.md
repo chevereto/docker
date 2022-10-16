@@ -40,5 +40,7 @@ make up-d
 * [SETUP](./docs/SETUP.md)
 * [BUILDING](./docs/BUILDING.md)
 * [DOCKER-COMPOSE](./docs/DOCKER-COMPOSE.md)
+* [VOLUMES](./docs/VOLUMES.md)
 * [UPDATING](./docs/UPDATING.md)
 * [PERSISTENT](./docs/PERSISTENT.md)
+* [FEEDBACK](./docs/FEEDBACK.md)
