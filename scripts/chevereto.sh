@@ -18,4 +18,4 @@ echo "* Extracting package"
 unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
 rm -rf *.zip $DOWNLOAD_DIR
 cd -
-ls -la
+ls -la $WORKING_DIR
