@@ -1,36 +1,32 @@
+SOURCE ?= ~/git/chevereto/v4
+TARGET ?= prod# prod|dev
 VERSION ?= 4.0
 PHP ?= 8.1
 DOCKER_USER ?= www-data
 HOSTNAME ?= localhost
 HOSTNAME_PATH ?= /
 PROTOCOL ?= http
-
-NAMESPACE ?= local
-PROJECT = ${NAMESPACE}_chevereto-build
-CONTAINER_BASENAME ?= ${NAMESPACE}_chevereto-build-${VERSION}
-TAG_BASENAME ?= ${NAMESPACE}_chevereto-build:${VERSION}
-
+NAMESPACE ?= chevereto
 SERVICE ?= php
-LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: 🔑" license; stty echo; echo $$license)
-
-VERSION_DOTLESS = $(shell echo \${VERSION} | tr -d '.')
-PHP_DOTLESS = $(shell echo \${PHP} | tr -d '.')
 
 PORT ?= 8420
-VERSION_DOTLESS = $(shell echo \${VERSION} | tr -d '.')
 
-FEEDBACK = $(shell echo 👉 V\${VERSION} \${NAMESPACE} [PHP \${PHP}] \(\${DOCKER_USER}\))
-FEEDBACK_SHORT = $(shell echo 👉 V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
+URL = ${PROTOCOL}://${HOSTNAME}:${PORT}/
+PROJECT = $(shell [[ \${TARGET} == "prod" ]] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-${TARGET})
+CONTAINER_BASENAME ?= ${NAMESPACE}_chevereto-${VERSION}
+TAG_BASENAME ?= ${NAMESPACE}_chevereto:${VERSION}
 
-ENDPOINT = ${PROTOCOL}://${HOSTNAME}
-ENDPOINT_CONTEXT = ${PORT}${HOSTNAME_PATH}
-
-URL_PROD = ${ENDPOINT}:${ENDPOINT_CONTEXT}
-
-PROJECT ?= compose
-PROJECT_COMPOSE = projects/${COMPOSE}.yml
-COMPOSE_SAMPLE = projects/prod.yml
+COMPOSE ?= docker-compose
+PROJECT_COMPOSE = ${COMPOSE}.yml
+COMPOSE_SAMPLE = default.yml
 COMPOSE_FILE = $(shell [[ -f \${PROJECT_COMPOSE} ]] && echo \${PROJECT_COMPOSE} || echo \${COMPOSE_SAMPLE})
+
+FEEDBACK = $(shell echo 👉 \${TARGET} V\${VERSION} \${NAMESPACE} [PHP \${PHP}] \(\${DOCKER_USER}\))
+FEEDBACK_SHORT = $(shell echo 👉 \${TARGET} V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
+
+LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: 🔑" license; stty echo; echo $$license)
+
+DOCKER_COMPOSE = $(shell echo docker compose -p \${PROJECT} -f \${COMPOSE_FILE})
 
 feedback:
 	@./scripts/logo.sh
@@ -39,11 +35,16 @@ feedback:
 feedback--short:
 	@echo "${FEEDBACK_SHORT}"
 
-feedback--prod:
-	@echo "${URL_PROD}"
-
 feedback--compose:
 	@echo "🐋 ${COMPOSE_FILE}"
+
+feedback--url:
+	@echo "🌎 ${URL}"
+
+feedback--volumes:
+	@echo "${PROJECT}_database"
+	@echo "${PROJECT}_assets"
+	@echo "${PROJECT}_storage"
 
 # Docker
 
@@ -52,32 +53,22 @@ image: feedback--short
 	@LICENSE=${LICENSE} \
 	VERSION=${VERSION} \
 	./scripts/chevereto.sh
-	@echo "* Building httpd image"
-	@rm -rf ./chevereto/app/vendor
-	@docker build . \
-		-f http.Dockerfile \
-		-t ${TAG_BASENAME}_http
 	@echo "* Building PHP image"
 	@docker build . \
-		-f php.Dockerfile \
+		-f Dockerfile \
 		-t ${TAG_BASENAME}_php
 
 image-custom: feedback--short
 	@echo "* Building PHP image"
 	@docker build . \
-		-f php.Dockerfile \
+		-f Dockerfile \
 		-t ${TAG_BASENAME}_php
-	@echo "* Building httpd image"
-	@docker build . \
-		-f http.Dockerfile \
-		-t ${TAG_BASENAME}_http
 
-image-httpd: feedback--short
-	@echo "👉 Downloading source httpd.conf"
-	@docker run --rm httpd:2.4 cat /usr/local/apache2/conf/httpd.conf > httpd/httpd.conf
-	@echo "👉 Adding chevereto.conf to httpd.conf"
-	@cat httpd/chevereto.conf >> httpd/httpd.conf
-	@echo "✅ httpd/httpd.conf updated"
+volume-cp:
+	docker run --rm -it -v ${VOLUME_FROM}:/from -v ${VOLUME_TO}:/to alpine ash -c "cd /from ; cp -av . /to"
+
+volume-rm:
+	docker volume rm ${VOLUME}
 
 bash: feedback
 	@docker exec -it --user ${DOCKER_USER} \
@@ -92,56 +83,52 @@ log-error: feedback
 
 # docker compose
 
-up: feedback feedback--compose feedback--prod
+up: feedback feedback--compose feedback--url
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	TAG_BASENAME=${TAG_BASENAME} \
 	VERSION=${VERSION} \
 	HOSTNAME=${HOSTNAME} \
 	HOSTNAME_PATH=${HOSTNAME_PATH} \
-	URL_PROD=${URL_PROD} \
-	docker compose \
-		-p ${PROJECT} \
-		-f ${COMPOSE_FILE} \
-		up
+	URL=${URL} \
+	${DOCKER_COMPOSE} up
 
-up-d: feedback feedback--compose feedback--prod
+up-d: feedback feedback--compose feedback--url
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	TAG_BASENAME=${TAG_BASENAME} \
 	VERSION=${VERSION} \
 	HOSTNAME=${HOSTNAME} \
 	HOSTNAME_PATH=${HOSTNAME_PATH} \
-	URL_PROD=${URL_PROD} \
-	docker compose \
-		-p ${PROJECT} \
-		-f ${COMPOSE_FILE} \
-		up -d
-	@echo "👉 ${URL_PROD}"
+	URL=${URL} \
+	${DOCKER_COMPOSE} up -d
 
 stop: feedback feedback--compose
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	VERSION=${VERSION} \
-	docker compose \
-		-p ${PROJECT} \
-		-f ${COMPOSE_FILE} \
-		stop
+	${DOCKER_COMPOSE} stop
+
+start: feedback feedback--compose
+	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
+	PORT=${PORT} \
+	VERSION=${VERSION} \
+	${DOCKER_COMPOSE} start
+
+restart: feedback feedback--compose
+	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
+	PORT=${PORT} \
+	VERSION=${VERSION} \
+	${DOCKER_COMPOSE} restart
 
 down: feedback feedback--compose
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	VERSION=${VERSION} \
-	docker compose \
-		-p ${PROJECT} \
-		-f ${COMPOSE_FILE} \
-		down
+	${DOCKER_COMPOSE} down
 
 down--volumes: feedback feedback--compose
 	@CONTAINER_BASENAME=${CONTAINER_BASENAME} \
 	PORT=${PORT} \
 	VERSION=${VERSION} \
-	docker compose \
-		-p ${PROJECT} \
-		-f ${COMPOSE_FILE} \
-		down --volumes
+	${DOCKER_COMPOSE} down --volumes
