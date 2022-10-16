@@ -1,6 +1,6 @@
 ARG PHP=8.1
 FROM composer:latest as composer
-FROM php:${PHP}-fpm
+FROM php:${PHP}-apache
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
 RUN apt-get update && apt-get install -y \
@@ -12,7 +12,10 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip unzip \
     sendmail \
+    rsync \
+    inotify-tools \
     imagemagick libmagickwand-dev --no-install-recommends \
+    && a2enmod rewrite \
     && docker-php-ext-configure gd \
     --with-freetype=/usr/include/ \
     --with-jpeg=/usr/include/ \
