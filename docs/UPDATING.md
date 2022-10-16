@@ -2,6 +2,14 @@
 
 ## Repository update
 
+To update your containers to the latest version of this repository make sure to run first:
+
+```sh
+make down
+```
+
+💡 If you forgot to run this you can rollback the repo and execute the above command.
+
 ### Manual updating
 
 Pull this updated repo changes in your fork.
@@ -24,15 +32,6 @@ To update Chevereto make sure to update this repository, then follow these steps
 
 1. Re-build the images (see [BUILDING](BUILDING.md))
 2. Down containers (see [DOCKER-COMPOSE](DOCKER-COMPOSE.md#down))
-3. [Flush application volume](#flush-application-volume)
-4. [Re-up containers](DOCKER-COMPOSE.md#up-daemonized)
+3. [Re-up containers](DOCKER-COMPOSE.md#up-daemonized)
 
-### Flush application volume
-
-Run the following command to wipe the application volume. This only affects the application layer.
-
-```sh
-make chevereto-volume-rm <options>
-```
-
-Once removed, on new container `up` the application volume will be re-created with the updated Chevereto files.
+Refer to [persistance troubleshoot](PERSISTENT.md#no-persistence) If the system prompts to re-install.

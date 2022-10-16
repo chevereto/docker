@@ -65,3 +65,40 @@ This volume is for storing user uploaded images.
 This volume is used for storing Chevereto assets namely user avatars, website logos, background images, etc.
 
 👉 This is used when you configure asset storage for use the `local` External Storage API.
+
+## Troubleshoot
+
+### No persistence
+
+The compose project name could be altered due to a change in `NAMESPACE`, `TARGET`. If this happens, do the following:
+
+1. Run `docker volume ls` and locate the volumes used by your project
+2. Run `make feedback--volumes` to determine the volumes in the current context
+3. For **each volume**, [copy](VOLUMES.md#volume-copy) from the volume (1) to (2):
+
+```sh
+make volume-cp VOLUME_FROM=<from_volume> VOLUME_TO=<to_volume>
+```
+
+For example:
+
+```sh
+make volume-cp VOLUME_FROM=local_chevereto-build_database VOLUME_TO=chevereto_chevereto_database
+make volume-cp VOLUME_FROM=local_chevereto-build_assets VOLUME_TO=chevereto_chevereto_assets
+make volume-cp VOLUME_FROM=local_chevereto-build_storage VOLUME_TO=chevereto_chevereto_storage
+```
+
+After that, [restart](DOCKER-COMPOSE.md#restart) containers:
+
+```sh
+make restart
+```
+
+If everything went well the system will reflect the existing persistance layer, from there you can [remove](VOLUMES.md#volume-remove) the old volumes:
+
+```sh
+make volume-rm local_chevereto-build_database
+make volume-rm local_chevereto-build_assets
+make volume-rm local_chevereto-build_storage
+```
+

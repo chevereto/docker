@@ -10,7 +10,7 @@ make <command> <options>
 
 Available options:
 
-* NAMESPACE=local
+* NAMESPACE=chevereto
 * VERSION=4.0
 * PORT=8420
 * HOSTNAME=localhost
@@ -48,6 +48,12 @@ make stop
 
 ```sh
 make start
+```
+
+## Restart
+
+```sh
+make restart
 ```
 
 ## Down

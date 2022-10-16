@@ -31,18 +31,10 @@ Available options:
 
 * NAMESPACE=local
 * VERSION=4.0
-* TAG_BASENAME=${NAMESPACE}_chevereto-build:${VERSION}
+* TAG_BASENAME=${NAMESPACE}_chevereto:${VERSION}
 
 Example:
 
 ```sh
 make image-custom VERSION=4.0 NAMESPACE=donchecho TAG_BASENAME=mywea
-```
-
-## Make custom HTTP
-
-To build your custom [httpd.conf](../httpd/httpd.conf), edit the contents of [chevereto.conf](../httpd/chevereto.conf) and run:
-
-```sh
-make image-httpd
 ```
