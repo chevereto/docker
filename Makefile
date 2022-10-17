@@ -11,20 +11,20 @@ SERVICE ?= php
 
 PORT_HTTP ?= 8420
 PORT_HTTPS ?= 8430
-PORT = $(shell [[ \${PROTOCOL} == "http" ]] && echo \${PORT_HTTP} || echo \${PORT_HTTPS})
-HTTPS = $(shell [[ \${PROTOCOL} == "http" ]] && echo 0 || echo 1)
-HTTPS_CERT = $(shell [[ -f "https/cert.pem" ]] && echo || echo dummy/)cert.pem
-HTTPS_KEY = $(shell [[ -f "https/key.pem" ]] && echo || echo dummy/)key.pem
+PORT = $(shell [ \${PROTOCOL} == "http" ] && echo \${PORT_HTTP} || echo \${PORT_HTTPS})
+HTTPS = $(shell [ \${PROTOCOL} == "http" ] && echo 0 || echo 1)
+HTTPS_CERT = $(shell [ -f "https/cert.pem" ] && echo || echo dummy/)cert.pem
+HTTPS_KEY = $(shell [ -f "https/key.pem" ] && echo || echo dummy/)key.pem
 
 URL = ${PROTOCOL}://${HOSTNAME}:${PORT}/
-PROJECT = $(shell [[ \${TARGET} == "prod" ]] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-${TARGET})
+PROJECT = $(shell [ \${TARGET} == "prod" ] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-${TARGET})
 CONTAINER_BASENAME ?= ${NAMESPACE}_chevereto-${VERSION}
 TAG_BASENAME ?= ${NAMESPACE}_chevereto:${VERSION}
 
 COMPOSE ?= docker-compose
 PROJECT_COMPOSE = ${COMPOSE}.yml
 COMPOSE_SAMPLE = default.yml
-COMPOSE_FILE = $(shell [[ -f \${PROJECT_COMPOSE} ]] && echo \${PROJECT_COMPOSE} || echo \${COMPOSE_SAMPLE})
+COMPOSE_FILE = $(shell [ -f \${PROJECT_COMPOSE} ] && echo \${PROJECT_COMPOSE} || echo \${COMPOSE_SAMPLE})
 
 FEEDBACK = $(shell echo 👉 \${TARGET} V\${VERSION} \${NAMESPACE} [PHP \${PHP}] \(\${DOCKER_USER}\))
 FEEDBACK_SHORT = $(shell echo 👉 \${TARGET} V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
@@ -124,7 +124,7 @@ down: feedback feedback--compose
 down--volumes: feedback feedback--compose
 	${DOCKER_COMPOSE} down --volumes
 
-# tools
+# https
 
 certbot:
 	@echo "🔐 Generating certificate"
