@@ -44,14 +44,14 @@ services:
         source: ${PWD}/.well-known
         target: /var/www/html/.well-known
       - type: bind
-        source: ${PWD}/https/${HTTPS_CERT}
+        source: ${PWD}/${HTTPS_CERT}
         target: /etc/ssl/certs/cert.pem
       - type: bind
-        source: ${PWD}/https/${HTTPS_KEY}
+        source: ${PWD}/${HTTPS_KEY}
         target: /etc/ssl/private/key.pem
     ports:
-      - ${PORT_HTTP}:80
-      - ${PORT_HTTPS}:443
+      - ${HTTP_PORT}:80
+      - ${HTTPS_PORT}:443
     restart: always
     environment:
       CHEVERETO_DB_HOST: database

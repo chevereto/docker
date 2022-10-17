@@ -9,12 +9,12 @@ PROTOCOL ?= http
 NAMESPACE ?= chevereto
 SERVICE ?= php
 
-PORT_HTTP ?= 8420
-PORT_HTTPS ?= 8430
-PORT = $(shell [ "${PROTOCOL}" = "http" ] && echo \${PORT_HTTP} || echo \${PORT_HTTPS})
+HTTP_PORT ?= 80
+HTTPS_PORT ?= 443
+PORT = $(shell [ "${PROTOCOL}" = "http" ] && echo \${HTTP_PORT} || echo \${HTTPS_PORT})
 HTTPS = $(shell [ "${PROTOCOL}" = "http" ] && echo 0 || echo 1)
-HTTPS_CERT = $(shell [ -f "https/cert.pem" ] && echo || echo dummy/)cert.pem
-HTTPS_KEY = $(shell [ -f "https/key.pem" ] && echo || echo dummy/)key.pem
+HTTPS_CERT = https/$(shell [ -f "https/cert.pem" ] && echo || echo dummy/)cert.pem
+HTTPS_KEY = https/$(shell [ -f "https/key.pem" ] && echo || echo dummy/)key.pem
 
 URL = ${PROTOCOL}://${HOSTNAME}:${PORT}/
 PROJECT = $(shell [ "${TARGET}" = "prod" ] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-\${TARGET})
@@ -33,8 +33,8 @@ LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: 🔑" license;
 
 ACME_CHALLENGE = $(shell [ ! -d ".well-known" ] && mkdir -p .well-known)
 DOCKER_COMPOSE = $(shell ${ACME_CHALLENGE} echo @CONTAINER_BASENAME=\${CONTAINER_BASENAME} \
-	PORT_HTTP=\${PORT_HTTP} \
-	PORT_HTTPS=\${PORT_HTTPS} \
+	HTTP_PORT=\${HTTP_PORT} \
+	HTTPS_PORT=\${HTTPS_PORT} \
 	HTTPS_CERT=\${HTTPS_CERT} \
 	HTTPS_KEY=\${HTTPS_KEY} \
 	HTTPS=\${HTTPS} \

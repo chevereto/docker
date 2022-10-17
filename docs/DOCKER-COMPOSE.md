@@ -12,7 +12,8 @@ Available options:
 
 * NAMESPACE=chevereto
 * VERSION=4.0
-* PORT=8420
+* HTTP_PORT=80
+* HTTPS_PORT=443
 * HOSTNAME=localhost
 * HOSTNAME_PATH=/
 * PROTOCOL=http

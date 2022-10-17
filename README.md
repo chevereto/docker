@@ -41,6 +41,7 @@ make up-d
 * [BUILDING](./docs/BUILDING.md)
 * [DOCKER-COMPOSE](./docs/DOCKER-COMPOSE.md)
 * [VOLUMES](./docs/VOLUMES.md)
+* [HTTPS](./docs/HTTPS.md)
 * [UPDATING](./docs/UPDATING.md)
 * [PERSISTENT](./docs/PERSISTENT.md)
 * [FEEDBACK](./docs/FEEDBACK.md)

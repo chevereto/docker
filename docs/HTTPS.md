@@ -12,7 +12,7 @@ Place the certificate and private key at `https/`.
 To create a certificate using certbot:
 
 ```sh
-make certbot HOSTNAME=chevereto.com
+make certbot HOSTNAME=<hostname>
 ```
 
 The above command uses `certbot/certbot` for providing the files required, it will place the generated files at `https/`.
@@ -22,5 +22,5 @@ The above command uses `certbot/certbot` for providing the files required, it wi
 Alter the commands to use `PROTOCOL=https`:
 
 ```sh
-make up-d PROTOCOL=https HOSTNAME=chevereto.com
+make up-d PROTOCOL=https HOSTNAME=<hostname>
 ```
