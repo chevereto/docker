@@ -71,6 +71,7 @@ image: feedback--short
 	./scripts/chevereto.sh
 	@echo "* Building PHP image"
 	@docker build . \
+		--network host \
 		-f Dockerfile \
 		-t ${TAG_BASENAME}_php
 
