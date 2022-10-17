@@ -18,12 +18,12 @@ HTTPS_KEY = https/$(shell [ -f "https/key.pem" ] && echo || echo dummy/)key.pem
 
 URL = ${PROTOCOL}://${HOSTNAME}:${PORT}/
 PROJECT = $(shell [ "${TARGET}" = "prod" ] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-\${TARGET})
-CONTAINER_BASENAME ?= ${NAMESPACE}_chevereto-${VERSION}
+CONTAINER_BASENAME = ${PROJECT}-${VERSION}
 TAG_BASENAME ?= ${NAMESPACE}_chevereto:${VERSION}
 
 COMPOSE ?= docker-compose
 PROJECT_COMPOSE = ${COMPOSE}.yml
-COMPOSE_SAMPLE = default.yml
+COMPOSE_SAMPLE = $(shell [ "${TARGET}" = "prod" ] && echo default || echo dev).yml
 COMPOSE_FILE = $(shell [ -f \${PROJECT_COMPOSE} ] && echo \${PROJECT_COMPOSE} || echo \${COMPOSE_SAMPLE})
 
 FEEDBACK = $(shell echo 👉 \${TARGET} V\${VERSION} \${NAMESPACE} [PHP \${PHP}] \(\${DOCKER_USER}\))
@@ -33,6 +33,7 @@ LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: 🔑" license;
 
 ACME_CHALLENGE = $(shell [ ! -d ".well-known" ] && mkdir -p .well-known)
 DOCKER_COMPOSE = $(shell ${ACME_CHALLENGE} echo @CONTAINER_BASENAME=\${CONTAINER_BASENAME} \
+	SOURCE=\${SOURCE} \
 	HTTP_PORT=\${HTTP_PORT} \
 	HTTPS_PORT=\${HTTPS_PORT} \
 	HTTPS_CERT=\${HTTPS_CERT} \
@@ -44,6 +45,8 @@ DOCKER_COMPOSE = $(shell ${ACME_CHALLENGE} echo @CONTAINER_BASENAME=\${CONTAINER
 	HOSTNAME_PATH=\${HOSTNAME_PATH} \
 	URL=\${URL} \
 	docker compose -p \${PROJECT} -f \${COMPOSE_FILE})
+
+# Informational
 
 feedback:
 	@./scripts/logo.sh
@@ -77,8 +80,10 @@ image: feedback--short
 		-t ${TAG_BASENAME}_php
 
 image-custom: feedback--short
+	@mkdir -p chevereto
 	@echo "* Building PHP image"
 	@docker build . \
+		--network host \
 		-f Dockerfile \
 		-t ${TAG_BASENAME}_php
 
@@ -88,10 +93,7 @@ volume-cp:
 volume-rm:
 	@docker volume rm ${VOLUME}
 
-bash: feedback
-	@docker exec -it --user ${DOCKER_USER} \
-		${CONTAINER_BASENAME}_${SERVICE} \
-		bash
+# Logs
 
 log: feedback
 	@docker logs -f ${CONTAINER_BASENAME}_${SERVICE}
@@ -102,7 +104,19 @@ log-access: feedback
 log-error: feedback
 	@docker logs ${CONTAINER_BASENAME}_${SERVICE} -f 1>/dev/null
 
-# docker compose
+# Tools
+
+bash: feedback
+	@docker exec -it --user ${DOCKER_USER} \
+		${CONTAINER_BASENAME}_${SERVICE} \
+		bash
+
+run: feedback
+	@docker exec -it \
+		${CONTAINER_BASENAME}_${SERVICE} \
+		bash /var/scripts/${SCRIPT}.sh
+
+# Docker compose
 
 up: feedback feedback--compose feedback--url
 	${DOCKER_COMPOSE} up
