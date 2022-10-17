@@ -15,11 +15,8 @@ RUN apt-get update && apt-get install -y \
     rsync \
     inotify-tools \
     imagemagick libmagickwand-dev --no-install-recommends \
-    && a2enmod rewrite \
-    && docker-php-ext-configure gd \
-    --with-freetype=/usr/include/ \
-    --with-jpeg=/usr/include/ \
-    --with-webp=/usr/include/ \
+    && a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb \
+    && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ --with-webp=/usr/include/ \
     && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install -j$(nproc) exif gd pdo_mysql zip opcache bcmath \
     && pecl install imagick \
@@ -27,8 +24,20 @@ RUN apt-get update && apt-get install -y \
     && php -m
 
 RUN echo "sendmail_path=/usr/sbin/sendmail -t -i" >> /usr/local/etc/php/conf.d/sendmail.ini \
-    && sed -i '/#!\/bin\/sh/aservice sendmail restart' /usr/local/bin/docker-php-entrypoint \
-    && sed -i '/#!\/bin\/sh/aecho "$(hostname -i)\t$(hostname) $(hostname).localhost" >> /etc/hosts' /usr/local/bin/docker-php-entrypoint
+    && sed -i \
+    -e '/#!\/bin\/sh/a\echo "$(hostname -i)\t$(hostname) $(hostname).localhost" >> /etc/hosts' \
+    -e '/#!\/bin\/sh/a\service sendmail restart' \
+    /usr/local/bin/docker-php-entrypoint
+
+RUN sed -i \
+    -e '/SSLCertificateFile.*snakeoil\.pem/c\SSLCertificateFile /etc/ssl/certs/cert.pem' \
+    -e '/SSLCertificateKeyFile.*snakeoil\.key/c\SSLCertificateKeyFile /etc/ssl/private/key.pem' \
+    /etc/apache2/sites-available/default-ssl.conf \
+    && sed -i \
+    -e 's~^ServerSignature On$~ServerSignature Off~g' \
+    -e 's~^ServerTokens OS$~ServerTokens Prod~g' \
+    /etc/apache2/conf-available/security.conf \
+    && a2ensite default-ssl
 
 RUN rm -rf /var/lib/apt/lists/*
 

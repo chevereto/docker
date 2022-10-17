@@ -40,8 +40,15 @@ services:
     volumes:
       - storage:/var/www/html/images/
       - assets:/var/www/html/_assets/
+      - type: bind
+        source: ${PWD}/https/cert.pem
+        target: /etc/ssl/certs/cert.pem
+      - type: bind
+        source: ${PWD}/https/key.pem
+        target: /etc/ssl/private/key.pem
     ports:
-      - ${PORT}:80
+      - ${PORT_HTTP}:80
+      - ${PORT_HTTPS}:443
     restart: always
     environment:
       CHEVERETO_DB_HOST: database
@@ -51,7 +58,7 @@ services:
       CHEVERETO_DB_NAME: chevereto
       CHEVERETO_HOSTNAME: ${HOSTNAME}
       CHEVERETO_HOSTNAME_PATH: ${HOSTNAME_PATH}
-      CHEVERETO_HTTPS: 0
+      CHEVERETO_HTTPS: ${HTTPS}
       CHEVERETO_ASSET_STORAGE_TYPE: local
       CHEVERETO_ASSET_STORAGE_URL: ${URL}_assets/
       CHEVERETO_ASSET_STORAGE_BUCKET: /var/www/html/_assets/
