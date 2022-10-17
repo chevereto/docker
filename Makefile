@@ -11,13 +11,13 @@ SERVICE ?= php
 
 PORT_HTTP ?= 8420
 PORT_HTTPS ?= 8430
-PORT = $(shell [ \${PROTOCOL} == "http" ] && echo \${PORT_HTTP} || echo \${PORT_HTTPS})
-HTTPS = $(shell [ \${PROTOCOL} == "http" ] && echo 0 || echo 1)
+PORT = $(shell [ "${PROTOCOL}" = "http" ] && echo \${PORT_HTTP} || echo \${PORT_HTTPS})
+HTTPS = $(shell [ "${PROTOCOL}" = "http" ] && echo 0 || echo 1)
 HTTPS_CERT = $(shell [ -f "https/cert.pem" ] && echo || echo dummy/)cert.pem
 HTTPS_KEY = $(shell [ -f "https/key.pem" ] && echo || echo dummy/)key.pem
 
 URL = ${PROTOCOL}://${HOSTNAME}:${PORT}/
-PROJECT = $(shell [ \${TARGET} == "prod" ] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-${TARGET})
+PROJECT = $(shell [ "${TARGET}" = "prod" ] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-\${TARGET})
 CONTAINER_BASENAME ?= ${NAMESPACE}_chevereto-${VERSION}
 TAG_BASENAME ?= ${NAMESPACE}_chevereto:${VERSION}
 
