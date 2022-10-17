@@ -31,7 +31,8 @@ FEEDBACK_SHORT = $(shell echo 👉 \${TARGET} V\${VERSION} [PHP \${PHP}] \(\${DO
 
 LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: 🔑" license; stty echo; echo $$license)
 
-DOCKER_COMPOSE = $(shell echo @CONTAINER_BASENAME=\${CONTAINER_BASENAME} \
+ACME_CHALLENGE = $(shell [ ! -d ".well-known" ] && mkdir -p .well-known)
+DOCKER_COMPOSE = $(shell ${ACME_CHALLENGE} echo @CONTAINER_BASENAME=\${CONTAINER_BASENAME} \
 	PORT_HTTP=\${PORT_HTTP} \
 	PORT_HTTPS=\${PORT_HTTPS} \
 	HTTPS_CERT=\${HTTPS_CERT} \
@@ -133,11 +134,12 @@ certbot:
 		-it \
 		--rm \
 		-v ${PWD}/letsencrypt/certs:/etc/letsencrypt \
-		-v ${PWD}/letsencrypt/data:/data/letsencrypt \
+		-v ${PWD}/.well-known:/data/letsencrypt/.well-known \
 		certbot/certbot certonly \
 		--webroot \
 		--webroot-path=/data/letsencrypt \
 		-d ${HOSTNAME} \
+		--dry-run \
 	&& cp ${PWD}/letsencrypt/certs/live/${HOSTNAME}/fullchain.pem ${PWD}/https/cert.pem \
 	&& cp ${PWD}/letsencrypt/certs/live/${HOSTNAME}/privkey.pem ${PWD}/https/key.pem
 

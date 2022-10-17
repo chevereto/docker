@@ -41,7 +41,7 @@ services:
       - storage:/var/www/html/images/
       - assets:/var/www/html/_assets/
       - type: bind
-        source: ${PWD}/letsencrypt/data/.well-known
+        source: ${PWD}/.well-known
         target: /var/www/html/.well-known
       - type: bind
         source: ${PWD}/https/${HTTPS_CERT}
