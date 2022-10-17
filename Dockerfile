@@ -108,15 +108,19 @@ RUN set -eux; \
 
 WORKDIR /var/www/html
 
+COPY scripts /var/scripts
+
+RUN chmod +x \
+    /var/scripts/demo-importing.sh \
+    /var/scripts/logo.sh \
+    /var/scripts/observe.sh \
+    /var/scripts/sync.sh
+
 RUN mkdir -p _assets images \
     importing/no-parse \
     importing/parse-albums \
     importing/parse-users
 
 COPY --chown=www-data chevereto/ .
-
-RUN composer install \
-    --working-dir=app \
-    --no-progress
 
 RUN chown www-data: . -R && ls -la

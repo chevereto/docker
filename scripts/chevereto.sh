@@ -2,7 +2,7 @@
 set -e
 DOWNLOAD_DIR=${PWD}"/.temp"
 WORKING_DIR=${PWD}"/chevereto"
-PACKAGE=${VERSION}"-lite"
+PACKAGE=${VERSION}
 API_DOWNLOAD="https://chevereto.com/api/download/"
 echo "* Downloading Chevereto"
 rm -rf $DOWNLOAD_DIR $WORKING_DIR
