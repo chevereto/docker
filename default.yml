@@ -41,10 +41,10 @@ services:
       - storage:/var/www/html/images/
       - assets:/var/www/html/_assets/
       - type: bind
-        source: ${PWD}/https/cert.pem
+        source: ${PWD}/https/${HTTPS_CERT}
         target: /etc/ssl/certs/cert.pem
       - type: bind
-        source: ${PWD}/https/key.pem
+        source: ${PWD}/https/${HTTPS_KEY}
         target: /etc/ssl/private/key.pem
     ports:
       - ${PORT_HTTP}:80
