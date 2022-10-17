@@ -9,20 +9,6 @@ services:
     volumes:
       - database:/var/lib/mysql
     restart: always
-    healthcheck:
-      test:
-        [
-          "CMD",
-          "mysqladmin",
-          "ping",
-          "-u",
-          "root",
-          "-p$${MYSQL_ROOT_PASSWORD?REQUIRED}",
-        ]
-      interval: 15s
-      timeout: 30s
-      retries: 5
-      start_period: 15s
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: chevereto
@@ -32,9 +18,6 @@ services:
   php:
     container_name: ${CONTAINER_BASENAME}_php
     image: ${TAG_BASENAME}_php
-    depends_on:
-      database:
-        condition: service_healthy
     networks:
       - chevereto
     volumes:
