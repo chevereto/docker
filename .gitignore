@@ -1,4 +1,5 @@
 .DS_Store
+/.temp
 /.well-known
 /chevereto
 /letsencrypt

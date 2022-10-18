@@ -6,7 +6,7 @@ make <command> <options>
 
 Available options:
 
-* NAMESPACE=local
+* NAMESPACE=chevereto
 * SERVICE=php
 * VERSION=4.0
 

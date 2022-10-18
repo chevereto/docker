@@ -19,7 +19,7 @@ HTTPS_KEY = https/$(shell [ -f "https/key.pem" ] && echo || echo dummy/)key.pem
 URL = ${PROTOCOL}://${HOSTNAME}:${PORT}/
 PROJECT = $(shell [ "${TARGET}" = "prod" ] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-\${TARGET})
 CONTAINER_BASENAME = ${PROJECT}-${VERSION}
-TAG_BASENAME ?= ${NAMESPACE}_chevereto:${VERSION}
+IMAGE_TAG = ${PROJECT}:${VERSION}
 
 COMPOSE ?= docker-compose
 PROJECT_COMPOSE = ${COMPOSE}.yml
@@ -39,7 +39,7 @@ DOCKER_COMPOSE = $(shell ${ACME_CHALLENGE} echo @CONTAINER_BASENAME=\${CONTAINER
 	HTTPS_CERT=\${HTTPS_CERT} \
 	HTTPS_KEY=\${HTTPS_KEY} \
 	HTTPS=\${HTTPS} \
-	TAG_BASENAME=\${TAG_BASENAME} \
+	IMAGE_TAG=\${IMAGE_TAG} \
 	VERSION=\${VERSION} \
 	HOSTNAME=\${HOSTNAME} \
 	HOSTNAME_PATH=\${HOSTNAME_PATH} \
@@ -73,19 +73,19 @@ image: feedback--short
 	@LICENSE=${LICENSE} \
 	VERSION=${VERSION} \
 	./scripts/chevereto.sh
-	@echo "* Building PHP image"
+	@echo "* Building image ${IMAGE_TAG}"
 	@docker build . \
 		--network host \
 		-f Dockerfile \
-		-t ${TAG_BASENAME}_php
+		-t ${IMAGE_TAG}_php
 
 image-custom: feedback--short
 	@mkdir -p chevereto
-	@echo "* Building PHP image"
+	echo "* Building custom image ${IMAGE_TAG}"
 	@docker build . \
 		--network host \
 		-f Dockerfile \
-		-t ${TAG_BASENAME}_php
+		-t ${IMAGE_TAG}_php
 
 volume-cp:
 	@docker run --rm -it -v ${VOLUME_FROM}:/from -v ${VOLUME_TO}:/to alpine ash -c "cd /from ; cp -av . /to"
