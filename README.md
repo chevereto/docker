@@ -1,4 +1,4 @@
-# V4 Docker production
+# Docker
 
 > 🔔 [Subscribe](https://chv.to/newsletter) to don't miss any update regarding Chevereto.
 
