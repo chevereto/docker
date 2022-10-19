@@ -19,10 +19,10 @@ Dockerfile driven template project for building and running container images for
 ## Quick start
 
 * [Get Docker](https://docs.docker.com/get-docker/) in your system
-* Clone this repository [chevereto/v4-docker-production](https://github.com/chevereto/v4-docker-production) (see [SETUP](docs/SETUP.md))
+* Clone this repository [chevereto/docker](https://github.com/chevereto/docker) (see [SETUP](docs/SETUP.md))
 
 ```sh
-git clone https://github.com/chevereto/v4-docker-production.git
+git clone https://github.com/chevereto/docker.git
 ```
 
 * From the repository folder run:
