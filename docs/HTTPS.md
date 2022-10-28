@@ -1,25 +1,28 @@
 # HTTPS
 
-Place the certificate and private key at `https/`.
+The certificate and private key will be taken from:
 
-| Type        | File       |
-| ----------- | ---------- |
-| Certificate | `cert.pem` |
-| Private key | `key.pem`  |
+| Type        | File             |
+| ----------- | ---------------- |
+| Certificate | `https/cert.pem` |
+| Private key | `https/key.pem`  |
 
 ## Create certificate
 
-To create a certificate using certbot:
+To create HTTPS certificate:
+
+* Spawn HTTP website (needed for Certbot validation)
+* Run Certbot:
 
 ```sh
 make certbot HOSTNAME=<hostname>
 ```
 
-The above command uses `certbot/certbot` for providing the files required, it will place the generated files at `https/`.
+The above command uses `certbot/certbot` for providing the files required, it will place generated files at `https/`. Once done, re-spawn website with `PROTOCOL=https`.
 
-## Use HTTPS
+## Toggle HTTPS use
 
-Alter the commands to use `PROTOCOL=https`:
+By default the project uses `PROTOCOL=http`. Alter to `PROTOCOL=https` to use HTTPS:
 
 ```sh
 make up-d PROTOCOL=https HOSTNAME=<hostname>
