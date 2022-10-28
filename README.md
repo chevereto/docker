@@ -12,13 +12,19 @@ Dockerfile driven template project for building and running container images for
 
 ## Requirements
 
-* Chevereto V4 [license key](https://chevereto.com/pricing)
-* [Docker](https://docs.docker.com/)
-* [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
+* Chevereto V4 license key
+  * [Purchase](https://chevereto.com/pricing) new license
+  * [Access](https://chevereto.com/panel/license) existing purchase
+* Server with
+  * `make`, `unzip`
+  * [Docker](https://docs.docker.com/)
+  * [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
 
 ## Quick start
 
-* [Get Docker](https://docs.docker.com/get-docker/) in your system
+* Get Docker in your system
+  * [Docker for Desktop](https://docs.docker.com/get-docker/)
+  * [Docker for Server](https://docs.docker.com/engine/install/) (Servers)
 * Clone this repository [chevereto/docker](https://github.com/chevereto/docker) (see [SETUP](docs/SETUP.md))
 
 ```sh
@@ -32,7 +38,7 @@ make image
 ```
 
 ```sh
-make up-d
+make up-d HOSTNAME=<hostname>
 ```
 
 ## Documentation

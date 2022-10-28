@@ -153,7 +153,6 @@ certbot:
 		--webroot \
 		--webroot-path=/data/letsencrypt \
 		-d ${HOSTNAME} \
-		--dry-run \
 	&& cp ${PWD}/letsencrypt/certs/live/${HOSTNAME}/fullchain.pem ${PWD}/https/cert.pem \
 	&& cp ${PWD}/letsencrypt/certs/live/${HOSTNAME}/privkey.pem ${PWD}/https/key.pem
 
