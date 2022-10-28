@@ -48,9 +48,6 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Prepare Dockerfile
-        run: cp ./chevereto/Dockerfile .
-
       - name: Build
         uses: docker/bake-action@v1
         with:
