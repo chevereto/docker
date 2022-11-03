@@ -6,9 +6,14 @@
 
 [![Community](https://img.shields.io/badge/chv.to-community-blue?style=flat-square)](https://chv.to/community)
 
-Dockerfile driven template project for building and running container images for Chevereto V4 projects. This is for production usage, for development purposes check [chevereto/v4-docker](https://github.com/chevereto/v4-docker).
+Dockerfile driven template project for building and running container images for Chevereto V4 projects.
 
 > **Warning**: Do not publish image to a public registry as the Chevereto License restricts re-distribution rights.
+
+## Features
+
+* One-click commands using make
+* Built-in nginx-proxy manager for supporting multiple hostname
 
 ## Requirements
 
@@ -16,7 +21,7 @@ Dockerfile driven template project for building and running container images for
   * [Purchase](https://chevereto.com/pricing) new license
   * [Access](https://chevereto.com/panel/license) existing purchase
 * Server with
-  * `make`, `unzip`
+  * `make`, `unzip`, `curl`
   * [Docker](https://docs.docker.com/)
   * [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
 
@@ -31,10 +36,16 @@ Dockerfile driven template project for building and running container images for
 git clone https://github.com/chevereto/docker.git
 ```
 
-* From the repository folder run:
+* Create Chevereto image (requires license)
 
 ```sh
 make image
+```
+
+* Create [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy) utilities
+
+```sh
+make proxy
 ```
 
 ```sh

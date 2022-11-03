@@ -19,7 +19,7 @@ HTTPS_KEY = https/$(shell [ -f "https/key.pem" ] && echo || echo dummy/)key.pem
 URL = ${PROTOCOL}://${HOSTNAME}:${PORT}/
 PROJECT = $(shell [ "${TARGET}" = "prod" ] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-\${TARGET})
 CONTAINER_BASENAME = ${PROJECT}-${VERSION}
-IMAGE_TAG = ${PROJECT}:${VERSION}
+IMAGE_TAG = chevereto:${VERSION}
 
 COMPOSE ?= docker-compose
 PROJECT_COMPOSE = ${COMPOSE}.yml
@@ -77,7 +77,7 @@ image: feedback--short
 	@docker build . \
 		--network host \
 		-f Dockerfile \
-		-t ${IMAGE_TAG}_php
+		-t ${IMAGE_TAG}
 
 image-custom: feedback--short
 	@mkdir -p chevereto
@@ -85,7 +85,7 @@ image-custom: feedback--short
 	@docker build . \
 		--network host \
 		-f Dockerfile \
-		-t ${IMAGE_TAG}_php
+		-t ${IMAGE_TAG}
 
 volume-cp:
 	@docker run --rm -it -v ${VOLUME_FROM}:/from -v ${VOLUME_TO}:/to alpine ash -c "cd /from ; cp -av . /to"
@@ -138,6 +138,36 @@ down: feedback feedback--compose
 
 down--volumes: feedback feedback--compose
 	${DOCKER_COMPOSE} down --volumes
+
+# nginx-proxy
+
+proxy:
+	@docker network create nginx-proxy || true
+	@docker run \
+		--detach \
+		--name nginx-proxy \
+		--net nginx-proxy \
+		--publish 80:80 \
+		--publish 443:443 \
+		--volume certs:/etc/nginx/certs \
+		--volume vhost:/etc/nginx/vhost.d \
+		--volume html:/usr/share/nginx/html \
+		--volume /var/run/docker.sock:/tmp/docker.sock:ro \
+		nginxproxy/nginx-proxy
+	@docker run \
+		--detach \
+		--name nginx-proxy-acme \
+		--volumes-from nginx-proxy \
+		--volume /var/run/docker.sock:/var/run/docker.sock:ro \
+		--volume acme:/etc/acme.sh \
+		--env "DEFAULT_EMAIL=mail@yourdomain.tld" \
+		nginxproxy/acme-companion
+
+proxy--view:
+	@docker exec nginx-proxy cat /etc/nginx/conf.d/default.conf
+
+proxy--remove:
+	@docker container rm -f nginx-proxy nginx-proxy-acme || true
 
 # https
 
