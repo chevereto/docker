@@ -52,7 +52,7 @@ services:
       CHEVERETO_ASSET_STORAGE_TYPE: local
       CHEVERETO_ASSET_STORAGE_URL: ${URL}images/_assets/
       CHEVERETO_ASSET_STORAGE_BUCKET: /var/www/html/images/_assets/
-      CHEVERETO_ENCRYPTION_KEY: yUwfiRh6anwqC/sIx3COCIZeMT9rxdbXkMDdfgyrM2M=
+      CHEVERETO_ENCRYPTION_KEY: ${ENCRYPTION_KEY}
 
 volumes:
   database:

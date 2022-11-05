@@ -8,29 +8,26 @@ HOSTNAME_PATH ?= /
 PROTOCOL ?= http
 NAMESPACE ?= chevereto
 SERVICE ?= php
-
+ENCRYPTION_KEY ?=
+EMAIL_HTTPS ?= mail@yourdomain.tld
 HTTP_PORT ?= 80
 HTTPS_PORT ?= 443
 PORT = $(shell [ "${PROTOCOL}" = "http" ] && echo \${HTTP_PORT} || echo \${HTTPS_PORT})
 HTTPS = $(shell [ "${PROTOCOL}" = "http" ] && echo 0 || echo 1)
 HTTPS_CERT = https/$(shell [ -f "https/cert.pem" ] && echo || echo dummy/)cert.pem
 HTTPS_KEY = https/$(shell [ -f "https/key.pem" ] && echo || echo dummy/)key.pem
-
-URL = ${PROTOCOL}://${HOSTNAME}:${PORT}/
+URL = ${PROTOCOL}://${HOSTNAME}${HOSTNAME_PATH}
+URL_PORT = ${PROTOCOL}://${HOSTNAME}:${PORT}${HOSTNAME_PATH}
 PROJECT = $(shell [ "${TARGET}" = "prod" ] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-\${TARGET})
 CONTAINER_BASENAME = ${PROJECT}-${VERSION}
 IMAGE_TAG = chevereto:${VERSION}
-
 COMPOSE ?= docker-compose
 PROJECT_COMPOSE = ${COMPOSE}.yml
 COMPOSE_SAMPLE = $(shell [ "${TARGET}" = "prod" ] && echo default || echo dev).yml
 COMPOSE_FILE = $(shell [ -f \${PROJECT_COMPOSE} ] && echo \${PROJECT_COMPOSE} || echo \${COMPOSE_SAMPLE})
-
 FEEDBACK = $(shell echo 👉 \${TARGET} V\${VERSION} \${NAMESPACE} [PHP \${PHP}] \(\${DOCKER_USER}\))
 FEEDBACK_SHORT = $(shell echo 👉 \${TARGET} V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
-
 LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: 🔑" license; stty echo; echo $$license)
-
 ACME_CHALLENGE = $(shell [ ! -d ".well-known" ] && mkdir -p .well-known)
 DOCKER_COMPOSE = $(shell ${ACME_CHALLENGE} echo @CONTAINER_BASENAME=\${CONTAINER_BASENAME} \
 	SOURCE=\${SOURCE} \
@@ -159,7 +156,7 @@ proxy:
 		--volumes-from nginx-proxy \
 		--volume /var/run/docker.sock:/var/run/docker.sock:ro \
 		--volume acme:/etc/acme.sh \
-		--env "DEFAULT_EMAIL=mail@yourdomain.tld" \
+		--env "DEFAULT_EMAIL=${EMAIL_HTTPS}" \
 		nginxproxy/acme-companion
 
 proxy--view:
