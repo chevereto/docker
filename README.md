@@ -48,6 +48,10 @@ make image
 make proxy
 ```
 
+* (Optional) Create `docker-compose.yml` by copying `default.yml`
+
+* Run the container
+
 ```sh
 make up-d HOSTNAME=<hostname>
 ```
