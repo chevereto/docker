@@ -23,7 +23,6 @@ services:
       - nginx-proxy
     volumes:
       - storage:/var/www/html/images/
-      - assets:/var/www/html/_assets/
       - type: bind
         source: ${PWD}/.well-known
         target: /var/www/html/.well-known
@@ -48,13 +47,12 @@ services:
       CHEVERETO_HOSTNAME_PATH: ${HOSTNAME_PATH}
       CHEVERETO_HTTPS: ${HTTPS}
       CHEVERETO_ASSET_STORAGE_TYPE: local
-      CHEVERETO_ASSET_STORAGE_URL: ${URL}_assets/
-      CHEVERETO_ASSET_STORAGE_BUCKET: /var/www/html/_assets/
+      CHEVERETO_ASSET_STORAGE_URL: ${URL}images/_assets/
+      CHEVERETO_ASSET_STORAGE_BUCKET: /var/www/html/images/_assets/
       CHEVERETO_ENCRYPTION_KEY: yUwfiRh6anwqC/sIx3COCIZeMT9rxdbXkMDdfgyrM2M=
 
 volumes:
   database:
-  assets:
   storage:
 
 networks:

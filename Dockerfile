@@ -116,7 +116,7 @@ RUN chmod +x \
     /var/scripts/observe.sh \
     /var/scripts/sync.sh
 
-RUN mkdir -p _assets images \
+RUN mkdir -p images/_assets \
     importing/no-parse \
     importing/parse-albums \
     importing/parse-users

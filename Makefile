@@ -63,7 +63,6 @@ feedback--url:
 
 feedback--volumes:
 	@echo "${PROJECT}_database"
-	@echo "${PROJECT}_assets"
 	@echo "${PROJECT}_storage"
 
 # Docker

@@ -12,7 +12,6 @@ function sync() {
         --filter=':- .gitignore' \
         --exclude '.git' \
         --exclude '.well-known' \
-        --exclude '_assets/' \
         --delete \
         $SOURCE $TARGET
 }
