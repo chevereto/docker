@@ -45,7 +45,7 @@ make image
 * Create [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy) utilities
 
 ```sh
-make proxy
+make proxy EMAIL_HTTPS=mail@yourdomain.tld
 ```
 
 * (Optional) Create `docker-compose.yml` by copying `default.yml`
