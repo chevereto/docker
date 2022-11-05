@@ -1,3 +1,10 @@
+#!make
+NAMESPACE ?= chevereto
+NAMESPACE_FILE = ./namespace/${NAMESPACE}
+ifneq ("$(wildcard ${NAMESPACE_FILE})","")
+	include ${NAMESPACE_FILE}
+	export $(shell sed 's/=.*//' ${NAMESPACE_FILE})
+endif
 SOURCE ?= ~/git/chevereto/v4
 TARGET ?= prod# prod|dev
 VERSION ?= 4.0
@@ -6,7 +13,6 @@ DOCKER_USER ?= www-data
 HOSTNAME ?= localhost
 HOSTNAME_PATH ?= /
 PROTOCOL ?= http
-NAMESPACE ?= chevereto
 SERVICE ?= php
 ENCRYPTION_KEY ?=
 EMAIL_HTTPS ?= mail@yourdomain.tld
@@ -48,6 +54,7 @@ DOCKER_COMPOSE = $(shell ${ACME_CHALLENGE} echo @CONTAINER_BASENAME=\${CONTAINER
 feedback:
 	@./scripts/logo.sh
 	@echo "${FEEDBACK}"
+	@echo "${NAMESPACE_FILE}"
 
 feedback--short:
 	@echo "${FEEDBACK_SHORT}"
@@ -111,6 +118,20 @@ run: feedback
 	@docker exec -it \
 		${CONTAINER_BASENAME}_${SERVICE} \
 		bash /var/scripts/${SCRIPT}.sh
+
+encryption-key:
+	@openssl rand -base64 32
+
+.PHONY: namespace
+namespace:
+	@chmod +x ./scripts/namespace.sh
+	@NAMESPACE=${NAMESPACE} \
+	NAMESPACE_EXISTS=${NAMESPACE_EXISTS} \
+	NAMESPACE_FILE=${NAMESPACE_FILE} \
+	HOSTNAME=${HOSTNAME} \
+	ENCRYPTION_KEY=${ENCRYPTION_KEY} \
+	./scripts/namespace.sh
+
 
 # Docker compose
 
