@@ -1,7 +1,9 @@
 #!make
 NAMESPACE ?= chevereto
 NAMESPACE_FILE = ./namespace/${NAMESPACE}
+NAMESPACE_FILE_EXISTS = false
 ifneq ("$(wildcard ${NAMESPACE_FILE})","")
+	NAMESPACE_FILE_EXISTS = true
 	include ${NAMESPACE_FILE}
 	export $(shell sed 's/=.*//' ${NAMESPACE_FILE})
 endif
@@ -31,7 +33,7 @@ COMPOSE ?= docker-compose
 PROJECT_COMPOSE = ${COMPOSE}.yml
 COMPOSE_SAMPLE = $(shell [ "${TARGET}" = "prod" ] && echo default || echo dev).yml
 COMPOSE_FILE = $(shell [ -f \${PROJECT_COMPOSE} ] && echo \${PROJECT_COMPOSE} || echo \${COMPOSE_SAMPLE})
-FEEDBACK = $(shell echo 👉 \${TARGET} V\${VERSION} \${NAMESPACE} [PHP \${PHP}] \(\${DOCKER_USER}\))
+FEEDBACK = $(shell echo 👉 \${TARGET} \${NAMESPACE}@\${NAMESPACE_FILE} V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
 FEEDBACK_SHORT = $(shell echo 👉 \${TARGET} V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
 LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: 🔑" license; stty echo; echo $$license)
 ACME_CHALLENGE = $(shell [ ! -d ".well-known" ] && mkdir -p .well-known)
@@ -54,7 +56,6 @@ DOCKER_COMPOSE = $(shell ${ACME_CHALLENGE} echo @CONTAINER_BASENAME=\${CONTAINER
 feedback:
 	@./scripts/logo.sh
 	@echo "${FEEDBACK}"
-	@echo "${NAMESPACE_FILE}"
 
 feedback--short:
 	@echo "${FEEDBACK_SHORT}"
@@ -68,6 +69,11 @@ feedback--url:
 feedback--volumes:
 	@echo "${PROJECT}_database"
 	@echo "${PROJECT}_storage"
+
+feedback--namespace:
+	@echo "$(shell [ "${NAMESPACE_FILE_EXISTS}" = "true" ] && echo "✅" || echo "❌") ${NAMESPACE_FILE}"
+	@echo "🔑 ${ENCRYPTION_KEY}"
+	@echo "🌎 ${HOSTNAME}"
 
 # Docker
 
