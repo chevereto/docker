@@ -78,7 +78,6 @@ feedback--namespace:
 # Docker
 
 image: feedback--short
-	@chmod +x ./scripts/chevereto.sh
 	@LICENSE=${LICENSE} \
 	VERSION=${VERSION} \
 	./scripts/chevereto.sh
@@ -95,6 +94,12 @@ image-custom: feedback--short
 		--network host \
 		-f Dockerfile \
 		-t ${IMAGE_TAG}
+
+cron:
+	./scripts/cron.sh
+
+cron-run:
+	./scripts/cron-run.sh
 
 volume-cp:
 	@docker run --rm -it -v ${VOLUME_FROM}:/from -v ${VOLUME_TO}:/to alpine ash -c "cd /from ; cp -av . /to"
