@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-cat >/etc/cron.d/chevereto <<EOM
+CRON_FILE=/etc/cron.d/chevereto
+cat >${CRON_FILE} <<EOM
 * * * * * ${PROJECT_DIR}/cron-run.sh
 EOM
+echo ${CRON_FILE}

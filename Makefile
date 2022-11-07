@@ -96,10 +96,10 @@ image-custom: feedback--short
 		-t ${IMAGE_TAG}
 
 cron:
-	./scripts/cron.sh
+	@./scripts/cron.sh
 
 cron-run:
-	./scripts/cron-run.sh
+	@./scripts/cron-run.sh
 
 volume-cp:
 	@docker run --rm -it -v ${VOLUME_FROM}:/from -v ${VOLUME_TO}:/to alpine ash -c "cd /from ; cp -av . /to"
