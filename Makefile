@@ -181,6 +181,7 @@ proxy:
 		--volume vhost:/etc/nginx/vhost.d \
 		--volume html:/usr/share/nginx/html \
 		--volume /var/run/docker.sock:/tmp/docker.sock:ro \
+		--volume ${PWD}/chevereto.conf:/etc/nginx/conf.d/chevereto.conf:ro \
 		nginxproxy/nginx-proxy
 	@docker run \
 		--detach \
@@ -196,6 +197,7 @@ proxy--view:
 
 proxy--remove:
 	@docker container rm -f nginx-proxy nginx-proxy-acme || true
+	@docker network rm nginx-proxy || true
 
 # https
 
