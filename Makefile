@@ -95,12 +95,6 @@ image-custom: feedback--short
 		-f Dockerfile \
 		-t ${IMAGE_TAG}
 
-cron:
-	@./scripts/cron.sh
-
-cron-run:
-	@./scripts/cron-run.sh
-
 volume-cp:
 	@docker run --rm -it -v ${VOLUME_FROM}:/from -v ${VOLUME_TO}:/to alpine ash -c "cd /from ; cp -av . /to"
 
@@ -130,6 +124,15 @@ run: feedback
 		${CONTAINER_BASENAME}_${SERVICE} \
 		bash /var/scripts/${SCRIPT}.sh
 
+cron:
+	@./scripts/cron.sh
+
+cron-run:
+	@./scripts/cron-run.sh
+
+cloudflare:
+	@./scripts/cloudflare.sh
+
 encryption-key:
 	@openssl rand -base64 32
 
@@ -142,7 +145,6 @@ namespace:
 	HOSTNAME=${HOSTNAME} \
 	ENCRYPTION_KEY=${ENCRYPTION_KEY} \
 	./scripts/namespace.sh
-
 
 # Docker compose
 
@@ -181,7 +183,8 @@ proxy:
 		--volume vhost:/etc/nginx/vhost.d \
 		--volume html:/usr/share/nginx/html \
 		--volume /var/run/docker.sock:/tmp/docker.sock:ro \
-		--volume ${PWD}/chevereto.conf:/etc/nginx/conf.d/chevereto.conf:ro \
+		--volume ${PWD}/nginx/chevereto.conf:/etc/nginx/conf.d/chevereto.conf:ro \
+		--volume ${PWD}/nginx/cloudflare.conf:/etc/nginx/conf.d/cloudflare.conf:ro \
 		nginxproxy/nginx-proxy
 	@docker run \
 		--detach \
