@@ -28,7 +28,7 @@ URL = ${PROTOCOL}://${HOSTNAME}${HOSTNAME_PATH}
 URL_PORT = ${PROTOCOL}://${HOSTNAME}:${PORT}${HOSTNAME_PATH}
 PROJECT = $(shell [ "${TARGET}" = "prod" ] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-\${TARGET})
 CONTAINER_BASENAME = ${PROJECT}-${VERSION}
-IMAGE_TAG = chevereto:${VERSION}
+IMAGE_TAG = chevereto$(shell [ ! "${TARGET}" = "prod" ] && echo -\${TARGET}):${VERSION}
 COMPOSE ?= docker-compose
 PROJECT_COMPOSE = ${COMPOSE}.yml
 COMPOSE_SAMPLE = $(shell [ "${TARGET}" = "prod" ] && echo default || echo dev).yml
@@ -66,6 +66,9 @@ feedback--compose:
 feedback--url:
 	@echo "🌎 ${URL}"
 
+feedback--image:
+	@echo "📦 ${IMAGE_TAG}"
+
 feedback--volumes:
 	@echo "${PROJECT}_database"
 	@echo "${PROJECT}_storage"
@@ -77,7 +80,7 @@ feedback--namespace:
 
 # Docker
 
-image: feedback--short
+image: feedback--image feedback--short
 	@LICENSE=${LICENSE} \
 	VERSION=${VERSION} \
 	./scripts/chevereto.sh
@@ -87,7 +90,7 @@ image: feedback--short
 		-f Dockerfile \
 		-t ${IMAGE_TAG}
 
-image-custom: feedback--short
+image-custom: feedback--image feedback--short
 	@mkdir -p chevereto
 	echo "* Building custom image ${IMAGE_TAG}"
 	@docker build . \
