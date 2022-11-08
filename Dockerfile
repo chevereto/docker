@@ -97,6 +97,7 @@ RUN set -eux; \
     echo "default_charset = UTF-8"; \
     echo "display_errors = Off"; \
     echo "error_log = \${CHEVERETO_ERROR_LOG}"; \
+    echo "expose_php = Off"; \
     echo "log_errors = On"; \
     echo "max_execution_time = \${CHEVERETO_MAX_EXECUTION_TIME_SECONDS}"; \
     echo "memory_limit = \${CHEVERETO_MAX_MEMORY_SIZE}"; \
