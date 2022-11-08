@@ -40,7 +40,7 @@ services:
       - ${HTTPS_PORT}:443
     restart: always
     environment:
-      CHEVERETO_TAG: dev
+      CHEVERETO_ENVIRONMENT: dev
       CHEVERETO_DB_HOST: database
       CHEVERETO_DB_USER: chevereto
       CHEVERETO_DB_PASS: user_database_password
