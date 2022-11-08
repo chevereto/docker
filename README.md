@@ -48,7 +48,8 @@ make image
 make proxy EMAIL_HTTPS=mail@yourdomain.tld
 ```
 
-* (Optional) Create `docker-compose.yml` by copying `default.yml`
+* (Custom) Create `docker-compose.yml` by copying `default.yml`
+* (Recommended) Setup [namespace](docs/SETUP.md#namespace)
 
 * Run the container
 
