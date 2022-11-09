@@ -122,6 +122,11 @@ bash: feedback
 		${CONTAINER_BASENAME}_${SERVICE} \
 		bash
 
+exec: feedback
+	@docker exec -it --user ${DOCKER_USER} \
+		${CONTAINER_BASENAME}_${SERVICE} \
+		${COMMAND}
+
 run: feedback
 	@docker exec -it \
 		${CONTAINER_BASENAME}_${SERVICE} \
