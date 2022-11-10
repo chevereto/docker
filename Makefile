@@ -24,8 +24,9 @@ PORT = $(shell [ "${PROTOCOL}" = "http" ] && echo \${HTTP_PORT} || echo \${HTTPS
 HTTPS = $(shell [ "${PROTOCOL}" = "http" ] && echo 0 || echo 1)
 HTTPS_CERT = https/$(shell [ -f "https/cert.pem" ] && echo || echo dummy/)cert.pem
 HTTPS_KEY = https/$(shell [ -f "https/key.pem" ] && echo || echo dummy/)key.pem
-URL = ${PROTOCOL}://${HOSTNAME}${HOSTNAME_PATH}
+URL_BARE = ${PROTOCOL}://${HOSTNAME}${HOSTNAME_PATH}
 URL_PORT = ${PROTOCOL}://${HOSTNAME}:${PORT}${HOSTNAME_PATH}
+URL = $(shell [ "${PORT}" = 80 -o "${PORT}" = 443 ] && echo ${URL_BARE} || echo ${URL_PORT})
 PROJECT = $(shell [ "${TARGET}" = "prod" ] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-\${TARGET})
 CONTAINER_BASENAME = ${PROJECT}-${VERSION}
 IMAGE_TAG = chevereto$(shell [ ! "${TARGET}" = "prod" ] && echo -\${TARGET}):${VERSION}
@@ -64,7 +65,8 @@ feedback--compose:
 	@echo "🐋 ${COMPOSE_FILE}"
 
 feedback--url:
-	@echo "🌎 ${URL}"
+	@echo "🔌 ${PORT}"
+	@echo "${URL} @URL"
 
 feedback--image:
 	@echo "📦 ${IMAGE_TAG}"
