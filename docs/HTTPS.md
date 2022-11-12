@@ -2,12 +2,12 @@
 
 🎉 HTTPS is automatic provided by `nginxproxy/acme-companion`.
 
-## Toggle HTTPS use
+## Disable HTTPS
 
-Pass option `PROTOCOL=https` to use HTTPS:
+Pass option `PROTOCOL=http` to use HTTP:
 
 ```sh
-make up-d PROTOCOL=https HOSTNAME=<hostname>
+make up-d PROTOCOL=http <OPTIONS>
 ```
 
 ## Manual HTTPS
@@ -30,4 +30,4 @@ To create HTTPS certificate:
 make certbot HOSTNAME=<hostname>
 ```
 
-The above command uses `certbot/certbot` for providing the files required, it will place generated files at `https/`. Once done, re-spawn website with `PROTOCOL=https`.
+The above command uses `certbot/certbot` for providing the files required, it will place generated files at `https/`.

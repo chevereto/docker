@@ -8,11 +8,15 @@ To update your containers to the latest version of this repository make sure to 
 make down
 ```
 
-💡 If you forgot to run this you can rollback the repo and execute the above command.
+💡 If you forget to run this you can rollback the repo and execute the above command.
 
 ### Manual updating
 
 Pull this updated repo changes in your fork.
+
+```sh
+git fetch --tags -f && git pull
+```
 
 ### GitHub one-click updating
 
@@ -26,9 +30,9 @@ Pull this updated repo changes in your fork.
 
 ![Update merge](src/update-merge.png)
 
-## Chevereto update
+## Chevereto application update
 
-To update Chevereto make sure to update this repository, then follow these steps:
+With the repository updated follow these steps:
 
 1. Re-build the images (see [BUILDING](BUILDING.md))
 2. Down containers (see [DOCKER-COMPOSE](DOCKER-COMPOSE.md#down))

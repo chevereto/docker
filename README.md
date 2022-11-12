@@ -25,36 +25,50 @@ Dockerfile driven template project for building and running container images for
   * [Docker](https://docs.docker.com/)
   * [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
 
-## Quick start
+## Quick setup
 
 * Get Docker in your system
   * [Docker for Desktop](https://docs.docker.com/get-docker/)
   * [Docker for Server](https://docs.docker.com/engine/install/) (Servers)
-* Clone this repository [chevereto/docker](https://github.com/chevereto/docker) (see [SETUP](docs/SETUP.md))
+* Clone this repository [chevereto/docker](https://github.com/chevereto/docker) (see [SETUP](docs/SETUP.md#clone))
 
 ```sh
 git clone https://github.com/chevereto/docker.git
 ```
 
-* Create Chevereto image (requires license)
+* Create Cron (see [SETUP](docs/SETUP.md#cron))
 
 ```sh
-make image
+make cron
 ```
 
-* Create [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy) utilities
+* Create [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy)
 
 ```sh
 make proxy EMAIL_HTTPS=mail@yourdomain.tld
 ```
 
-* (Custom) Create `docker-compose.yml` by copying `default.yml`
-* (Recommended) Setup [namespace](docs/SETUP.md#namespace)
+## Build Chevereto
+
+* Create Chevereto image (see [SETUP](docs/SETUP.md#custom-application) for custom application)
+* Requires license
+
+```sh
+make image
+```
+
+## Spawn instances
+
+* Setup a [NAMESPACE](docs/NAMESPACE.md)
+
+```sh
+make namespace NAMESPACE=yourproject HOSTNAME=yourdomain.tld
+```
 
 * Run the container
 
 ```sh
-make up-d HOSTNAME=<hostname>
+make up-d NAMESPACE=yourproject
 ```
 
 ## Documentation

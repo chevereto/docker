@@ -27,6 +27,14 @@ Example:
 make up HOSTNAME=que.chevere.org PORT=80
 ```
 
+💡 **TIP:** To ease working with multiple projects use [NAMESPACE](NAMESPACE.md) to pass multiple options stored in a file.
+
+Example:
+
+```sh
+make up NAMESPACE=quechevere
+```
+
 ## Up
 
 ```sh

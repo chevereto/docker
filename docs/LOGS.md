@@ -10,7 +10,7 @@ Available options:
 * SERVICE=php
 * VERSION=4.0
 
-(*) For `SERVICE` you can use `php`, `database` and `http`.
+(*) For `SERVICE` you can use `php` and `database`.
 
 ## Access log
 

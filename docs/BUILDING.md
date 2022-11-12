@@ -2,7 +2,7 @@
 
 ## Make image
 
-This command creates the Docker images for Apache HTTP and PHP-FPM. It provides Chevereto by downloading the software at `./chevereto`.
+This command creates the Docker image for Chevereto by downloading the software at `./chevereto` and then build from [Dockerfile](../Dockerfile).
 
 ```sh
 make image <options>
@@ -10,26 +10,25 @@ make image <options>
 
 Available options:
 
-* NAMESPACE=chevereto
 * VERSION=4.0
 * TARGET=prod
 
 Example:
 
 ```sh
-make image VERSION=4.0 NAMESPACE=chevereto
+make image VERSION=4.0
 ```
 
-Production images will have a tag named following this convention:
+Images will have a tag named following this convention:
 
-| Target | Naming                          | Example                     |
-| ------ | ------------------------------- | --------------------------- |
-| prod   | NAMESPACE_chevereto:VERSION     | chevereto_chevereto:4.0     |
-| dev    | NAMESPACE_chevereto-dev:VERSION | chevereto_chevereto-dev:4.0 |
+| Target | Naming                | Example           |
+| ------ | --------------------- | ----------------- |
+| prod   | chevereto:VERSION     | chevereto:4.0     |
+| dev    | chevereto-dev:VERSION | chevereto-dev:4.0 |
 
-## Make custom/dev images
+## Make custom images
 
-Same as production, but it sources the software from `./chevereto` rather than downloading it.
+This command creates the Docker image for Chevereto copying the contents from `./chevereto` and then build from [Dockerfile](../Dockerfile).
 
 ```sh
 make image-custom <options>
@@ -37,12 +36,11 @@ make image-custom <options>
 
 Available options:
 
-* NAMESPACE=chevereto
 * VERSION=4.0
 * TARGET=prod
 
 Example:
 
 ```sh
-make image-custom VERSION=4.0 NAMESPACE=chevereto
+make image-custom VERSION=4.0
 ```
