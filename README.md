@@ -13,14 +13,14 @@ Dockerfile driven template project for building and running container images for
 ## Features
 
 * One-click commands using make
-* Built-in nginx-proxy manager for supporting multiple hostname
+* Built-in nginx-proxy for multiple hostname
 
 ## Requirements
 
 * Chevereto V4 license key
   * [Purchase](https://chevereto.com/pricing) new license
   * [Access](https://chevereto.com/panel/license) existing purchase
-* Server with
+* Server with ([Linode](https://chv.to/linode), [Vultr](https://chv.to/vultr), etc.)
   * `make`, `unzip`, `curl`
   * [Docker](https://docs.docker.com/)
   * [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
