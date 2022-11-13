@@ -8,6 +8,8 @@ services:
       - chevereto
     volumes:
       - database:/var/lib/mysql
+    ports:
+      - ${DB_PORT}:3306
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password

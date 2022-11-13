@@ -18,6 +18,7 @@ PROTOCOL ?= https
 SERVICE ?= php
 ENCRYPTION_KEY ?=
 EMAIL_HTTPS ?= mail@yourdomain.tld
+DB_PORT ?= 8836
 HTTP_PORT ?= 80
 HTTPS_PORT ?= 443
 PORT = $(shell [ "${PROTOCOL}" = "http" ] && echo \${HTTP_PORT} || echo \${HTTPS_PORT})
@@ -40,6 +41,7 @@ LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: 🔑" license;
 ACME_CHALLENGE = $(shell [ ! -d ".well-known" ] && mkdir -p .well-known)
 DOCKER_COMPOSE = $(shell ${ACME_CHALLENGE} echo @CONTAINER_BASENAME=\${CONTAINER_BASENAME} \
 	SOURCE=\${SOURCE} \
+	DB_PORT=\${DB_PORT} \
 	HTTP_PORT=\${HTTP_PORT} \
 	HTTPS_PORT=\${HTTPS_PORT} \
 	HTTPS_CERT=\${HTTPS_CERT} \
