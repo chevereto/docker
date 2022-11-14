@@ -29,7 +29,7 @@ Dockerfile driven template project for building and running container images for
 
 * Get Docker in your system
   * [Docker for Desktop](https://docs.docker.com/get-docker/)
-  * [Docker for Server](https://docs.docker.com/engine/install/) (Servers)
+  * [Docker Engine](https://docs.docker.com/engine/install/) (Servers)
 * Clone this repository [chevereto/docker](https://github.com/chevereto/docker) (see [SETUP](docs/SETUP.md#clone))
 
 ```sh

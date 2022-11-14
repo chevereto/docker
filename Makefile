@@ -194,9 +194,9 @@ proxy:
 		--volume certs:/etc/nginx/certs \
 		--volume vhost:/etc/nginx/vhost.d \
 		--volume html:/usr/share/nginx/html \
-		--volume /var/run/docker.sock:/tmp/docker.sock:ro \
-		--volume ${PWD}/nginx/chevereto.conf:/etc/nginx/conf.d/chevereto.conf:ro \
-		--volume ${PWD}/nginx/cloudflare.conf:/etc/nginx/conf.d/cloudflare.conf:ro \
+		--mount type=bind,source=/var/run/docker.sock,target=/tmp/docker.sock,readonly \
+		--mount type=bind,source=${PWD}/nginx/chevereto.conf,target=/etc/nginx/conf.d/chevereto.conf,readonly \
+		--mount type=bind,source=${PWD}/nginx/cloudflare.conf,target=/etc/nginx/conf.d/cloudflare.conf,readonly \
 		nginxproxy/nginx-proxy
 	@docker run \
 		--detach \
