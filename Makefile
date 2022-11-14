@@ -185,7 +185,7 @@ down--volumes: feedback feedback--compose
 
 proxy:
 	@docker network create nginx-proxy || true
-	@docker run \
+	@sudo docker run \
 		--detach \
 		--name nginx-proxy \
 		--net nginx-proxy \
@@ -198,12 +198,12 @@ proxy:
 		--mount type=bind,source=${PWD}/nginx/chevereto.conf,target=/etc/nginx/conf.d/chevereto.conf,readonly \
 		--mount type=bind,source=${PWD}/nginx/cloudflare.conf,target=/etc/nginx/conf.d/cloudflare.conf,readonly \
 		nginxproxy/nginx-proxy
-	@docker run \
+	@sudo docker run \
 		--detach \
 		--name nginx-proxy-acme \
 		--volumes-from nginx-proxy \
-		--volume /var/run/docker.sock:/var/run/docker.sock:ro \
 		--volume acme:/etc/acme.sh \
+		--mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock,readonly \
 		--env "DEFAULT_EMAIL=${EMAIL_HTTPS}" \
 		nginxproxy/acme-companion
 
