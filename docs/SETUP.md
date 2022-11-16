@@ -10,7 +10,11 @@ git clone https://github.com/chevereto/docker.git
 
 ## Cron
 
+Setup Cron for all instances:
 
+```sh
+make cron
+```
 
 ## Custom application
 
