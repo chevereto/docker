@@ -137,7 +137,7 @@ run: feedback
 		bash /var/scripts/${SCRIPT}.sh
 
 cron:
-	@./scripts/system/cron.sh
+	@sudo ./scripts/system/cron.sh
 
 cron--run:
 	@./scripts/system/cron--run.sh
