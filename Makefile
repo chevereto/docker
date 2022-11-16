@@ -57,7 +57,7 @@ DOCKER_COMPOSE = $(shell ${ACME_CHALLENGE} echo @CONTAINER_BASENAME=\${CONTAINER
 # Informational
 
 feedback:
-	@./scripts/logo.sh
+	@./scripts/chevereto/logo.sh
 	@echo "${FEEDBACK}"
 
 feedback--short:
@@ -87,7 +87,7 @@ feedback--namespace:
 image: feedback--image feedback--short
 	@LICENSE=${LICENSE} \
 	VERSION=${VERSION} \
-	./scripts/chevereto.sh
+	./scripts/system/chevereto.sh
 	@echo "* Building image ${IMAGE_TAG}"
 	@docker build . \
 		--network host \
@@ -137,26 +137,26 @@ run: feedback
 		bash /var/scripts/${SCRIPT}.sh
 
 cron:
-	@./scripts/cron.sh
+	@./scripts/system/cron.sh
 
-cron-run:
-	@./scripts/cron-run.sh
+cron--run:
+	@./scripts/system/cron--run.sh
 
 cloudflare:
-	@./scripts/cloudflare.sh
+	@./scripts/system/cloudflare.sh
 
 encryption-key:
 	@openssl rand -base64 32
 
 .PHONY: namespace
 namespace:
-	@chmod +x ./scripts/namespace.sh
+	@chmod +x ./scripts/system/namespace.sh
 	@NAMESPACE=${NAMESPACE} \
 	NAMESPACE_EXISTS=${NAMESPACE_EXISTS} \
 	NAMESPACE_FILE=${NAMESPACE_FILE} \
 	HOSTNAME=${HOSTNAME} \
 	ENCRYPTION_KEY=${ENCRYPTION_KEY} \
-	./scripts/namespace.sh
+	./scripts/system/namespace.sh
 
 # Docker compose
 

@@ -110,7 +110,7 @@ RUN set -eux; \
 
 WORKDIR /var/www/html
 
-COPY scripts /var/scripts
+COPY scripts/chevereto /var/scripts
 
 RUN chmod +x \
     /var/scripts/demo-importing.sh \
