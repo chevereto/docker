@@ -27,14 +27,19 @@ Dockerfile driven template project for building and running container images for
 
 ## Quick setup
 
-* Get Docker in your system
-  * [Docker for Desktop](https://docs.docker.com/get-docker/)
-  * [Docker Engine](https://docs.docker.com/engine/install/) (Servers)
 * Clone this repository [chevereto/docker](https://github.com/chevereto/docker) (see [SETUP](docs/SETUP.md#clone))
 
 ```sh
 git clone https://github.com/chevereto/docker.git
 ```
+
+* Get Docker in your Ubuntu server
+
+```sh
+make install-docker
+```
+
+You may also check [Docker for Desktop](https://docs.docker.com/get-docker/) and [Docker Engine](https://docs.docker.com/engine/install/) (servers) instructions
 
 * Create Cron (see [SETUP](docs/SETUP.md#cron))
 
@@ -50,8 +55,7 @@ make proxy EMAIL_HTTPS=mail@yourdomain.tld
 
 ## Build Chevereto
 
-* Create Chevereto image (see [SETUP](docs/SETUP.md#custom-application) for custom application)
-* Requires license
+* Create Chevereto image (see [SETUP](docs/SETUP.md#custom-application))
 
 ```sh
 make image
@@ -74,6 +78,7 @@ make up-d NAMESPACE=yourproject
 ## Documentation
 
 * [SETUP](./docs/SETUP.md)
+* [NAMESPACE](docs/NAMESPACE.md)
 * [BUILDING](./docs/BUILDING.md)
 * [DOCKER-COMPOSE](./docs/DOCKER-COMPOSE.md)
 * [VOLUMES](./docs/VOLUMES.md)
