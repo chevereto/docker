@@ -1,4 +1,5 @@
 #!make
+SYSTEM ?= ubuntu/22.04
 NAMESPACE ?= chevereto
 NAMESPACE_FILE = ./namespace/${NAMESPACE}
 NAMESPACE_FILE_EXISTS = false
@@ -38,8 +39,7 @@ COMPOSE_FILE = $(shell [ -f \${PROJECT_COMPOSE} ] && echo \${PROJECT_COMPOSE} ||
 FEEDBACK = $(shell echo 👉 \${TARGET} \${NAMESPACE}@\${NAMESPACE_FILE} V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
 FEEDBACK_SHORT = $(shell echo 👉 \${TARGET} V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
 LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key: 🔑" license; stty echo; echo $$license)
-ACME_CHALLENGE = $(shell [ ! -d ".well-known" ] && mkdir -p .well-known)
-DOCKER_COMPOSE = $(shell ${ACME_CHALLENGE} echo @CONTAINER_BASENAME=\${CONTAINER_BASENAME} \
+DOCKER_COMPOSE = $(shell echo @CONTAINER_BASENAME=\${CONTAINER_BASENAME} \
 	SOURCE=\${SOURCE} \
 	DB_PORT=\${DB_PORT} \
 	HTTP_PORT=\${HTTP_PORT} \
@@ -148,6 +148,10 @@ cloudflare:
 encryption-key:
 	@openssl rand -base64 32
 
+install-docker:
+	@SYSTEM=${SYSTEM} \
+	./scripts/os/${SYSTEM}/install-docker.sh
+
 .PHONY: namespace
 namespace:
 	@chmod +x ./scripts/system/namespace.sh
@@ -213,26 +217,4 @@ proxy--view:
 proxy--remove:
 	@docker container rm -f nginx-proxy nginx-proxy-acme || true
 	@docker network rm nginx-proxy || true
-
-# https
-
-certbot:
-	@echo "🔐 Generating certificate"
-	@HOSTNAME=${HOSTNAME} \
-	docker container run \
-		-it \
-		--rm \
-		-v ${PWD}/letsencrypt/certs:/etc/letsencrypt \
-		-v ${PWD}/.well-known:/data/letsencrypt/.well-known \
-		certbot/certbot certonly \
-		--webroot \
-		--webroot-path=/data/letsencrypt \
-		-d ${HOSTNAME} \
-	&& cp ${PWD}/letsencrypt/certs/live/${HOSTNAME}/fullchain.pem ${PWD}/https/cert.pem \
-	&& cp ${PWD}/letsencrypt/certs/live/${HOSTNAME}/privkey.pem ${PWD}/https/key.pem
-
-cert-self:
-	@echo "🔐 Generating self-signed certificate"
-	@cd ${PWD}/https \
-	&& openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
 

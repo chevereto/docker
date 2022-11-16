@@ -23,15 +23,6 @@ services:
       - nginx-proxy
     volumes:
       - storage:/var/www/html/images/
-      - type: bind
-        source: ${PWD}/.well-known
-        target: /var/www/html/.well-known
-      - type: bind
-        source: ${PWD}/${HTTPS_CERT}
-        target: /etc/ssl/certs/cert.pem
-      - type: bind
-        source: ${PWD}/${HTTPS_KEY}
-        target: /etc/ssl/private/key.pem
     restart: always
     expose:
       - 80

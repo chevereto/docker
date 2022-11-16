@@ -29,16 +29,6 @@ RUN echo "sendmail_path=/usr/sbin/sendmail -t -i" >> /usr/local/etc/php/conf.d/s
     -e '/#!\/bin\/sh/a\service sendmail restart' \
     /usr/local/bin/docker-php-entrypoint
 
-RUN sed -i \
-    -e '/SSLCertificateFile.*snakeoil\.pem/c\SSLCertificateFile /etc/ssl/certs/cert.pem' \
-    -e '/SSLCertificateKeyFile.*snakeoil\.key/c\SSLCertificateKeyFile /etc/ssl/private/key.pem' \
-    /etc/apache2/sites-available/default-ssl.conf \
-    && sed -i \
-    -e 's~^ServerSignature On$~ServerSignature Off~g' \
-    -e 's~^ServerTokens OS$~ServerTokens Prod~g' \
-    /etc/apache2/conf-available/security.conf \
-    && a2ensite default-ssl
-
 RUN rm -rf /var/lib/apt/lists/*
 
 ARG VERSION=4.0
