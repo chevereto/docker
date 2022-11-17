@@ -9,7 +9,7 @@ ifneq ("$(wildcard ${NAMESPACE_FILE})","")
 	export $(shell sed 's/=.*//' ${NAMESPACE_FILE})
 endif
 SOURCE ?= ~/git/chevereto/v4
-TARGET ?= prod# prod|dev
+TARGET ?= default# default|dev
 VERSION ?= 4.0
 PHP ?= 8.1
 DOCKER_USER ?= www-data
@@ -29,12 +29,12 @@ HTTPS_KEY = https/$(shell [ -f "https/key.pem" ] && echo || echo dummy/)key.pem
 URL_BARE = ${PROTOCOL}://${HOSTNAME}${HOSTNAME_PATH}
 URL_PORT = ${PROTOCOL}://${HOSTNAME}:${PORT}${HOSTNAME_PATH}
 URL = $(shell [ "${PORT}" = 80 -o "${PORT}" = 443 ] && echo ${URL_BARE} || echo ${URL_PORT})
-PROJECT = $(shell [ "${TARGET}" = "prod" ] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-\${TARGET})
+PROJECT = $(shell [ "${TARGET}" = "default" ] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-\${TARGET})
 CONTAINER_BASENAME = ${PROJECT}-${VERSION}
-IMAGE_TAG = chevereto$(shell [ ! "${TARGET}" = "prod" ] && echo -\${TARGET}):${VERSION}
+IMAGE_TAG = chevereto$(shell [ ! "${TARGET}" = "default" ] && echo -\${TARGET}):${VERSION}
 COMPOSE ?= docker-compose
 PROJECT_COMPOSE = ${COMPOSE}.yml
-COMPOSE_SAMPLE = $(shell [ "${TARGET}" = "prod" ] && echo default || echo dev).yml
+COMPOSE_SAMPLE = $(shell [ "${TARGET}" = "default" ] && echo default || echo dev).yml
 COMPOSE_FILE = $(shell [ -f \${PROJECT_COMPOSE} ] && echo \${PROJECT_COMPOSE} || echo \${COMPOSE_SAMPLE})
 FEEDBACK = $(shell echo 👉 \${TARGET} @\${NAMESPACE_FILE} V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
 FEEDBACK_SHORT = $(shell echo 👉 \${TARGET} V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))

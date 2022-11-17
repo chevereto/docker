@@ -1,6 +1,6 @@
 # Docker Compose
 
-This provides shortcuts for running `docker compose` commands. By default it uses `projects/prod.yml` as compose file, customizable with the `COMPOSE` option.
+This provides shortcuts for running `docker compose` commands. By default it uses [default.yml](../default.yml) as compose file, customizable with the `COMPOSE` option.
 
 * Requires [Compose V2](https://docs.docker.com/compose/cli-command/)
 
@@ -17,7 +17,7 @@ Available options:
 * HOSTNAME=localhost
 * HOSTNAME_PATH=/
 * PROTOCOL=http
-* COMPOSE=prod
+* COMPOSE=default
 
 (*) For `COMPOSE` it points to a Docker compose file at `./projects`.
 
