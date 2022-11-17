@@ -195,6 +195,7 @@ proxy:
 		--net nginx-proxy \
 		--publish 80:80 \
 		--publish 443:443 \
+		--restart=always \
 		--volume certs:/etc/nginx/certs \
 		--volume vhost:/etc/nginx/vhost.d \
 		--volume html:/usr/share/nginx/html \
@@ -205,6 +206,7 @@ proxy:
 	@docker run \
 		--detach \
 		--name nginx-proxy-acme \
+		--restart=always \
 		--volumes-from nginx-proxy \
 		--volume acme:/etc/acme.sh \
 		--mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock,readonly \
