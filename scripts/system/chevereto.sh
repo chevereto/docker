@@ -6,8 +6,7 @@ PACKAGE=${VERSION}
 API_DOWNLOAD="https://chevereto.com/api/download/"
 echo "* Downloading Chevereto"
 rm -rf $DOWNLOAD_DIR $WORKING_DIR
-mkdir -p $DOWNLOAD_DIR
-mkdir -p $WORKING_DIR
+mkdir -p $DOWNLOAD_DIR $WORKING_DIR
 echo "* Downloading chevereto/v4 $PACKAGE package"
 echo "> ${API_DOWNLOAD}${PACKAGE}"
 cd $DOWNLOAD_DIR
@@ -18,4 +17,4 @@ echo "* Extracting package"
 unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
 rm -rf *.zip $DOWNLOAD_DIR
 cd -
-ls -la $WORKING_DIR
+ls -lh $WORKING_DIR

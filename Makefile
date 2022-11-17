@@ -137,7 +137,7 @@ run: feedback
 		bash /var/scripts/${SCRIPT}.sh
 
 cron:
-	@sudo ./scripts/system/cron.sh
+	@./scripts/system/cron.sh
 
 cron--run:
 	@./scripts/system/cron--run.sh
@@ -189,7 +189,7 @@ down--volumes: feedback feedback--compose
 
 proxy:
 	@docker network create nginx-proxy || true
-	@sudo docker run \
+	@docker run \
 		--detach \
 		--name nginx-proxy \
 		--net nginx-proxy \
@@ -202,7 +202,7 @@ proxy:
 		--mount type=bind,source=${PWD}/nginx/chevereto.conf,target=/etc/nginx/conf.d/chevereto.conf,readonly \
 		--mount type=bind,source=${PWD}/nginx/cloudflare.conf,target=/etc/nginx/conf.d/cloudflare.conf,readonly \
 		nginxproxy/nginx-proxy
-	@sudo docker run \
+	@docker run \
 		--detach \
 		--name nginx-proxy-acme \
 		--volumes-from nginx-proxy \
