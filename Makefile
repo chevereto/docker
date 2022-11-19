@@ -85,7 +85,7 @@ feedback--namespace:
 
 # Docker
 
-image--rev: feedback--image feedback--short
+image: feedback--image feedback--short
 	@LICENSE=${LICENSE} \
 	VERSION=${VERSION} \
 	IMAGE_BASE=${IMAGE_BASE} \
