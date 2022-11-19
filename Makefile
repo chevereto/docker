@@ -31,7 +31,8 @@ URL_PORT = ${PROTOCOL}://${HOSTNAME}:${PORT}${HOSTNAME_PATH}
 URL = $(shell [ "${PORT}" = 80 -o "${PORT}" = 443 ] && echo ${URL_BARE} || echo ${URL_PORT})
 PROJECT = $(shell [ "${TARGET}" = "default" ] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-\${TARGET})
 CONTAINER_BASENAME = ${PROJECT}-${VERSION}
-IMAGE_TAG = chevereto$(shell [ ! "${TARGET}" = "default" ] && echo -\${TARGET}):${VERSION}
+IMAGE_BASE = chevereto$(shell [ ! "${TARGET}" = "default" ] && echo -\${TARGET})
+IMAGE_TAG = ${IMAGE_BASE}:${VERSION}
 COMPOSE ?= docker-compose
 PROJECT_COMPOSE = ${COMPOSE}.yml
 COMPOSE_SAMPLE = $(shell [ "${TARGET}" = "default" ] && echo default || echo dev).yml
@@ -84,15 +85,14 @@ feedback--namespace:
 
 # Docker
 
-image: feedback--image feedback--short
+image--rev: feedback--image feedback--short
 	@LICENSE=${LICENSE} \
 	VERSION=${VERSION} \
-	./scripts/system/chevereto.sh
-	@echo "* Building image ${IMAGE_TAG}"
-	@docker build . \
+	IMAGE_BASE=${IMAGE_BASE} \
+	./scripts/system/chevereto.sh \
+	docker build . \
 		--network host \
-		-f Dockerfile \
-		-t ${IMAGE_TAG}
+		-f Dockerfile
 
 image-custom: feedback--image feedback--short
 	@mkdir -p chevereto

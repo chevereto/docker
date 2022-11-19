@@ -13,8 +13,34 @@ cd $DOWNLOAD_DIR
 curl -f -SOJL \
     -H "License: $LICENSE" \
     "${API_DOWNLOAD}${PACKAGE}"
+ZIP_NAME=$(basename chevereto*.zip)
 echo "* Extracting package"
-unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
+unzip -oq chevereto*.zip -d $WORKING_DIR
 rm -rf *.zip $DOWNLOAD_DIR
 cd -
 ls -lh $WORKING_DIR
+VERSION_PATCH=$(echo "${ZIP_NAME}" | grep -oE "chevereto_([0-9\.]+)" | awk '{ print $1 }')
+VERSION_PATCH=${VERSION_PATCH#"chevereto_"}
+VERSION="$VERSION_PATCH"
+VERSION="${VERSION#[vV]}"
+VERSION_MAJOR="${VERSION%%\.*}"
+VERSION_MINOR="${VERSION#*.}"
+VERSION_MINOR="${VERSION_MINOR%.*}"
+VERSION_PATCH="${VERSION##*.}"
+TAG_MAJOR=${VERSION_MAJOR}
+TAG_MINOR=${VERSION_MAJOR}.${VERSION_MINOR}
+TAG_PATCH=${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}
+TAGS=(latest ${TAG_MAJOR} ${TAG_MINOR} ${TAG_PATCH})
+if [ ! "${VERSION}" = "latest" ]; then
+    unset TAGS[0]
+fi
+PRINT_TAGS=$(
+    IFS=","
+    echo "${TAGS[*]}"
+)
+echo "* Building image tags ${IMAGE_BASE}:{${PRINT_TAGS}}"
+DOCKER_TAG_OPTIONS=
+for tag in ${TAGS[@]}; do
+    DOCKER_TAG_OPTIONS="${DOCKER_TAG_OPTIONS} -t ${IMAGE_BASE}:$tag"
+done
+exec "$@" ${DOCKER_TAG_OPTIONS}
