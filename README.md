@@ -8,7 +8,7 @@
 
 Dockerfile driven template project for building and running container images for Chevereto V4 projects.
 
-> **Warning**: Do not publish image to a public registry as the Chevereto License restricts re-distribution rights.
+> **Warning**: Do not publish Docker images to a public registry when using a paid Chevereto edition as its [commercial license](https://chevereto.com/license) restricts re-distribution rights.
 
 ## Features
 
@@ -17,7 +17,7 @@ Dockerfile driven template project for building and running container images for
 
 ## Requirements
 
-* Chevereto V4 license key
+* Chevereto V4 license key (for paid edition)
   * [Purchase](https://chevereto.com/pricing) new license
   * [Access](https://chevereto.com/panel/license) existing purchase
 * Server with ([Linode](https://chv.to/linode), [Vultr](https://chv.to/vultr), etc.)

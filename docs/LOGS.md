@@ -4,7 +4,7 @@
 make <command> <options>
 ```
 
-Available options:
+## Options
 
 * NAMESPACE=chevereto
 * SERVICE=php

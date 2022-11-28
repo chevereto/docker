@@ -29,14 +29,14 @@ HTTPS_KEY = https/$(shell [ -f "https/key.pem" ] && echo || echo dummy/)key.pem
 URL_BARE = ${PROTOCOL}://${HOSTNAME}${HOSTNAME_PATH}
 URL_PORT = ${PROTOCOL}://${HOSTNAME}:${PORT}${HOSTNAME_PATH}
 URL = $(shell [ "${PORT}" = 80 -o "${PORT}" = 443 ] && echo ${URL_BARE} || echo ${URL_PORT})
-PROJECT = $(shell [ "${TARGET}" = "default" ] && echo \${NAMESPACE}_chevereto || echo \${NAMESPACE}_chevereto-\${TARGET})
+PROJECT = ${NAMESPACE}_chevereto$(shell [ ! "${TARGET}" = "default" ] && echo -\${TARGET})
 CONTAINER_BASENAME = ${PROJECT}-${VERSION}
 IMAGE_BASE = chevereto$(shell [ ! "${TARGET}" = "default" ] && echo -\${TARGET})
 IMAGE_TAG = ${IMAGE_BASE}:${VERSION}
 COMPOSE ?= docker-compose
-PROJECT_COMPOSE = ${COMPOSE}.yml
+COMPOSE_TARGET = ${COMPOSE}.yml
 COMPOSE_SAMPLE = $(shell [ "${TARGET}" = "default" ] && echo default || echo dev).yml
-COMPOSE_FILE = $(shell [ -f \${PROJECT_COMPOSE} ] && echo \${PROJECT_COMPOSE} || echo \${COMPOSE_SAMPLE})
+COMPOSE_FILE = $(shell [ -f \${COMPOSE_TARGET} ] && echo \${COMPOSE_TARGET} || echo \${COMPOSE_SAMPLE})
 FEEDBACK = $(shell echo 👉 \${TARGET} @\${NAMESPACE_FILE} V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
 FEEDBACK_SHORT = $(shell echo 👉 \${TARGET} V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
 LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key (if any): 🔑" license; stty echo; echo $$license)

@@ -8,10 +8,10 @@ This command creates the Docker image for Chevereto by downloading the software 
 make image <options>
 ```
 
-Available options:
+### Options
 
 * VERSION=4.0
-* TARGET=default
+* TARGET=default (controls image base name)
 
 Example:
 
@@ -19,12 +19,15 @@ Example:
 make image VERSION=4.0
 ```
 
+### Notes on TARGET
+
 Images will have a tag named following this convention:
 
 | Target  | Naming                | Example           |
 | ------- | --------------------- | ----------------- |
 | default | chevereto:VERSION     | chevereto:4.0     |
 | dev     | chevereto-dev:VERSION | chevereto-dev:4.0 |
+| any     | chevereto-any:VERSION | chevereto-any:4.0 |
 
 ## Make custom images
 

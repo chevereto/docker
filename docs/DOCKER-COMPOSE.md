@@ -1,14 +1,14 @@
 # Docker Compose
 
-This provides shortcuts for running `docker compose` commands. By default it uses [default.yml](../default.yml) as compose file, customizable with the `COMPOSE` option.
-
 * Requires [Compose V2](https://docs.docker.com/compose/cli-command/)
+
+Shortcuts for running `docker compose` commands. It uses your own `docker-compose.yml` file when present, defaults to [default.yml](../default.yml) and customizable with the `COMPOSE` option, use `COMPOSE=my-compose` to point a custom compose file at `./my-compose.yml`.
 
 ```sh
 make <command> <options>
 ```
 
-Available options:
+## Options
 
 * NAMESPACE=chevereto
 * VERSION=4.0
@@ -18,8 +18,7 @@ Available options:
 * HOSTNAME_PATH=/
 * PROTOCOL=http
 * COMPOSE=default
-
-(*) For `COMPOSE` it points to a Docker compose file at `./projects`.
+* TARGET=default
 
 Example:
 
@@ -34,6 +33,18 @@ Example:
 ```sh
 make up NAMESPACE=quechevere
 ```
+
+### Notes on TARGET
+
+`TARGET` affects the project name, container basename and [tag name](BUILDING.md#notes-on-target).
+
+| Target  | Project name            | Container basename              |
+| ------- | ----------------------- | ------------------------------- |
+| default | NAMESPACE_chevereto     | NAMESPACE_chevereto-VERSION     |
+| dev     | NAMESPACE_chevereto-dev | NAMESPACE_chevereto-dev-VERSION |
+| any     | NAMESPACE_chevereto-any | NAMESPACE_chevereto-any-VERSION |
+
+Project name will also affect volume naming, which will be prefixed with the project name.
 
 ## Up
 
