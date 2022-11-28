@@ -13,12 +13,15 @@ cd $DOWNLOAD_DIR
 curl -f -SOJL \
     -H "License: $LICENSE" \
     "${API_DOWNLOAD}${PACKAGE}"
-ZIP_NAME=$(basename chevereto*.zip)
-echo "* Extracting package"
-unzip -oq chevereto*.zip -d $WORKING_DIR
+ZIP_NAME=$(basename *.zip)
+echo "* Extracting ${ZIP_NAME} package"
+unzip -oq ${ZIP_NAME} -d $WORKING_DIR
 rm -rf *.zip $DOWNLOAD_DIR
 cd -
 ls -lh $WORKING_DIR
+if [[ ! $ZIP_NAME == chevereto_* ]]; then
+    ZIP_NAME=chevereto_${ZIP_NAME/.zip/_abcd.zip}
+fi
 VERSION_PATCH=$(echo "${ZIP_NAME}" | grep -oE "chevereto_([0-9\.]+)" | awk '{ print $1 }')
 VERSION_PATCH=${VERSION_PATCH#"chevereto_"}
 VERSION="$VERSION_PATCH"
