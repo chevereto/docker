@@ -20,8 +20,6 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          flavor: |
-            suffix=-php${{ matrix.php }}
           images: |
             ${{ env.GHCR_SLUG }}
           tags: |
