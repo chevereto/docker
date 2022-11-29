@@ -11,6 +11,7 @@ make image <options>
 ### Options
 
 * VERSION=4.0
+* EDITION=pro
 * TARGET=default (controls image base name)
 
 Example:

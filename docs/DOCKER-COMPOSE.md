@@ -12,6 +12,7 @@ make <command> <options>
 
 * NAMESPACE=chevereto
 * VERSION=4.0
+* EDITION=pro
 * HTTP_PORT=80
 * HTTPS_PORT=443
 * HOSTNAME=localhost

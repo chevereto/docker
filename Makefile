@@ -11,6 +11,7 @@ endif
 SOURCE ?= ~/git/chevereto/v4
 TARGET ?= default# default|dev
 VERSION ?= 4.0
+EDITION ?= pro
 PHP ?= 8.1
 DOCKER_USER ?= www-data
 HOSTNAME ?= localhost
@@ -31,8 +32,9 @@ URL_PORT = ${PROTOCOL}://${HOSTNAME}:${PORT}${HOSTNAME_PATH}
 URL = $(shell [ "${PORT}" = 80 -o "${PORT}" = 443 ] && echo ${URL_BARE} || echo ${URL_PORT})
 PROJECT = ${NAMESPACE}_chevereto$(shell [ ! "${TARGET}" = "default" ] && echo -\${TARGET})
 CONTAINER_BASENAME = ${PROJECT}-${VERSION}
+IMAGE_EDITION_FREE_BASE = ghcr.io/chevereto/chevereto
 IMAGE_BASE = chevereto$(shell [ ! "${TARGET}" = "default" ] && echo -\${TARGET})
-IMAGE_TAG = ${IMAGE_BASE}:${VERSION}
+IMAGE ?= $(shell [ "${EDITION}" = "free" ] && echo \${IMAGE_EDITION_FREE_BASE} || echo \${IMAGE_BASE}):${VERSION}
 COMPOSE ?= docker-compose
 COMPOSE_TARGET = ${COMPOSE}.yml
 COMPOSE_SAMPLE = $(shell [ "${TARGET}" = "default" ] && echo default || echo dev).yml
@@ -48,7 +50,7 @@ DOCKER_COMPOSE = $(shell echo @CONTAINER_BASENAME=\${CONTAINER_BASENAME} \
 	HTTPS_CERT=\${HTTPS_CERT} \
 	HTTPS_KEY=\${HTTPS_KEY} \
 	HTTPS=\${HTTPS} \
-	IMAGE_TAG=\${IMAGE_TAG} \
+	IMAGE=\${IMAGE} \
 	VERSION=\${VERSION} \
 	HOSTNAME=\${HOSTNAME} \
 	HOSTNAME_PATH=\${HOSTNAME_PATH} \
@@ -72,7 +74,7 @@ feedback--url:
 	@echo "${URL} @URL"
 
 feedback--image:
-	@echo "📦 ${IMAGE_TAG}"
+	@echo "📦 ${IMAGE}"
 
 feedback--volumes:
 	@echo "${PROJECT}_database"
@@ -91,16 +93,18 @@ image: feedback--image feedback--short
 	IMAGE_BASE=${IMAGE_BASE} \
 	./scripts/system/chevereto.sh \
 	docker build . \
+		--cache-from ${IMAGE_EDITION_FREE_BASE}:${VERSION} \
 		--network host \
 		-f Dockerfile
 
 image-custom: feedback--image feedback--short
 	@mkdir -p chevereto
-	echo "* Building custom image ${IMAGE_TAG}"
+	echo "* Building custom image ${IMAGE}"
 	@docker build . \
+		--cache-from ${IMAGE_EDITION_FREE_BASE} :${VERSION}\
 		--network host \
 		-f Dockerfile \
-		-t ${IMAGE_TAG}
+		-t ${IMAGE}
 
 volume-cp:
 	@docker run --rm -it -v ${VOLUME_FROM}:/from -v ${VOLUME_TO}:/to alpine ash -c "cd /from ; cp -av . /to"

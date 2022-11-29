@@ -19,7 +19,7 @@ services:
 
   php:
     container_name: ${CONTAINER_BASENAME}_php
-    image: ${IMAGE_TAG}
+    image: ${IMAGE}
     networks:
       - chevereto
     volumes:
