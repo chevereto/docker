@@ -20,10 +20,12 @@ Dockerfile driven template project for building and running container images for
 * Chevereto V4 license key (for paid edition)
   * [Purchase](https://chevereto.com/pricing) new license
   * [Access](https://chevereto.com/panel/license) existing purchase
-* Server with ([Linode](https://chv.to/linode), [Vultr](https://chv.to/vultr), etc.)
-  * `make`, `unzip`, `curl`
+* Server with
+  * Shell access
+  * `make`, `unzip`, `curl` and `git`
   * [Docker](https://docs.docker.com/)
   * [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
+* Hostname pointing to server
 
 ## Quick setup
 
@@ -53,7 +55,9 @@ make cron
 make proxy EMAIL_HTTPS=mail@yourdomain.tld
 ```
 
-## Build Chevereto
+## Build Chevereto image
+
+💡 Omit this step when using free edition as the image is available at [GHCR](https://github.com/chevereto/chevereto/pkgs/container/chevereto).
 
 * Create Chevereto image (see [SETUP](docs/SETUP.md#custom-application))
 
@@ -61,7 +65,7 @@ make proxy EMAIL_HTTPS=mail@yourdomain.tld
 make image
 ```
 
-## Spawn instances
+## Spawn Chevereto instance
 
 * Setup a [NAMESPACE](docs/NAMESPACE.md)
 
@@ -71,9 +75,13 @@ make namespace NAMESPACE=yourproject HOSTNAME=yourdomain.tld
 
 * Run the container
 
+💡 When using free edition pass `EDITION=free`.
+
 ```sh
 make up-d NAMESPACE=yourproject
 ```
+
+To create more instances repeat the steps (setup namespace, run container).
 
 ## Documentation
 
