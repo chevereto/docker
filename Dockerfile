@@ -1,4 +1,4 @@
-ARG PHP=8.1
+ARG PHP=8.2
 FROM composer:latest as composer
 FROM php:${PHP}-apache
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
