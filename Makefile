@@ -12,7 +12,6 @@ SOURCE ?= ~/git/chevereto/v4
 TARGET ?= default# default|dev
 VERSION ?= 4.0
 EDITION ?= pro
-PHP ?= 8.1
 DOCKER_USER ?= www-data
 HOSTNAME ?= localhost
 HOSTNAME_PATH ?= /
@@ -39,8 +38,8 @@ COMPOSE ?= docker-compose
 COMPOSE_TARGET = ${COMPOSE}.yml
 COMPOSE_SAMPLE = $(shell [ "${TARGET}" = "default" ] && echo default || echo dev).yml
 COMPOSE_FILE = $(shell [ -f \${COMPOSE_TARGET} ] && echo \${COMPOSE_TARGET} || echo \${COMPOSE_SAMPLE})
-FEEDBACK = $(shell echo 👉 \${TARGET} @\${NAMESPACE_FILE} V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
-FEEDBACK_SHORT = $(shell echo 👉 \${TARGET} V\${VERSION} [PHP \${PHP}] \(\${DOCKER_USER}\))
+FEEDBACK = $(shell echo 👉 \${TARGET} @\${NAMESPACE_FILE} V\${VERSION} \(\${DOCKER_USER}\))
+FEEDBACK_SHORT = $(shell echo 👉 \${TARGET} V\${VERSION} \(\${DOCKER_USER}\))
 LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key (if any): 🔑" license; stty echo; echo $$license)
 DOCKER_COMPOSE = $(shell echo @CONTAINER_BASENAME=\${CONTAINER_BASENAME} \
 	SOURCE=\${SOURCE} \
@@ -66,7 +65,7 @@ feedback:
 feedback--short:
 	@echo "${FEEDBACK_SHORT}"
 
-feedback--compose:
+feedback--compose: feedback--image
 	@echo "🐋 ${COMPOSE_FILE}"
 
 feedback--url:
@@ -74,7 +73,7 @@ feedback--url:
 	@echo "${URL} @URL"
 
 feedback--image:
-	@echo "📦 ${IMAGE}"
+	@echo "📦 ${IMAGE} (BASE ${IMAGE_BASE})"
 
 feedback--volumes:
 	@echo "${PROJECT}_database"
@@ -101,7 +100,7 @@ image-custom: feedback--image feedback--short
 	@mkdir -p chevereto
 	echo "* Building custom image ${IMAGE}"
 	@docker build . \
-		--cache-from ${IMAGE_EDITION_FREE_BASE} :${VERSION}\
+		--cache-from ${IMAGE_EDITION_FREE_BASE}:${VERSION}\
 		--network host \
 		-f Dockerfile \
 		-t ${IMAGE}
