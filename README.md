@@ -27,6 +27,24 @@ Dockerfile driven template project for building and running container images for
   * [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
 * Hostname pointing to server
 
+## Pure Docker
+
+```sh
+docker run -d \
+  --name chevereto \
+  -p 80:80 \
+  -e CHEVERETO_DB_HOST=database \
+  -e CHEVERETO_DB_USER=chevereto \
+  -e CHEVERETO_DB_PASS=user_database_password \
+  -e CHEVERETO_DB_PORT=3306 \
+  -e CHEVERETO_DB_NAME=chevereto \
+  -e CHEVERETO_ASSET_STORAGE_TYPE=local \
+  -e CHEVERETO_ASSET_STORAGE_URL=/images/_assets/ \
+  -e CHEVERETO_ASSET_STORAGE_BUCKET=/var/www/html/images/_assets/ \
+  -v /var/www/html/images/ \
+  ghcr.io/chevereto/chevereto
+```
+
 ## Quick setup
 
 * Clone this repository [chevereto/docker](https://github.com/chevereto/docker) (see [SETUP](docs/SETUP.md#clone))
