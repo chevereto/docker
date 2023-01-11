@@ -1,5 +1,6 @@
 #!make
 SYSTEM ?= ubuntu/22.04
+ENV_FILE = ./.env
 NAMESPACE ?= chevereto
 NAMESPACE_FILE = ./namespace/${NAMESPACE}
 NAMESPACE_FILE_EXISTS = false
@@ -7,6 +8,10 @@ ifneq ("$(wildcard ${NAMESPACE_FILE})","")
 	NAMESPACE_FILE_EXISTS = true
 	include ${NAMESPACE_FILE}
 	export $(shell sed 's/=.*//' ${NAMESPACE_FILE})
+endif
+ifneq ("$(wildcard ${ENV_FILE})","")
+	include ${ENV_FILE}
+	export $(shell sed 's/=.*//' ${ENV_FILE})
 endif
 SOURCE ?= ~/git/chevereto/v4
 TARGET ?= default# default|dev
@@ -150,6 +155,12 @@ cron--run:
 cloudflare:
 	@./scripts/system/cloudflare.sh
 
+cloudflare--create:
+	@./scripts/system/cloudflare--create.sh
+
+cloudflare--delete:
+	@./scripts/system/cloudflare--delete.sh
+
 encryption-key:
 	@openssl rand -base64 32
 
@@ -189,6 +200,11 @@ down: feedback feedback--compose
 
 down--volumes: feedback feedback--compose
 	${DOCKER_COMPOSE} down --volumes
+
+down--destroy: feedback feedback--compose
+	${DOCKER_COMPOSE} down --volumes
+	@NAMESPACE=${NAMESPACE} \
+	@rm namespace/${NAMESPACE}
 
 # nginx-proxy
 
