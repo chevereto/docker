@@ -3,6 +3,11 @@ set -e
 DOWNLOAD_DIR=${PWD}"/.temp"
 WORKING_DIR=${PWD}"/chevereto"
 PACKAGE=${VERSION}
+if [ -z ${LICENSE} ]; then
+    echo -n "Chevereto V4 License key (if any): 🔑"
+    read -s LICENSE
+    echo ""
+fi
 API_DOWNLOAD="https://chevereto.com/api/download/"
 echo " ..."
 echo "* Downloading Chevereto"
@@ -42,9 +47,9 @@ PRINT_TAGS=$(
     IFS=","
     echo "${TAGS[*]}"
 )
-echo "* Building image tags ${IMAGE_BASE}:{${PRINT_TAGS}}"
+echo "* Building image tags ${IMAGE_NAME}:{${PRINT_TAGS}}"
 DOCKER_TAG_OPTIONS=
 for tag in ${TAGS[@]}; do
-    DOCKER_TAG_OPTIONS="${DOCKER_TAG_OPTIONS} -t ${IMAGE_BASE}:$tag"
+    DOCKER_TAG_OPTIONS="${DOCKER_TAG_OPTIONS} -t ${IMAGE_NAME}:$tag"
 done
 exec "$@" ${DOCKER_TAG_OPTIONS}

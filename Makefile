@@ -38,8 +38,8 @@ URL = $(shell [ "${PORT}" = 80 -o "${PORT}" = 443 ] && echo ${URL_BARE} || echo 
 PROJECT = ${NAMESPACE}_chevereto$(shell [ ! "${TARGET}" = "default" ] && echo -\${TARGET})
 CONTAINER_BASENAME = ${PROJECT}-${VERSION}
 IMAGE_EDITION_FREE_BASE = ghcr.io/chevereto/chevereto
-IMAGE_BASE = chevereto$(shell [ ! "${TARGET}" = "default" ] && echo -\${TARGET})
-IMAGE ?= $(shell [ "${EDITION}" = "free" ] && echo \${IMAGE_EDITION_FREE_BASE} || echo \${IMAGE_BASE}):${VERSION}
+IMAGE_NAME = chevereto$(shell [ ! "${TARGET}" = "default" ] && echo -\${TARGET})
+IMAGE ?= $(shell [ "${EDITION}" = "free" ] && echo \${IMAGE_EDITION_FREE_BASE} || echo \${IMAGE_NAME}):${VERSION}
 COMPOSE ?= docker-compose
 COMPOSE_TARGET = ${COMPOSE}.yml
 COMPOSE_SAMPLE = $(shell [ "${TARGET}" = "default" ] && echo default || echo dev).yml
@@ -79,7 +79,7 @@ feedback--url:
 	@echo "${URL} @URL"
 
 feedback--image:
-	@echo "📦 ${IMAGE} (BASE ${IMAGE_BASE})"
+	@echo "📦 ${IMAGE} (BASE ${IMAGE_NAME})"
 
 feedback--volumes:
 	@echo "${PROJECT}_database"
@@ -95,7 +95,7 @@ feedback--namespace:
 image: feedback--image feedback--short
 	@LICENSE=${LICENSE} \
 	VERSION=${VERSION} \
-	IMAGE_BASE=${IMAGE_BASE} \
+	IMAGE_NAME=${IMAGE_NAME} \
 	./scripts/system/chevereto.sh \
 	docker build . \
 		--cache-from ${IMAGE_EDITION_FREE_BASE}:${VERSION} \

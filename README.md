@@ -12,8 +12,9 @@ Dockerfile driven template project for building and running container images for
 
 ## Features
 
-* One-click commands using make
-* Built-in nginx-proxy for multiple hostname
+* One-click commands using `make`
+* Built-in nginx-proxy for multiple instances
+* Pure Docker instructions
 
 ## Requirements
 
@@ -29,6 +30,8 @@ Dockerfile driven template project for building and running container images for
 
 ## Pure Docker
 
+Refer to [PURE-DOCKER](docs/PURE-DOCKER.md) for all pure docker commands.
+
 ```sh
 docker run -d \
   --name chevereto \
@@ -42,7 +45,7 @@ docker run -d \
   -e CHEVERETO_ASSET_STORAGE_URL=/images/_assets/ \
   -e CHEVERETO_ASSET_STORAGE_BUCKET=/var/www/html/images/_assets/ \
   -v /var/www/html/images/ \
-  ghcr.io/chevereto/chevereto
+  ghcr.io/chevereto/chevereto:latest
 ```
 
 ## Quick setup
