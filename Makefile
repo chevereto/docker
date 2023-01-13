@@ -156,7 +156,7 @@ cloudflare:
 	@./scripts/system/cloudflare.sh
 
 cloudflare--create:
-	@./scripts/system/cloudflare--create.sh
+	@./scripts/system/cloudflare--create.sh | (printf "CLOUDFLARE_IDENTIFIER=" && cat) >> ${NAMESPACE_FILE}
 
 cloudflare--delete:
 	@./scripts/system/cloudflare--delete.sh
@@ -201,7 +201,9 @@ down: feedback feedback--compose
 down--volumes: feedback feedback--compose
 	${DOCKER_COMPOSE} down --volumes
 
-down--destroy: feedback feedback--compose
+# Instances
+
+destroy: feedback feedback--compose cloudflare--delete
 	${DOCKER_COMPOSE} down --volumes
 	@NAMESPACE=${NAMESPACE} \
 	@rm namespace/${NAMESPACE}
