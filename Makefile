@@ -203,9 +203,10 @@ down--volumes: feedback feedback--compose
 
 # Instances
 
+spawn: feedback feedback--compose feedback--url namespace cloudflare-create up
+
 destroy: feedback feedback--compose cloudflare--delete
 	${DOCKER_COMPOSE} down --volumes
-	@NAMESPACE=${NAMESPACE} \
 	@rm namespace/${NAMESPACE}
 
 # nginx-proxy
