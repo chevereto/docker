@@ -6,7 +6,7 @@ if (($EUID != 0)); then
   exit
 fi
 echo "* Uninstall old versions"
-apt-get remove -qq -y docker docker-engine docker.io containerd runc 2>/dev/null
+apt-get remove -qq -y docker docker-engine docker.io containerd runc || true
 echo "* Install using the repository"
 echo "* Update apt package index and allow HTTPS"
 apt-get update -qq -y
