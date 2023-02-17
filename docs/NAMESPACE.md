@@ -1,8 +1,8 @@
 # Namespace
 
-💡 To use namespace pass the `NAMESPACE=<namespace>` option on `make` commands.
+Using namespaces is recommended for multi-host setup as rather than passing all the command options you define a file which will load all these variables for each website.
 
-Using namespaces is recommended for multi-host setup as rather than passing all the command options, you define a file which will load all these variables.
+💡 To use namespace pass the `NAMESPACE=<namespace>` option on `make` commands.
 
 ## Creating a namespace
 

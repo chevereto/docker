@@ -32,7 +32,7 @@ make up HOSTNAME=que.chevere.org PORT=80
 Example:
 
 ```sh
-make up NAMESPACE=quechevere
+make up NAMESPACE=yourproject
 ```
 
 ### Notes on TARGET
@@ -87,6 +87,28 @@ make down
 
 ```sh
 make down--volumes
+```
+
+## Combined commands
+
+### Spawn
+
+💡 Use it right after creating the NAMESPACE.
+
+This will run [cloudflare--create](CLOUDFLARE.md#create-cname-record) and [up-d](DOCKER-COMPOSE.md#up-daemon).
+
+```sh
+make spawn NAMESPACE=yourproject
+```
+
+### Destroy
+
+💡 Use it when needing to complety destroy an instance.
+
+This will run [cloudflare--delete](CLOUDFLARE.md#delete-cname-record), [down--volumes](DOCKER-COMPOSE.md#down-volumes) and remove the [NAMESPACE](NAMESPACE.md).
+
+```sh
+make destroy NAMESPACE=yourproject
 ```
 
 ## Troubleshoot

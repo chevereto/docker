@@ -6,7 +6,7 @@
 
 [![Community](https://img.shields.io/badge/chv.to-community-blue?style=flat-square)](https://chv.to/community)
 
-Dockerfile driven template project for building and running container images for Chevereto V4 projects.
+Dockerfile driven template project for building images and manage containers for Chevereto V4 projects.
 
 > **Warning**: Do not publish Docker images to a public registry when using a paid Chevereto edition as its [commercial license](https://chevereto.com/license) restricts re-distribution rights.
 
@@ -15,6 +15,7 @@ Dockerfile driven template project for building and running container images for
 * One-click commands using `make`
 * Built-in nginx-proxy for multiple instances
 * Pure Docker instructions
+* Integrated with CloudFlare API
 
 ## Requirements
 
@@ -27,10 +28,11 @@ Dockerfile driven template project for building and running container images for
   * [Docker](https://docs.docker.com/)
   * [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
 * Hostname pointing to server
+* See [CLOUDFLARE](./docs/CLOUDFLARE.md) when using CloudFlare
 
 ## Pure Docker
 
-Refer to [PURE-DOCKER](docs/PURE-DOCKER.md) for all pure docker commands.
+Refer to [PURE-DOCKER](docs/PURE-DOCKER.md) for a complete pure Docker command reference.
 
 ```sh
 docker run -d \
@@ -86,23 +88,27 @@ make proxy EMAIL_HTTPS=mail@yourdomain.tld
 make image
 ```
 
-## Spawn Chevereto instance
+## Create a NAMESPACE
 
-* Setup a [NAMESPACE](docs/NAMESPACE.md)
+* Setup a [NAMESPACE](docs/NAMESPACE.md) for your website project
 
 ```sh
 make namespace NAMESPACE=yourproject HOSTNAME=yourdomain.tld
 ```
 
-* Run the container
+## Spawn Chevereto instance
 
-💡 When using free edition pass `EDITION=free`.
+* Run the Chevereto container using [spawn](docs/DOCKER-COMPOSE.md#spawn):
 
 ```sh
-make up-d NAMESPACE=yourproject
+make spawn NAMESPACE=yourproject
 ```
 
-To create more instances repeat the steps (setup namespace, run container).
+* 💡 When using free edition pass `EDITION=free`:
+
+```sh
+make spawn NAMESPACE=yourproject EDITION=free
+```
 
 ## Documentation
 
@@ -112,6 +118,7 @@ To create more instances repeat the steps (setup namespace, run container).
 * [DOCKER-COMPOSE](./docs/DOCKER-COMPOSE.md)
 * [VOLUMES](./docs/VOLUMES.md)
 * [HTTPS](./docs/HTTPS.md)
+* [CLOUDFLARE](./docs/CLOUDFLARE.md)
 * [UPDATING](./docs/UPDATING.md)
 * [PERSISTENT](./docs/PERSISTENT.md)
 * [FEEDBACK](./docs/FEEDBACK.md)
