@@ -19,7 +19,7 @@ By running the above command you will generate the following tags:
 * `chevereto:latest`
 * `chevereto:4`
 * `chevereto:4.0`
-* `chevereto:4.0.6`
+* `chevereto:4.0.7`
 
 ## Run (paid edition)
 
