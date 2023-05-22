@@ -32,10 +32,13 @@ git fetch --tags -f && git pull
 
 ## Chevereto application update
 
-With the repository updated follow these steps:
+To update to a new Chevereto version first re-build the container image (see [BUILDING](BUILDING.md)) to reflect the target version.
 
-1. Re-build the images (see [BUILDING](BUILDING.md))
-2. Down containers (see [DOCKER-COMPOSE](DOCKER-COMPOSE.md#down))
-3. [Re-up containers](DOCKER-COMPOSE.md#up-daemonized)
+Once done, down and re-up containers by passing the `NAMESPACE` of your project:
+
+```sh
+make down NAMESPACE=yourproject
+make up-d NAMESPACE=yourproject
+```
 
 Refer to [persistance troubleshoot](PERSISTENT.md#no-persistence) If the system prompts to re-install.
