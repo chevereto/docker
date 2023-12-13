@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  database:
+    container_name: ${CONTAINER_BASENAME}_database
+    image: mariadb:jammy
+    networks:
+      - chevereto
+    volumes:
+      - database:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: chevereto
+      MYSQL_USER: chevereto
+      MYSQL_PASSWORD: user_database_password
+
+  php:
+    container_name: ${CONTAINER_BASENAME}_php
+    image: ${IMAGE}
+    networks:
+      - chevereto
+    volumes:
+      - storage:/var/www/html/images/
+    ports:
+      - ${HTTP_PORT}:80
+      - ${HTTPS_PORT}:443
+    restart: always
+    environment:
+      VIRTUAL_HOST: ${HOSTNAME}
+      LETSENCRYPT_HOST: ${HOSTNAME}
+      CHEVERETO_DB_HOST: database
+      CHEVERETO_DB_USER: chevereto
+      CHEVERETO_DB_PASS: user_database_password
+      CHEVERETO_DB_PORT: 3306
+      CHEVERETO_DB_NAME: chevereto
+      CHEVERETO_HEADER_CLIENT_IP: X-Real-IP
+      CHEVERETO_HOSTNAME: ${HOSTNAME}
+      CHEVERETO_HOSTNAME_PATH: ${HOSTNAME_PATH}
+      CHEVERETO_HTTPS: ${HTTPS}
+      CHEVERETO_ASSET_STORAGE_TYPE: local
+      CHEVERETO_ASSET_STORAGE_URL: ${URL}images/_assets/
+      CHEVERETO_ASSET_STORAGE_BUCKET: /var/www/html/images/_assets/
+      CHEVERETO_ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+
+volumes:
+  database:
+  storage:
+
+networks:
+  chevereto:

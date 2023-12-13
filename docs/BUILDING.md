@@ -10,9 +10,11 @@ make image <options>
 
 ### Options
 
-* VERSION=4.0
-* EDITION=pro
-* TARGET=default (controls image base name)
+| Option  | Example          | Description                  |
+| ------- | ---------------- | ---------------------------- |
+| VERSION | `VERSION=4.0`    | System version (4.x)         |
+| EDITION | `EDITION=pro`    | System edition (pro,free)    |
+| TARGET  | `TARGET=default` | Image base name suffix (any) |
 
 Example:
 
