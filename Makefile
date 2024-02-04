@@ -212,11 +212,11 @@ destroy: feedback feedback--compose cloudflare--delete
 
 # Provisioning
 
-provision: feedback
+provision: feedback--short
 	make namespace HOSTNAME="${NAMESPACE}.${DOMAIN}"
 	make spawn NAMESPACE=${NAMESPACE}
 
-install: feedback
+install: feedback--short
 	docker exec -it --user ${DOCKER_USER} \
 		${CONTAINER_BASENAME}_${SERVICE} \
 		app/bin/legacy -C install -u "${ADMIN_USER}" -e "${ADMIN_EMAIL}" -x "${ADMIN_PASSWORD}"
