@@ -13,6 +13,7 @@ NAMESPACE=${NAMESPACE} make provision &&
         ADMIN_EMAIL=${ADMIN_EMAIL} \
         ADMIN_USER=${ADMIN_USER} make install
 
+echo ""
 echo "🚀 Deployment complete!"
 
 NAMESPACE=${NAMESPACE} make feedback--url
