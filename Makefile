@@ -1,6 +1,7 @@
 #!make
 SYSTEM ?= ubuntu/22.04
 ENV_FILE = ./.env
+DOMAIN ?= chevereto.cloud
 NAMESPACE ?= chevereto
 NAMESPACE_FILE = ./namespace/${NAMESPACE}
 NAMESPACE_FILE_EXISTS = false
@@ -75,8 +76,8 @@ feedback--compose: feedback--image
 	@echo "🐋 ${COMPOSE_FILE}"
 
 feedback--url:
-	@echo "🔌 ${PORT}"
-	@echo "${URL} @URL"
+	@echo "Protocol ${PROTOCOL} (:${PORT})"
+	@echo "@URL ${URL}"
 
 feedback--image:
 	@echo "📦 ${IMAGE} (BASE ${IMAGE_NAME})"
@@ -208,6 +209,17 @@ spawn: feedback feedback--compose feedback--url cloudflare--create up-d
 destroy: feedback feedback--compose cloudflare--delete
 	${DOCKER_COMPOSE} down --volumes
 	@rm namespace/${NAMESPACE}
+
+# Provisioning
+
+provision: feedback
+	make namespace HOSTNAME="${NAMESPACE}.${DOMAIN}"
+	make spawn NAMESPACE=${NAMESPACE}
+
+install: feedback
+	docker exec -it --user ${DOCKER_USER} \
+		${CONTAINER_BASENAME}_${SERVICE} \
+		app/bin/legacy -C install -u "${ADMIN_USER}" -e "${ADMIN_EMAIL}" -x "${ADMIN_PASSWORD}"
 
 # nginx-proxy
 

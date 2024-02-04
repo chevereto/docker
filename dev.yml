@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
   database:
@@ -11,6 +11,10 @@ services:
     ports:
       - ${DB_PORT}:3306
     restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: chevereto
@@ -32,6 +36,9 @@ services:
       - ${HTTP_PORT}:80
       - ${HTTPS_PORT}:443
     restart: always
+    depends_on:
+      database:
+        condition: service_healthy
     environment:
       CHEVERETO_ENVIRONMENT: dev
       CHEVERETO_DB_HOST: database

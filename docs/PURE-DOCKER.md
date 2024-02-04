@@ -66,7 +66,7 @@ docker run -d \
 Create your own `docker-compose.yml` at your project folder.
 
 ```yml
-version: "3.8"
+version: "3.9"
 
 services:
   database:
@@ -76,6 +76,10 @@ services:
     volumes:
       - database:/var/lib/mysql
     restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: chevereto
@@ -89,6 +93,9 @@ services:
     volumes:
       - storage:/var/www/html/images/
     restart: always
+    depends_on:
+      database:
+        condition: service_healthy
     expose:
       - 80
     environment:

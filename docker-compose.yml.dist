@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
   database:
@@ -9,6 +9,10 @@ services:
     volumes:
       - database:/var/lib/mysql
     restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: chevereto
@@ -26,6 +30,9 @@ services:
       - ${HTTP_PORT}:80
       - ${HTTPS_PORT}:443
     restart: always
+    depends_on:
+      database:
+        condition: service_healthy
     environment:
       VIRTUAL_HOST: ${HOSTNAME}
       LETSENCRYPT_HOST: ${HOSTNAME}
