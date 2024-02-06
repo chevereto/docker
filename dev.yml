@@ -12,9 +12,10 @@ services:
       - ${DB_PORT}:3306
     restart: always
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      timeout: 10s
-      retries: 10
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: chevereto
@@ -52,7 +53,7 @@ services:
       CHEVERETO_ASSET_STORAGE_TYPE: local
       CHEVERETO_ASSET_STORAGE_URL: ${URL}images/_assets/
       CHEVERETO_ASSET_STORAGE_BUCKET: /var/www/html/images/_assets/
-      CHEVERETO_ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      CHEVERETO_ENCRYPTION_KEY:
 
 volumes:
   database:
