@@ -22,6 +22,9 @@ services:
       timeout: 5s
       retries: 3
     environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: true
+      MARIADB_MYSQL_LOCALHOST_USER: 1
+      MARIADB_MYSQL_LOCALHOST_GRANTS: USAGE
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: chevereto
       MYSQL_USER: chevereto
