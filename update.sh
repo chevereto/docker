@@ -27,7 +27,8 @@ for file in "$NAMESPACE_DIRECTORY"*; do
     make exec NAMESPACE=$NAMESPACE COMMAND="app/bin/legacy -C update"
 
     echo "✔ Updated ${NAMESPACE}"
+    echo ""
 done
 
 echo ""
-echo "All websites updated!"
+echo "🚀 All websites updated!"

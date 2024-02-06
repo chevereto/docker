@@ -10,21 +10,11 @@ services:
       - database:/var/lib/mysql
     restart: always
     healthcheck:
-      test:
-        [
-          "CMD",
-          "healthcheck.sh",
-          "--su-mysql",
-          "--connect",
-          "--innodb_initialized",
-        ]
+      test: ["CMD", "healthcheck.sh", "--su-mysql", "--connect"]
       interval: 10s
       timeout: 5s
       retries: 3
     environment:
-      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: true
-      MARIADB_MYSQL_LOCALHOST_USER: 1
-      MARIADB_MYSQL_LOCALHOST_GRANTS: USAGE
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: chevereto
       MYSQL_USER: chevereto

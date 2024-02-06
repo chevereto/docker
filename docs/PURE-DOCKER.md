@@ -77,7 +77,7 @@ services:
       - database:/var/lib/mysql
     restart: always
     healthcheck:
-      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      test: ["CMD", "healthcheck.sh", "--su-mysql", "--connect"]
       interval: 10s
       timeout: 5s
       retries: 3
