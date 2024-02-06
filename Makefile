@@ -1,7 +1,7 @@
 #!make
 SYSTEM ?= ubuntu/22.04
 ENV_FILE = ./.env
-DOMAIN ?= chevereto.cloud
+DOMAIN ?= localhost
 NAMESPACE ?= chevereto
 NAMESPACE_FILE = ./namespace/${NAMESPACE}
 NAMESPACE_FILE_EXISTS = false
