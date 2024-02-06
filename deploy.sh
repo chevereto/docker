@@ -2,9 +2,9 @@
 
 set -e
 
-NAMESPACE="$1"
+NAMESPACE="${NAMESPACE}"
 ADMIN_USER="${ADMIN_USER:-admin}"
-ADMIN_EMAIL="$2"
+ADMIN_EMAIL="${ADMIN_EMAIL}"
 ADMIN_PASSWORD="$(openssl rand -base64 8)"
 
 NAMESPACE=${NAMESPACE} make provision &&
