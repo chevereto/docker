@@ -2,7 +2,7 @@
 
 ## Make image
 
-This command creates the Docker image for Chevereto by downloading the software at `./chevereto` and then build from [Dockerfile](../Dockerfile).
+This command creates the Docker image for Chevereto by downloading the software at `./chevereto` and then build from [Dockerfile](../Dockerfile). It will generate multiple semantic version tags `4.0.0`, `4.0` and `4`.
 
 ```sh
 make image <options>

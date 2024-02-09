@@ -1,5 +1,27 @@
 # Updating
 
+## Chevereto
+
+To update to a new Chevereto version re-build the container image (see [BUILDING](BUILDING.md)) to reflect the target version.
+
+### One-click updating
+
+Run the following command to update all instances. The process will swap every instance to the new container image and perform the necessary database updates.
+
+```sh
+./update.sh
+```
+
+### Manual updating
+
+Swap to the new container image by down plus up-d by passing the `NAMESPACE` of your project. Once done, execute the `app/bin/legacy -C update` command to perform the necessary database updates.
+
+```sh
+make down NAMESPACE=yourproject
+make up-d NAMESPACE=yourproject
+make exec NAMESPACE=yourproject COMMAND="app/bin/legacy -C update"
+```
+
 ## Repository update
 
 To update your containers to the latest version of this repository make sure to run first:
@@ -30,15 +52,6 @@ git fetch --tags -f && git pull
 
 ![Update merge](src/update-merge.png)
 
-## Chevereto application update
-
-To update to a new Chevereto version first re-build the container image (see [BUILDING](BUILDING.md)) to reflect the target version.
-
-Once done, down and re-up containers by passing the `NAMESPACE` of your project:
-
-```sh
-make down NAMESPACE=yourproject
-make up-d NAMESPACE=yourproject
-```
+## Troubleshooting
 
 Refer to [persistance troubleshoot](PERSISTENT.md#no-persistence) If the system prompts to re-install.
