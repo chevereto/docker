@@ -206,6 +206,12 @@ down--volumes: feedback feedback--compose
 
 spawn: feedback feedback--compose feedback--url cloudflare--create up-d
 
+deploy: feedback feedback--compose feedback--url
+	@./scripts/system/deploy.sh
+
+update: feedback feedback--compose feedback--url
+	@./scripts/system/update.sh
+
 destroy: feedback feedback--compose cloudflare--delete
 	${DOCKER_COMPOSE} down --volumes
 	@rm namespace/${NAMESPACE}
