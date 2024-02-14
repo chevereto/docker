@@ -7,10 +7,6 @@ ADMIN_USER="${ADMIN_USER:-admin}"
 ADMIN_EMAIL="${ADMIN_EMAIL}"
 ADMIN_PASSWORD="$(openssl rand -base64 8)"
 
-echo ${NAMESPACE}
-echo ${ADMIN_EMAIL}
-exit
-
 NAMESPACE=${NAMESPACE} make provision &&
     NAMESPACE=${NAMESPACE} \
         ADMIN_PASSWORD=${ADMIN_PASSWORD} \
