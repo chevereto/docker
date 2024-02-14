@@ -9,7 +9,7 @@ To update instances to a new Chevereto version re-build the container image (see
 Run the following command to update all instances. The process will swap every instance to the new container image and perform the necessary database updates.
 
 ```sh
-./update.sh
+make update
 ```
 
 ### Manual Chevereto updating
