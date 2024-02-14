@@ -206,6 +206,7 @@ down--volumes: feedback feedback--compose
 
 spawn: feedback feedback--compose feedback--url cloudflare--create up-d
 
+.PHONY: deploy
 deploy: feedback feedback--compose feedback--url
 	@./scripts/system/deploy.sh
 
