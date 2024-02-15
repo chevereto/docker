@@ -5,6 +5,7 @@ DOMAIN ?= localhost
 NAMESPACE ?= chevereto
 NAMESPACE_FILE = ./namespace/${NAMESPACE}
 NAMESPACE_FILE_EXISTS = false
+CHEVERETO_LICENSE_KEY ?= ""
 ifneq ("$(wildcard ${NAMESPACE_FILE})","")
 	NAMESPACE_FILE_EXISTS = true
 	include ${NAMESPACE_FILE}
@@ -18,7 +19,7 @@ SOURCE ?= ~/git/chevereto/v4
 TARGET ?= default# default|dev
 VERSION ?= 4.0
 PHP ?= 8.2
-EDITION ?= pro
+EDITION ?= $(shell [ "${CHEVERETO_LICENSE_KEY}" = "" ] && echo free || echo pro)
 DOCKER_USER ?= www-data
 HOSTNAME ?= localhost
 HOSTNAME_PATH ?= /
@@ -47,7 +48,7 @@ COMPOSE_SAMPLE = $(shell [ "${TARGET}" = "default" ] && echo default || echo dev
 COMPOSE_FILE = $(shell [ -f \${COMPOSE_TARGET} ] && echo \${COMPOSE_TARGET} || echo \${COMPOSE_SAMPLE})
 FEEDBACK = $(shell echo 👉 \${TARGET} \${CONTAINER_BASENAME} @\${NAMESPACE_FILE} V\${VERSION} \(\${DOCKER_USER}\))
 FEEDBACK_SHORT = $(shell echo 👉 \${TARGET} V\${VERSION} \(\${DOCKER_USER}\))
-CHEVERETO_LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key (if any): 🔑" license; stty echo; echo $$license)
+CHEVERETO_LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key (for paid edition): 🔑" license; stty echo; echo $$license)
 DOCKER_COMPOSE = $(shell echo @CONTAINER_BASENAME=\${CONTAINER_BASENAME} \
 	SOURCE=\${SOURCE} \
 	DB_PORT=\${DB_PORT} \
@@ -94,7 +95,7 @@ feedback--namespace:
 # Docker
 
 image: feedback--image feedback--short
-	@CHEVERETO_LICENSE=${CHEVERETO_LICENSE} \
+	@CHEVERETO_LICENSE_KEY=${CHEVERETO_LICENSE_KEY} \
 	VERSION=${VERSION} \
 	IMAGE_NAME=${IMAGE_NAME} \
 	./scripts/system/chevereto.sh \

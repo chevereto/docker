@@ -3,21 +3,26 @@ set -e
 DOWNLOAD_DIR=${PWD}"/.temp"
 WORKING_DIR=${PWD}"/chevereto"
 PACKAGE=${VERSION}
-if [ -z ${CHEVERETO_LICENSE} ]; then
-    echo -n "Chevereto V4 License key (if any): 🔑"
-    read -s CHEVERETO_LICENSE
+if [ -z ${CHEVERETO_LICENSE_KEY+x} ]; then
+    echo -n "Chevereto V4 License key (for paid edition): 🔑"
+    read -s CHEVERETO_LICENSE_KEY
     echo ""
 fi
 API_DOWNLOAD="https://chevereto.com/api/download/"
+if [ -z ${CHEVERETO_LICENSE_KEY} ]; then
+    DOWNLOADING="FREE"
+else
+    DOWNLOADING="PAID"
+fi
 echo " ..."
-echo "* Downloading Chevereto"
+echo "* NOTE: Using [[ ${DOWNLOADING} ]] edition package"
 rm -rf $DOWNLOAD_DIR $WORKING_DIR
 mkdir -p $DOWNLOAD_DIR $WORKING_DIR
 echo "* Downloading chevereto/v4 $PACKAGE package"
 echo "> ${API_DOWNLOAD}${PACKAGE}"
 cd $DOWNLOAD_DIR
 curl -f -SOJL \
-    -H "License: $CHEVERETO_LICENSE" \
+    -H "License: $CHEVERETO_LICENSE_KEY" \
     "${API_DOWNLOAD}${PACKAGE}"
 ZIP_NAME=$(basename *.zip)
 echo "* Extracting ${ZIP_NAME} package"
