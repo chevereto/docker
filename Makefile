@@ -180,6 +180,11 @@ namespace:
 	ENCRYPTION_KEY=${ENCRYPTION_KEY} \
 	./scripts/system/namespace.sh
 
+.PHONY: env
+env:
+	@chmod +x ./scripts/system/env.sh
+	@ENV_FILE=${ENV_FILE} ./scripts/system/env.sh
+
 # Docker compose
 
 up: feedback feedback--compose feedback--url
