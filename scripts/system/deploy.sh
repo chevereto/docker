@@ -14,7 +14,6 @@ if [ -z ${ADMIN_EMAIL} ]; then
 fi
 if [ -z ${CLOUDFLARE_A_NAME} ]; then
     HOSTNAME="${DOMAIN}"
-    echo "* CLOUDFLARE_A_NAME is not set, skipping DNS creation"
 else
     HOSTNAME="${NAMESPACE}.${DOMAIN}"
 fi
