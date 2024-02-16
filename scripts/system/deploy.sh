@@ -4,9 +4,9 @@ NAMESPACE="${NAMESPACE}"
 ADMIN_USER="${ADMIN_USER:-admin}"
 ADMIN_EMAIL="${ADMIN_EMAIL}"
 ADMIN_PASSWORD="$(openssl rand -base64 8)"
-if [ -z "${CLOUDFLARE_A_NAME}" ]; then
+if [ -z ${CLOUDFLARE_A_NAME+x} ]; then
     HOSTNAME="${DOMAIN}"
-    echo "* CLOUDFLARE_A_NAME is not set. Skipping DNS creation."
+    echo "* CLOUDFLARE_A_NAME is not set, skipping DNS creation"
 else
     HOSTNAME="${NAMESPACE}.${DOMAIN}"
 fi
