@@ -19,7 +19,6 @@ else
     HOSTNAME="${NAMESPACE}.${DOMAIN}"
 fi
 echo "* Using hostname ${HOSTNAME}"
-exit
 make --no-print-directory feedback feedback--compose feedback--url NAMESPACE=${NAMESPACE}
 make --no-print-directory namespace NAMESPACE=${NAMESPACE} HOSTNAME="${HOSTNAME}"
 if [ -n "${CLOUDFLARE_A_NAME}" ]; then
