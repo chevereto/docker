@@ -19,6 +19,19 @@ Dockerfile driven template project for building images and manage containers for
 * Integrated with CloudFlare API (automatic sub-domain handling)
 * Pure Docker instructions
 
+## Requirements
+
+* Chevereto V4 license key (for paid edition)
+  * [Purchase](https://chevereto.com/pricing) new license
+  * [Access](https://chevereto.com/panel/license) existing purchase
+* Server with
+  * Shell access
+  * `make`, `unzip`, `curl`, `jq` and `git`
+  * [Docker](https://docs.docker.com/)
+  * [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
+* Hostname pointing to server
+* See [CLOUDFLARE](./docs/CLOUDFLARE.md) when using CloudFlare
+
 ## Quick-start
 
 Run the following command to install this project and all its dependencies in your brand new **Ubuntu 22.04** server.
@@ -64,19 +77,6 @@ make destroy NAMESPACE={namespace}
 ```
 
 Replace `{namespace}` with the desired project name to destroy.
-
-## Requirements
-
-* Chevereto V4 license key (for paid edition)
-  * [Purchase](https://chevereto.com/pricing) new license
-  * [Access](https://chevereto.com/panel/license) existing purchase
-* Server with
-  * Shell access
-  * `make`, `unzip`, `curl`, `jq` and `git`
-  * [Docker](https://docs.docker.com/)
-  * [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
-* Hostname pointing to server
-* See [CLOUDFLARE](./docs/CLOUDFLARE.md) when using CloudFlare
 
 ## Pure Docker
 
