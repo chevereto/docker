@@ -3,13 +3,13 @@
 set -e
 if (($EUID != 0)); then
   echo "[ERROR] Must execute with root privileges"
-  exit
+  exit 1
 fi
-echo "* Uninstall old versions"
+echo "* Uninstall old Docker versions"
 apt-get remove -qq -y docker docker-engine docker.io containerd runc || true
-echo "* Install using the repository"
-echo "* Update apt package index and allow HTTPS"
+echo "* Update apt package index"
 apt-get update -qq -y
+echo "* Install HTTPS"
 apt-get install -qq -y \
   ca-certificates \
   curl \
@@ -26,3 +26,4 @@ echo "* Update apt package index"
 apt-get update -qq -y
 echo "* Install Docker Engine, containerd, and Docker Compose"
 apt-get install -qq -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+echo "[OK] Docker installed"
