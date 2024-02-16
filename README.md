@@ -21,16 +21,13 @@ Dockerfile driven template project for building images and manage containers for
 
 ## Requirements
 
-* Chevereto V4 license key (for paid edition)
+`To follow this guide, make sure you have:
+
+* A Ubuntu server with shell access and public IP address.
+* A domain managed by CloudFlare (if using integration)
+* A Chevereto license (required for the paid edition)
   * [Purchase](https://chevereto.com/pricing) new license
-  * [Access](https://chevereto.com/panel/license) existing purchase
-* Server with
-  * Shell access
-  * `make`, `unzip`, `curl`, `jq` and `git`
-  * [Docker](https://docs.docker.com/)
-  * [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
-* Hostname pointing to server
-* See [CLOUDFLARE](./docs/CLOUDFLARE.md) when using CloudFlare
+  * [Access](https://chevereto.com/panel/license) existing purchase`
 
 ## Quick-start
 
@@ -80,7 +77,13 @@ Replace `{namespace}` with the desired project name to destroy.
 
 ## Pure Docker
 
-Refer to [PURE-DOCKER](docs/PURE-DOCKER.md) for a complete pure Docker command reference.
+If you want full control of the container provisioning you can get our base image at:
+
+```sh
+ghcr.io/chevereto/chevereto:latest
+```
+
+You can get this container running with the following command:
 
 ```sh
 docker run -d \
@@ -97,6 +100,8 @@ docker run -d \
   -v /var/www/html/images/ \
   ghcr.io/chevereto/chevereto:latest
 ```
+
+See [PURE-DOCKER](docs/PURE-DOCKER.md) for a complete pure Docker command reference.
 
 ## Manual setup
 
@@ -134,7 +139,7 @@ make proxy EMAIL_HTTPS=mail@yourdomain.tld
 
 ## Build Chevereto image
 
-💡 Omit this step when using free edition as the image is available at [GHCR](https://github.com/chevereto/chevereto/pkgs/container/chevereto).
+Omit this step when using free edition as the image is available at [GHCR](https://github.com/chevereto/chevereto/pkgs/container/chevereto).
 
 * Create Chevereto image (see [SETUP](docs/SETUP.md#custom-application))
 
