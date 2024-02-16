@@ -185,6 +185,8 @@ env:
 	@chmod +x ./scripts/system/env.sh
 	@ENV_FILE=${ENV_FILE} ./scripts/system/env.sh
 
+setup: cron proxy
+
 # Docker compose
 
 up: feedback feedback--compose feedback--url
