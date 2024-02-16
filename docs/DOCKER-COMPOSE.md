@@ -97,16 +97,6 @@ make down--volumes
 
 ## Combined commands
 
-### Spawn
-
-💡 Use it right after creating the NAMESPACE.
-
-This will run [cloudflare--create](CLOUDFLARE.md#create-cname-record) and [up-d](DOCKER-COMPOSE.md#up-daemon).
-
-```sh
-make spawn NAMESPACE=yourproject
-```
-
 ### Destroy
 
 💡 Use it when needing to complety destroy an instance.

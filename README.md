@@ -96,20 +96,6 @@ make image
 make namespace NAMESPACE=yourproject HOSTNAME=yourdomain.tld
 ```
 
-## Spawn Chevereto instance
-
-* Run the Chevereto container using [spawn](docs/DOCKER-COMPOSE.md#spawn):
-
-```sh
-make spawn NAMESPACE=yourproject
-```
-
-* 💡 When using free edition pass `EDITION=free`:
-
-```sh
-make spawn NAMESPACE=yourproject EDITION=free
-```
-
 ## Documentation
 
 * [SETUP](./docs/SETUP.md)

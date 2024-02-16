@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -e
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 CLOUDFLARE_FILE_PATH=${PROJECT_DIR}/../nginx/cloudflare.conf
 cat >${CLOUDFLARE_FILE_PATH} <<EOM

@@ -158,7 +158,7 @@ cloudflare:
 	@./scripts/system/cloudflare.sh
 
 cloudflare--create:
-	@./scripts/system/cloudflare--create.sh | (printf "CLOUDFLARE_IDENTIFIER=" && cat) >> ${NAMESPACE_FILE}
+	@NAMESPACE_FILE=${NAMESPACE_FILE} ./scripts/system/cloudflare--create.sh
 
 cloudflare--delete:
 	@./scripts/system/cloudflare--delete.sh
@@ -215,7 +215,7 @@ down--volumes: feedback feedback--compose
 spawn: feedback feedback--compose feedback--url cloudflare--create up-d
 
 .PHONY: deploy
-deploy: feedback feedback--compose feedback--url
+deploy:
 	@./scripts/system/deploy.sh
 
 update: feedback feedback--compose feedback--url
@@ -224,12 +224,6 @@ update: feedback feedback--compose feedback--url
 destroy: feedback feedback--compose cloudflare--delete
 	${DOCKER_COMPOSE} down --volumes
 	@rm namespace/${NAMESPACE}
-
-# Provisioning
-
-provision: feedback--short
-	make namespace HOSTNAME="${NAMESPACE}.${DOMAIN}"
-	make spawn NAMESPACE=${NAMESPACE}
 
 install: feedback--short
 	docker exec -it --user ${DOCKER_USER} \
