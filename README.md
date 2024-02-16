@@ -21,17 +21,49 @@ Dockerfile driven template project for building images and manage containers for
 
 ## Quick-start
 
-Run the following command to install this project and all its dependencies in your brand new Ubuntu 22.04 server.
+Run the following command to install this project and all its dependencies in your brand new **Ubuntu 22.04** server.
 
 ```sh
 bash <(curl -s https://chevereto.com/sh/ubuntu/22.04/docker.sh)
 ```
 
-Run the following command to create the configuration file at `.env`. Skip (ENTER) to pass empty values.
+Create configuration file at `.env` by running this command.
 
 ```sh
 make env
 ```
+
+Run the following command to setup the system.
+
+```sh
+make setup
+```
+
+If using Chevereto paid edition, build the Chevereto image by running this command.
+
+```sh
+make image
+```
+
+### Deploying websites
+
+To deploy a new website use the following command format.
+
+```sh
+make deploy NAMESPACE={namespace} ADMIN_EMAIL={email}
+```
+
+Replace `{namespace}` with the desired project name and `{email}` with the admin email for the website.
+
+### Destroying websites
+
+To destroy a website use the following command format.
+
+```sh
+make destroy NAMESPACE={namespace}
+```
+
+Replace `{namespace}` with the desired project name to destroy.
 
 ## Requirements
 
@@ -45,8 +77,6 @@ make env
   * [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
 * Hostname pointing to server
 * See [CLOUDFLARE](./docs/CLOUDFLARE.md) when using CloudFlare
-
-
 
 ## Pure Docker
 
@@ -68,7 +98,7 @@ docker run -d \
   ghcr.io/chevereto/chevereto:latest
 ```
 
-## Quick setup
+## Manual setup
 
 * Clone this repository [chevereto/docker](https://github.com/chevereto/docker) (see [SETUP](docs/SETUP.md#clone))
 
@@ -82,7 +112,13 @@ git clone https://github.com/chevereto/docker.git
 make install-docker
 ```
 
-You may also check [Docker for Desktop](https://docs.docker.com/get-docker/) and [Docker Engine](https://docs.docker.com/engine/install/) (servers) instructions
+You may also check [Docker for Desktop](https://docs.docker.com/get-docker/) and [Docker Engine](https://docs.docker.com/engine/install/) (servers) instructions.
+
+* Create `.env` configuration file
+
+```sh
+make env
+```
 
 * Create Cron (see [SETUP](docs/SETUP.md#cron))
 
