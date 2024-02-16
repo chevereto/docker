@@ -189,39 +189,37 @@ setup: cron proxy
 
 # Docker compose
 
-up: feedback feedback--compose feedback--url
+up: feedback--compose feedback--url
 	${DOCKER_COMPOSE} up
 
-up-d: feedback feedback--compose feedback--url
+up-d: feedback--compose feedback--url
 	${DOCKER_COMPOSE} up -d
 
-stop: feedback feedback--compose
+stop: feedback--compose
 	${DOCKER_COMPOSE} stop
 
-start: feedback feedback--compose
+start: feedback--compose
 	${DOCKER_COMPOSE} start
 
-restart: feedback feedback--compose
+restart: feedback--compose
 	${DOCKER_COMPOSE} restart
 
-down: feedback feedback--compose
+down: feedback--compose
 	${DOCKER_COMPOSE} down
 
-down--volumes: feedback feedback--compose
+down--volumes: feedback--compose
 	${DOCKER_COMPOSE} down --volumes
 
 # Instances
-
-spawn: feedback feedback--compose feedback--url cloudflare--create up-d
 
 .PHONY: deploy
 deploy:
 	@./scripts/system/deploy.sh
 
-update: feedback feedback--compose feedback--url
+update: feedback--compose feedback--url
 	@./scripts/system/update.sh
 
-destroy: feedback feedback--compose cloudflare--delete
+destroy: feedback--compose cloudflare--delete
 	${DOCKER_COMPOSE} down --volumes
 	@rm namespace/${NAMESPACE}
 

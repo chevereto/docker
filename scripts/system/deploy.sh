@@ -18,17 +18,19 @@ if [ -z ${CLOUDFLARE_A_NAME} ]; then
 else
     HOSTNAME="${NAMESPACE}.${DOMAIN}"
 fi
+make --no-print-directory feedback
 echo "* Using hostname ${HOSTNAME}"
-make --no-print-directory feedback feedback--compose feedback--url NAMESPACE=${NAMESPACE}
+make --no-print-directory feedback--compose feedback--url NAMESPACE=${NAMESPACE}
 make --no-print-directory namespace NAMESPACE=${NAMESPACE} HOSTNAME="${HOSTNAME}"
 if [ -n "${CLOUDFLARE_A_NAME}" ]; then
     make --no-print-directory cloudflare--create NAMESPACE=${NAMESPACE}
 fi
 make --no-print-directory up-d NAMESPACE=${NAMESPACE}
 make --no-print-directory install NAMESPACE=${NAMESPACE} ADMIN_USER=${ADMIN_USER} ADMIN_EMAIL=${ADMIN_EMAIL} ADMIN_PASSWORD=${ADMIN_PASSWORD}
-echo ""
 echo "[OK] Deployment complete!"
 cat <<EOF
+
+       Sigan bailando, sigan bailando
    _                             .-.
   / )  .-.    ___          __   (   )
  ( (  (   ) .'___)        (__'-._) (
@@ -45,7 +47,7 @@ cat <<EOF
               ___\ |     \___;           /  , /
              /  ___)                    (  ( (
              '.'                         ) ;) ;
- Sigan bailando!                        (_/(_/
+      Hagan la clave, hagan la clave!   (_/(_/
 ----------------------------------------------------
 EOF
 NAMESPACE=${NAMESPACE} make --no-print-directory feedback--url
