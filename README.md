@@ -13,9 +13,25 @@ Dockerfile driven template project for building images and manage containers for
 ## Features
 
 * One-click commands using `make`
-* Built-in nginx-proxy for multiple instances
+* Built-in HTTP ingress using nginx-proxy for multiple instances
+* Automatic renewable HTTPS using Let's Encrypt
+* One-click Chevereto updates
+* Integrated with CloudFlare API (automatic sub-domain handling)
 * Pure Docker instructions
-* Integrated with CloudFlare API
+
+## Quick-start
+
+Run the following command to install this project and all its dependencies in your brand new Ubuntu 22.04 server.
+
+```sh
+bash <(curl -s https://chevereto.com/sh/ubuntu/22.04/docker.sh)
+```
+
+Run the following command to create the configuration file at `.env`. Skip (ENTER) to pass empty values.
+
+```sh
+make env
+```
 
 ## Requirements
 
@@ -24,11 +40,13 @@ Dockerfile driven template project for building images and manage containers for
   * [Access](https://chevereto.com/panel/license) existing purchase
 * Server with
   * Shell access
-  * `make`, `unzip`, `curl` and `git`
+  * `make`, `unzip`, `curl`, `jq` and `git`
   * [Docker](https://docs.docker.com/)
   * [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose`
 * Hostname pointing to server
 * See [CLOUDFLARE](./docs/CLOUDFLARE.md) when using CloudFlare
+
+
 
 ## Pure Docker
 
