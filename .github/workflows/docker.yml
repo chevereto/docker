@@ -21,12 +21,15 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
+            chevereto/chevereto
             ${{ env.GHCR_SLUG }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
           labels: |
             org.opencontainers.image.title=Chevereto V4
             org.opencontainers.image.description=Chevereto V4
@@ -49,14 +52,13 @@ jobs:
       - name: Prepare Chevereto
         run: mkdir -p ./chevereto
       - name: Build and push
-        uses: docker/bake-action@v4
+        uses: docker/build-push-action@v5
         with:
-          set: build.args.PHP=${{ matrix.php }}
-          files: |
-            ./docker-bake.hcl
-            ${{ steps.meta.outputs.bake-file }}
-          targets: build
+          context: .
+          platforms: linux/amd64,linux/arm64
           push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
       - name: Check manifest
         run: docker buildx imagetools inspect ${{ env.GHCR_SLUG }}:${{ steps.meta.outputs.version }}
       - name: Inspect image
