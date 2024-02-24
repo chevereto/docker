@@ -29,7 +29,6 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=sha
           labels: |
             org.opencontainers.image.title=Chevereto V4
             org.opencontainers.image.description=Chevereto V4
