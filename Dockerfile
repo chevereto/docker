@@ -32,7 +32,7 @@ RUN echo "sendmail_path=/usr/sbin/sendmail -t -i" >> /usr/local/etc/php/conf.d/s
 
 RUN rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=4.0
+ARG VERSION=4.1
 ARG SERVICING=docker
 
 ENV CHEVERETO_DB_HOST=mariadb \

@@ -4,7 +4,8 @@
 
 <img alt="Chevereto" src="chevereto.svg" width="100%">
 
-[![Community](https://img.shields.io/badge/chv.to-community-blue?style=flat-square)](https://chv.to/community)
+[![Community](https://img.shields.io/badge/chevereto-community-blue?style=flat-square)](https://chevereto.com/community)
+[![Discord](https://img.shields.io/badge/chevereto-discord-5865F2?style=flat-square)](https://chevereto.com/go/discord)
 
 Dockerfile driven template project for building images and manage containers for Chevereto V4 projects.
 
