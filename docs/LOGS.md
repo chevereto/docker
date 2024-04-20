@@ -8,7 +8,7 @@ make <command> <options>
 
 * NAMESPACE=chevereto
 * SERVICE=php
-* VERSION=4.0
+* VERSION=4.1
 
 (*) For `SERVICE` you can use `php` and `database`.
 

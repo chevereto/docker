@@ -2,10 +2,10 @@
 
 ## Build image
 
-Image building is required for Chevereto **paid edition**. Run this from the root of this repo to build the container image:
+Image building is required for Chevereto **paid edition**. To ease the process we provide a script to build the image, you can find it at [scripts/system/chevereto.sh](https://github.com/chevereto/docker/blob/4.1/scripts/system/chevereto.sh).
 
 ```sh
-VERSION=4.0 \
+VERSION=4.1 \
 IMAGE_NAME=chevereto \
 ./scripts/system/chevereto.sh \
 docker build . \
@@ -18,12 +18,12 @@ By running the above command you will generate the following tags:
 
 * `chevereto:latest`
 * `chevereto:4`
-* `chevereto:4.0`
-* `chevereto:4.0.9`
+* `chevereto:4.1`
+* `chevereto:4.1.0`
 
 ## Run (paid edition)
 
-To run [chevereto.com](https://chevereto.com/features) (paid edition) you need to pass the environment targeting your private build image `chevereto:tag`.
+To run [chevereto.com](https://chevereto.com/pricing) (paid edition) you need to pass the environment targeting your private build image, in this case `chevereto:latest`.
 
 ```sh
 docker run -d \
@@ -43,7 +43,7 @@ docker run -d \
 
 ## Run (free edition)
 
-To run [chevereto/chevereto](https://github.com/chevereto/chevereto) (free edition) you need to pass the environment targeting public image `ghcr.io/chevereto/chevereto:tag`.
+To run [chevereto/chevereto](https://github.com/chevereto/chevereto) (free edition) you need to pass the environment targeting public image `ghcr.io/chevereto/chevereto:latest`.
 
 ```sh
 docker run -d \
@@ -111,6 +111,8 @@ services:
       CHEVERETO_ASSET_STORAGE_TYPE: local
       CHEVERETO_ASSET_STORAGE_URL: http://hostname.com/images/_assets/ #hostname-aware URL
       CHEVERETO_ASSET_STORAGE_BUCKET: /var/www/html/images/_assets/
+      CHEVERETO_MAX_POST_SIZE: 2G
+      CHEVERETO_MAX_UPLOAD_SIZE: 2G
 
 volumes:
   database:
