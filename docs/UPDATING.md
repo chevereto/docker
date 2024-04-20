@@ -1,6 +1,8 @@
 # Updating
 
-## Chevereto
+**Note:** To update make sure to update your copy of this repo (refer to [repository update](#repository-update)) and from there you can update Chevereto application (refer to [Chevereto update](#chevereto-update)).
+
+## Chevereto update
 
 To update instances to a new Chevereto version re-build the container image (see [BUILDING](BUILDING.md)) to reflect the target version.
 
@@ -22,7 +24,7 @@ make up-d NAMESPACE=yourproject
 make exec NAMESPACE=yourproject COMMAND="app/bin/legacy -C update"
 ```
 
-## Repository
+## Repository update
 
 To update your containers to the latest version of this repository make sure to run for every instance:
 
