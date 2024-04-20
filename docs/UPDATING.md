@@ -34,10 +34,16 @@ make down NAMESPACE=yourproject
 
 ### Manual repo updating
 
-Pull this updated repo changes in your fork.
+Pull changes in your copy of this repo.
 
 ```sh
-git fetch --tags -f && git pull
+git fetch --tags -f && git pull --rebase --autostash
+```
+
+Switch to the new branch/tag.
+
+```sh
+git switch 4.1
 ```
 
 ### GitHub one-click repo updating
