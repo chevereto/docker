@@ -2,6 +2,8 @@
 set -e
 DOWNLOAD_DIR=${PWD}"/.temp"
 WORKING_DIR=${PWD}"/chevereto"
+VERSION=${VERSION:-"4"}
+IMAGE_NAME=${IMAGE_NAME:-"chevereto"}
 PACKAGE=${VERSION}
 if [ -z ${CHEVERETO_LICENSE_KEY+x} ]; then
     echo -n "Chevereto V4 License key (for paid edition): 🔑"
@@ -18,7 +20,7 @@ echo " ..."
 echo "* NOTE: Using [[ ${DOWNLOADING} ]] edition package"
 rm -rf $DOWNLOAD_DIR $WORKING_DIR
 mkdir -p $DOWNLOAD_DIR $WORKING_DIR
-echo "* Downloading chevereto/v4 $PACKAGE package"
+echo "* Downloading Chevereto V$PACKAGE package"
 echo "> ${API_DOWNLOAD}${PACKAGE}"
 cd $DOWNLOAD_DIR
 curl -f -SOJL \
