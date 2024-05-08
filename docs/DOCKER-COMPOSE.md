@@ -95,18 +95,6 @@ make down
 make down--volumes
 ```
 
-## Combined commands
-
-### Destroy
-
-💡 Use it when needing to complety destroy an instance.
-
-This will run [cloudflare--delete](CLOUDFLARE.md#delete-cname-record), [down--volumes](DOCKER-COMPOSE.md#down-volumes) and remove the [NAMESPACE](NAMESPACE.md).
-
-```sh
-make destroy NAMESPACE=yourproject
-```
-
 ## Troubleshoot
 
 Check if you are running latest Docker version with [Compose V2](https://docs.docker.com/compose/cli-command/) `docker compose` (not `docker-compose`).

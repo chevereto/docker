@@ -63,28 +63,28 @@ make image
 To deploy a new website use the following command format.
 
 ```sh
-make deploy NAMESPACE={namespace} ADMIN_EMAIL={email}
+make deploy NAMESPACE=yourproject ADMIN_EMAIL=admin@domain.tld
 ```
 
-Replace `{namespace}` with the desired project name and `{email}` with the admin email for the website.
+Replace `yourproject` with the desired project name and `admin@domain.tld` with the admin email for the website.
 
 ### Destroying websites
 
 To destroy a website use the following command format.
 
 ```sh
-make destroy NAMESPACE={namespace}
+make destroy NAMESPACE=yourproject
 ```
 
-Replace `{namespace}` with the desired project name to destroy.
+Replace `yourproject` with the desired project name to destroy.
 
 ### Altering existing websites
 
-To alter a website edit `./namespace/{namespace}` to reflect the new variables and run the following commands.
+To alter a website edit `./namespace/yourproject` to reflect the new variables and run the following commands.
 
 ```sh
-make down NAMESPACE={namespace}
-make up-d NAMESPACE={namespace}
+make down NAMESPACE=yourproject
+make up-d NAMESPACE=yourproject
 ```
 
 ## Pure Docker
@@ -174,6 +174,7 @@ make namespace NAMESPACE=yourproject HOSTNAME=yourdomain.tld
 * [PURE-DOCKER](./docs/PURE-DOCKER.md)
 * [FEEDBACK](./docs/FEEDBACK.md)
 * [BUILDING](./docs/BUILDING.md)
+* [COMMANDS](./docs/COMMANDS.md)
 * [DOCKER-COMPOSE](./docs/DOCKER-COMPOSE.md)
 * [VOLUMES](./docs/VOLUMES.md)
 * [PERSISTENT](./docs/PERSISTENT.md)
