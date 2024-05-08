@@ -78,6 +78,15 @@ make destroy NAMESPACE={namespace}
 
 Replace `{namespace}` with the desired project name to destroy.
 
+### Altering existing websites
+
+To alter a website edit `./namespace/{namespace}` to reflect the new variables and run the following commands.
+
+```sh
+make down NAMESPACE={namespace}
+make up-d NAMESPACE={namespace}
+```
+
 ## Pure Docker
 
 If you want full control of the container provisioning you can get our base image at:
