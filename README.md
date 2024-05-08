@@ -4,10 +4,12 @@
 
 <img alt="Chevereto" src="chevereto.svg" width="100%">
 
-[![Community](https://img.shields.io/badge/chevereto-community-blue?style=flat-square)](https://chevereto.com/community)
-[![Discord](https://img.shields.io/badge/chevereto-discord-5865F2?style=flat-square)](https://chevereto.com/go/discord)
+[![Chevereto Docs](https://img.shields.io/badge/chevereto-docs-50C878?style=flat-square)](https://v4-docs.chevereto.com/)
+[![Chevereto Community](https://img.shields.io/badge/chevereto-community-blue?style=flat-square)](https://chevereto.com/community)
+[![Chevereto Discord](https://img.shields.io/badge/chevereto-discord-5865F2?style=flat-square)](https://chevereto.com/go/discord)
+[![Chevereto Demo](https://img.shields.io/badge/chevereto-demo-d4af37?style=flat-square)](https://demo.chevereto.com)
 
-Dockerfile driven template project for building images and manage containers for Chevereto V4 projects.
+Dockerfile driven template project for building images and manage containers for **Chevereto V4** projects.
 
 > **Warning**: Do not publish Docker images to a public registry when using a paid Chevereto edition as its [commercial license](https://chevereto.com/license) restricts re-distribution rights.
 
@@ -15,18 +17,18 @@ Dockerfile driven template project for building images and manage containers for
 
 * One-click commands using `make`
 * Built-in HTTP ingress using nginx-proxy for multiple instances
-* Automatic renewable HTTPS using Let's Encrypt
-* One-click Chevereto updates
-* Integrated with CloudFlare API (automatic sub-domain handling)
-* Pure Docker instructions
+* Automatic renewable [HTTPS](./docs/HTTPS.md) using Let's Encrypt
+* One-click Chevereto [updates](./docs/UPDATING.md)
+* Integrated with [CloudFlare](./docs/CLOUDFLARE.md) API (automatic sub-domain handling)
+* [Pure Docker](./docs/PURE-DOCKER.md) instructions
 
 ## Requirements
 
-`To follow this guide, make sure you have:
+To follow this guide, make sure you have:
 
-* A Ubuntu server with shell access and public IP address.
-* A domain managed by CloudFlare (if using integration)
-* A Chevereto license (required for the paid edition)
+* Ubuntu server with shell access and public IP address.
+* Domain managed by CloudFlare (if using this integration)
+* Chevereto license (required for the paid edition)
   * [Purchase](https://chevereto.com/pricing) new license
   * [Access](https://chevereto.com/panel/license) existing purchase`
 
@@ -160,11 +162,14 @@ make namespace NAMESPACE=yourproject HOSTNAME=yourdomain.tld
 
 * [SETUP](./docs/SETUP.md)
 * [NAMESPACE](docs/NAMESPACE.md)
+* [PURE-DOCKER](./docs/PURE-DOCKER.md)
+* [FEEDBACK](./docs/FEEDBACK.md)
 * [BUILDING](./docs/BUILDING.md)
 * [DOCKER-COMPOSE](./docs/DOCKER-COMPOSE.md)
 * [VOLUMES](./docs/VOLUMES.md)
+* [PERSISTENT](./docs/PERSISTENT.md)
+* [LOGS](./docs/LOGS.md)
 * [HTTPS](./docs/HTTPS.md)
 * [CLOUDFLARE](./docs/CLOUDFLARE.md)
 * [UPDATING](./docs/UPDATING.md)
-* [PERSISTENT](./docs/PERSISTENT.md)
-* [FEEDBACK](./docs/FEEDBACK.md)
+* [REPO SYNCING](./docs/REPO-SYNCING.md)

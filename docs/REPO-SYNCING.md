@@ -1,4 +1,4 @@
-# Repository updating
+# Repository syncing
 
 Repository updating is required to keep your local project in sync with this repository. This is required to keep your project up-to-date with the latest changes and improvements, new branches, etc.
 

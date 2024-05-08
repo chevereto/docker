@@ -1,6 +1,6 @@
 # Updating
 
-**Note:** To update make sure to update your copy of this repo (refer to [REPO UPDATING](./REPO-UPDATING.md)) and from there you can update Chevereto application.
+**Note:** To update make sure to update your copy of this repo (refer to [REPO SYNCING](./REPO-SYNCING.md)) and from there you can update Chevereto application.
 
 ## Chevereto application update
 
