@@ -92,6 +92,17 @@ feedback--namespace:
 	@echo "🔑 ${ENCRYPTION_KEY}"
 	@echo "🌎 ${HOSTNAME}"
 
+# Repo
+
+sync:
+	@./scripts/chevereto/logo.sh
+	@echo "🔄 Syncing with remote repository (rebase+autostash)"
+	@git remote -v
+	@git fetch --tags -f && git pull --rebase --autostash
+	@echo "Listing available branches..."
+	@git --no-pager branch --sort=-committerdate
+	@echo '[OK] Run `git switch <branch>` to change branch if needed'
+
 # Docker
 
 image: feedback--image feedback--short

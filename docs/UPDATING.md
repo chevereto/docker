@@ -1,8 +1,8 @@
 # Updating
 
-**Note:** To update make sure to update your copy of this repo (refer to [repository update](#repository-update)) and from there you can update Chevereto application (refer to [Chevereto update](#chevereto-update)).
+**Note:** To update make sure to update your copy of this repo (refer to [REPO UPDATING](./REPO-UPDATING.md)) and from there you can update Chevereto application.
 
-## Chevereto update
+## Chevereto application update
 
 To update instances to a new Chevereto version re-build the container image (see [BUILDING](BUILDING.md)) to reflect the target version.
 
@@ -24,41 +24,6 @@ make up-d NAMESPACE=yourproject
 make exec NAMESPACE=yourproject COMMAND="app/bin/legacy -C update"
 ```
 
-## Repository update
-
-To update your containers to the latest version of this repository make sure to run for every instance:
-
-```sh
-make down NAMESPACE=yourproject
-```
-
-💡 If you forget to run this you can rollback the repo and execute the above command.
-
-### Manual repo updating
-
-Pull changes in your copy of this repo.
-
-```sh
-git fetch --tags -f && git pull --rebase --autostash
-```
-
-Switch to the new branch/tag.
-
-```sh
-git switch 4.1
-```
-
-### GitHub one-click repo updating
-
-1. Go to **Actions**
-2. Select **Update** under **Workflows**
-3. Click on **Run Workflow** and confirm
-
-![Update template](src/update.png)
-
-🤖 When done **a bot will create a pull request** in your repo so you can review and confirm the changes.
-
-![Update merge](src/update-merge.png)
 
 ## Troubleshooting
 
