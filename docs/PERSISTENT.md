@@ -1,14 +1,5 @@
 # Persistent storage
 
-## Using Services
-
-Chevereto supports external storage providers for user generated content and website assets. It support any mixture of configurations as you may need to customize.
-
-For more information:
-
-* [External Storage](https://v4-admin.chevereto.com/features/external-storage.html) documentation
-* [Assets Variables](https://v4-docs.chevereto.com/application/configuration/environment.html#assets-variables) reference
-
 ## Using Volumes
 
 If you are using volumes for persistent storage, permissions in the mount path must be `www-data:www-data` to enable Chevereto to write those volumes.
@@ -21,7 +12,7 @@ Run this command in the Chevereto container to set the right permissions:
 
 ## Permissions check
 
-Enter to the container console `/bin/bash`. Once there, run `ls -la` and you should see something like this:
+Enter to the container console `/bin/bash`. Once there, run `ls -la` to list the file system. You should see something like this:
 
 ```plain
 www-data@20d1427c6727:~/html$ ls -la
@@ -41,10 +32,10 @@ drwxr-xr-x  2 www-data www-data 4096 Apr  1 18:56 sdk
 
 ## Volume reference
 
-| Volume                  | Mount path            | Purpose                                     |
-| ----------------------- | --------------------- | ------------------------------------------- |
-| [chevereto](#chevereto) | /var/www/html/        | Chevereto application files                 |
-| [storage](#storage)     | /var/www/html/images/ | User uploads + assets (avatars, logos, etc) |
+| Volume                         | Mount path            | Purpose                                     |
+| ------------------------------ | --------------------- | ------------------------------------------- |
+| [Chevereto volume](#chevereto) | /var/www/html/        | Chevereto application files                 |
+| [Storage volume](#storage)     | /var/www/html/images/ | User uploads + assets (avatars, logos, etc) |
 
 ### Chevereto
 
@@ -57,6 +48,13 @@ This volume is for storing the application files shared between containers `php`
 This volume is for storing user uploaded images and assets namely user avatars, website logos, background images, etc.
 
 👉 This is used when you don't add any External Storage provider to Chevereto.
+
+## Using external services
+
+Chevereto supports external storage providers for user generated content and website assets. It support any mixture of configurations as you may need to customize. Refer to the following reference for more information on service providers for storage:
+
+* [External Storage](https://v4-admin.chevereto.com/features/external-storage.html) documentation
+* [Assets Variables](https://v4-docs.chevereto.com/application/configuration/environment.html#assets-variables) reference
 
 ## Troubleshoot
 

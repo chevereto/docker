@@ -1,6 +1,6 @@
 # Volumes
 
-Manage Docker volumes.
+Manage Docker volumes. Refer to [PERSISTENT](./PERSISTENT.md) to learn more about volume storage and permissions.
 
 ## Volume copy
 
