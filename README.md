@@ -34,10 +34,10 @@ To follow this guide, make sure you have:
 
 ## Quick-start
 
-Run the following command to install this project and all its dependencies in your brand new **Ubuntu 22.04** server.
+Run the following command to install this project and all its dependencies in your brand new **Ubuntu 24.04** server.
 
 ```sh
-bash <(curl -s https://chevereto.com/sh/ubuntu/22.04/docker.sh)
+bash <(curl -s https://chevereto.com/sh/ubuntu/24.04/docker.sh)
 ```
 
 Create configuration file at `.env` by running this command.
