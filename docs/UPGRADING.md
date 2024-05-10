@@ -28,7 +28,7 @@ make image
 
 ## Step 3: Update Chevereto instances
 
-Update all your running Chevereto instances with one command. This will down and re-up the containers and carry the required database update.
+This will down and re-up the containers and carry the required database update.
 
 ```sh
 make update
