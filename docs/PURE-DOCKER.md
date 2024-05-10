@@ -33,7 +33,7 @@ By running the above command you will generate the following tags:
 
 ## Upgrading
 
-To upgrade your Chevereto application you need to (1) Sync repository, (2) Re-build the container image, and (3) Down and re-up the container.
+To upgrade you need to (1) Sync repository, (2) Re-build the container image, and (3) Update Chevereto instances.
 
 ### Step 1: Sync repository
 
