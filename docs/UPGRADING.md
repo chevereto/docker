@@ -1,10 +1,8 @@
 # Upgrading
 
-The upgrade process refer to (1) Syncing this repository, (2) Re-build the Chevereto container image and (3) Update your running containers.
+To upgrade your Chevereto application you need to (1) Sync repository, (2) Re-build the container image, and (3) Update Chevereto instances.
 
-🪄 Follow the steps below to easy upgrade your Chevereto instances.
-
-## Step 1: Sync
+## Step 1: Sync repository
 
 Sync this repository to get the latest changes.
 
