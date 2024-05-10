@@ -1,12 +1,8 @@
 # Updating
 
-**Note:** To update make sure to update your copy of this repo (refer to [REPO SYNCING](./REPO-SYNCING.md)) and from there you can update Chevereto application.
+The update process refers to updating existing Chevereto containers to a newly tagged image previously made. Check [UPGRADING](./UPGRADING.md) for the recommended full upgrade process.
 
-## Chevereto application update
-
-To update instances to a new Chevereto version re-build the container image (see [BUILDING](BUILDING.md)) to reflect the target version.
-
-### One-click Chevereto updating
+## One-click Chevereto updating
 
 Run the following command to update all instances. The process will swap every instance to the new container image and perform the necessary database updates.
 
@@ -14,7 +10,7 @@ Run the following command to update all instances. The process will swap every i
 make update
 ```
 
-### Manual Chevereto updating
+## Manual Chevereto updating
 
 Swap to the new container image by down plus up-d by passing the `NAMESPACE` of your project. Once done, execute the `app/bin/legacy -C update` command to perform the necessary database updates.
 
@@ -23,7 +19,6 @@ make down NAMESPACE=yourproject
 make up-d NAMESPACE=yourproject
 make exec NAMESPACE=yourproject COMMAND="app/bin/legacy -C update"
 ```
-
 
 ## Troubleshooting
 
