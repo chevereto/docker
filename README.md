@@ -13,6 +13,10 @@ Dockerfile driven template project for building images and manage containers for
 
 > **Warning**: Do not publish Docker images to a public registry when using a paid Chevereto edition as its [commercial license](https://chevereto.com/license) restricts re-distribution rights.
 
+## Installation service available
+
+We offer a [paid installation service](https://chevereto.com/support) for this guide. We will install Chevereto Docker for you, including all the requirements and configurations.
+
 ## Features
 
 * One-click commands using `make`
