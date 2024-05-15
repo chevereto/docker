@@ -93,13 +93,10 @@ make up-d NAMESPACE=yourproject
 
 ## Pure Docker
 
-If you want full control of the container provisioning you can get our base image at:
+> [!NOTE]
+> If you can't build the paid image you can use the free edition image and upgrade to paid within the application itself. To do this, pass the environment `CHEVERETO_SERVICING=server` to the container runtime and go to `/dashboard?license` to enter the license and proceed with the upgrading process.
 
-```sh
-ghcr.io/chevereto/chevereto:latest
-```
-
-You can get this container running with the following command:
+If you want full control of the container provisioning you can get the container running with the following command.
 
 ```sh
 docker run -d \
@@ -113,11 +110,14 @@ docker run -d \
   -e CHEVERETO_ASSET_STORAGE_TYPE=local \
   -e CHEVERETO_ASSET_STORAGE_URL=/images/_assets/ \
   -e CHEVERETO_ASSET_STORAGE_BUCKET=/var/www/html/images/_assets/ \
+  -e CHEVERETO_MAX_POST_SIZE=2G \
+  -e CHEVERETO_MAX_UPLOAD_SIZE=2G \
+  -e CHEVERETO_SERVICING=server \
   -v /var/www/html/images/ \
   ghcr.io/chevereto/chevereto:latest
 ```
 
-See [PURE-DOCKER](docs/PURE-DOCKER.md) for a complete pure Docker command reference.
+See [PURE-DOCKER](docs/PURE-DOCKER.md) for a complete pure Docker command reference, including how to [run Chevereto paid edition](./docs/PURE-DOCKER.md#build-image-paid-edition).
 
 ## Manual setup
 

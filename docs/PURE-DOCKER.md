@@ -111,6 +111,7 @@ docker run -d \
   -e CHEVERETO_ASSET_STORAGE_BUCKET=/var/www/html/images/_assets/ \
   -e CHEVERETO_MAX_POST_SIZE=2G \
   -e CHEVERETO_MAX_UPLOAD_SIZE=2G \
+  -e CHEVERETO_SERVICING=server \
   -v /var/www/html/images/ \
   ghcr.io/chevereto/chevereto:latest
 ```
