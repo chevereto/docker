@@ -68,9 +68,6 @@ Then re-up the container using the same command you used to run it the first tim
 
 ## Run (paid edition)
 
-> [!NOTE]
-> If you can't build the paid image you can use the free edition image and upgrade to paid within the application itself. To do this, pass the environment `CHEVERETO_SERVICING=server` to the container runtime and go to `/dashboard?license` to enter the license and proceed with the upgrading process.
-
 To run [chevereto.com](https://chevereto.com/pricing) (paid edition) you need to pass the environment targeting your private build image, in this example `chevereto:latest`.
 
 ```sh
@@ -92,6 +89,9 @@ docker run -d \
 ```
 
 ## Run (free edition)
+
+> [!NOTE]
+> If you can't build the paid image you can use the free edition image and upgrade to paid within the application itself. To do this, pass the environment `CHEVERETO_SERVICING=server` to the container runtime and go to `/dashboard?license` to enter the license and proceed with the upgrading process.
 
 To run [chevereto/chevereto](https://github.com/chevereto/chevereto) (Chevereto free edition) you need to pass the environment targeting public image `ghcr.io/chevereto/chevereto:latest`.
 
