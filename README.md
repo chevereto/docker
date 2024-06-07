@@ -34,7 +34,7 @@ To follow this guide, make sure you have:
 * Domain managed by CloudFlare (if using this integration)
 * Chevereto license (required for the paid edition)
   * [Purchase](https://chevereto.com/pricing) new license
-  * [Access](https://chevereto.com/panel/license) existing purchase`
+  * [Access](https://chevereto.com/panel/license) existing purchase
 
 ## Quick-start
 
