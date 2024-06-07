@@ -9,7 +9,7 @@
 [![Chevereto Discord](https://img.shields.io/badge/chevereto-discord-5865F2?style=flat-square)](https://chevereto.com/go/discord)
 [![Chevereto Demo](https://img.shields.io/badge/chevereto-demo-d4af37?style=flat-square)](https://demo.chevereto.com)
 
-Dockerfile driven template project for building images and manage containers for **Chevereto V4** projects.
+Dockerfile driven template project for building images and manage containers for **Chevereto V4** projects. Go to [GitHub Container Registry](https://github.com/chevereto/chevereto/pkgs/container/chevereto/versions) or [Docker Hub](https://hub.docker.com/r/chevereto/chevereto/tags) for ready to use tagged images/versions.
 
 > **Warning**: Do not publish Docker images to a public registry when using a paid Chevereto edition as its [commercial license](https://chevereto.com/license) restricts re-distribution rights.
 
