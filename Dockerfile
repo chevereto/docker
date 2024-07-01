@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
     && a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb \
     && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ --with-webp=/usr/include/ \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-install -j$(nproc) exif gd pdo_mysql zip opcache bcmath \
+    && docker-php-ext-install -j$(nproc) exif gd pdo_mysql zip opcache bcmath ftp \
     && pecl install imagick \
     && docker-php-ext-enable imagick opcache \
     && php -m
@@ -32,7 +32,7 @@ RUN echo "sendmail_path=/usr/sbin/sendmail -t -i" >> /usr/local/etc/php/conf.d/s
 
 RUN rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=4.1
+ARG VERSION=4.2
 ARG SERVICING=docker
 
 ENV CHEVERETO_DB_HOST=mariadb \
