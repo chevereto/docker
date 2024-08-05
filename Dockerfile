@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
     && a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb \
     && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ --with-webp=/usr/include/ \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-install -j$(nproc) exif gd pdo_mysql zip opcache bcmath ftp \
+    && docker-php-ext-install -j$(nproc) exif gd pdo_mysql zip opcache bcmath ftp intl \
     && pecl install imagick \
     && docker-php-ext-enable imagick opcache \
     && php -m
