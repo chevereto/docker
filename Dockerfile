@@ -21,7 +21,8 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install -j$(nproc) exif gd pdo_mysql zip opcache bcmath ftp intl \
     && pecl install imagick \
-    && docker-php-ext-enable imagick opcache \
+    && pecl install redis \
+    && docker-php-ext-enable imagick opcache redis \
     && php -m
 
 RUN echo "sendmail_path=/usr/sbin/sendmail -t -i" >> /usr/local/etc/php/conf.d/sendmail.ini \
