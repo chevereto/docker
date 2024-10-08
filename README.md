@@ -94,7 +94,7 @@ make up-d NAMESPACE=yourproject
 ## Pure Docker
 
 > [!NOTE]
-> If you can't build the paid image you can use the free edition image and upgrade to paid within the application itself. To do this, pass the environment `CHEVERETO_SERVICING=server` to the container runtime and go to `/dashboard?license` to enter the license and proceed with the upgrading process.
+> If you can't build the paid image you can use the free edition image and upgrade to paid within the application itself. Go to [PURE-DOCKER](./docs/PURE-DOCKER.md#run-free-edition-with-application-upgrade) to learn how.
 
 If you want full control of the container provisioning you can get the container running with the following command.
 
@@ -112,7 +112,6 @@ docker run -d \
   -e CHEVERETO_ASSET_STORAGE_BUCKET=/var/www/html/images/_assets/ \
   -e CHEVERETO_MAX_POST_SIZE=2G \
   -e CHEVERETO_MAX_UPLOAD_SIZE=2G \
-  -e CHEVERETO_SERVICING=server \
   -v /var/www/html/images/ \
   ghcr.io/chevereto/chevereto:latest
 ```

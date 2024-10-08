@@ -1,5 +1,7 @@
 # Build
 
+Image building is **recommended** for Chevereto **paid edition**. If this is not an option, you can run the free edition and manage application upgrades within the application itself. Refer to [PURE-DOCKER](./PURE-DOCKER.md#run-free-edition-with-application-upgrade) to learn how.
+
 ## Make image
 
 This command creates the Docker image for Chevereto by downloading the software at `./chevereto` and then build from [Dockerfile](../Dockerfile). It will generate multiple semantic version tags `4.2.0`, `4.2` and `4`.
