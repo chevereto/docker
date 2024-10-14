@@ -1,6 +1,6 @@
 # Docker
 
-> 🔔 [Subscribe](https://chv.to/newsletter) to don't miss any update regarding Chevereto.
+> 🔔 [Subscribe](https://chevereto.com/go/newsletter) to don't miss any update regarding Chevereto.
 
 <img alt="Chevereto" src="chevereto.svg" width="100%">
 
