@@ -4,6 +4,7 @@ FROM php:${PHP}-apache
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
 RUN apt-get update && apt-get install -y \
+    libssl-dev \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
@@ -19,6 +20,7 @@ RUN apt-get update && apt-get install -y \
     && a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb \
     && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ --with-webp=/usr/include/ \
     && docker-php-ext-configure opcache --enable-opcache \
+    && docker-php-ext-configure ftp --with-openssl-dir=/usr \
     && docker-php-ext-install -j$(nproc) exif gd pdo_mysql zip opcache bcmath ftp intl \
     && pecl install imagick \
     && pecl install redis \
