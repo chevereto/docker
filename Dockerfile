@@ -1,5 +1,5 @@
 ARG PHP=8.2
-FROM composer:latest as composer
+FROM composer:latest AS composer
 FROM php:${PHP}-apache
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
@@ -45,8 +45,8 @@ ENV CHEVERETO_DB_HOST=mariadb \
     CHEVERETO_ERROR_LOG=/dev/stderr \
     CHEVERETO_MAX_EXECUTION_TIME_SECONDS=30 \
     CHEVERETO_MAX_MEMORY_SIZE=512M \
-    CHEVERETO_MAX_POST_SIZE=64M \
-    CHEVERETO_MAX_UPLOAD_SIZE=64M \
+    CHEVERETO_MAX_POST_SIZE=100M \
+    CHEVERETO_MAX_UPLOAD_SIZE=100M \
     CHEVERETO_SERVICING=docker \
     CHEVERETO_SESSION_SAVE_HANDLER=files \
     CHEVERETO_SESSION_SAVE_PATH=/tmp
