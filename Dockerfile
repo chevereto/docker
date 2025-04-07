@@ -27,7 +27,8 @@ RUN apt-get update && apt-get install -y \
     && pecl install imagick \
     && pecl install redis \
     && docker-php-ext-enable exif imagick opcache redis \
-    && php -m
+    && php -m \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN echo "sendmail_path=/usr/sbin/sendmail -t -i" >> /usr/local/etc/php/conf.d/sendmail.ini \
     && sed -i \
