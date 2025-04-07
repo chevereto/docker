@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y \
     libgd-dev \
     libzip-dev \
     zip unzip \
-    sendmail \
     rsync \
     inotify-tools \
     imagemagick libmagickwand-dev --no-install-recommends \
@@ -29,14 +28,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-enable exif imagick opcache redis \
     && php -m \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-RUN echo "sendmail_path=/usr/sbin/sendmail -t -i" >> /usr/local/etc/php/conf.d/sendmail.ini \
-    && sed -i \
-    -e '/#!\/bin\/sh/a\echo "$(hostname -i)\t$(hostname) $(hostname).localhost" >> /etc/hosts' \
-    -e '/#!\/bin\/sh/a\service sendmail restart' \
-    /usr/local/bin/docker-php-entrypoint
-
-RUN rm -rf /var/lib/apt/lists/*
 
 ARG VERSION=4.2
 ARG SERVICING=docker
