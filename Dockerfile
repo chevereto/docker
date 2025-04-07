@@ -17,14 +17,16 @@ RUN apt-get update && apt-get install -y \
     inotify-tools \
     imagemagick libmagickwand-dev --no-install-recommends \
     ffmpeg \
+    exiftool \
     && a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb \
     && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ --with-webp=/usr/include/ \
     && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-configure ftp --with-openssl-dir=/usr \
+    && docker-php-ext-configure exif \
     && docker-php-ext-install -j$(nproc) exif gd pdo_mysql zip opcache bcmath ftp intl \
     && pecl install imagick \
     && pecl install redis \
-    && docker-php-ext-enable imagick opcache redis \
+    && docker-php-ext-enable exif imagick opcache redis \
     && php -m
 
 RUN echo "sendmail_path=/usr/sbin/sendmail -t -i" >> /usr/local/etc/php/conf.d/sendmail.ini \
