@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
     imagemagick libmagickwand-dev --no-install-recommends \
     ffmpeg \
     exiftool \
+    exiftran \
     && a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb \
     && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ --with-webp=/usr/include/ \
     && docker-php-ext-configure opcache --enable-opcache \
