@@ -52,7 +52,7 @@ services:
       CHEVERETO_MAX_POST_SIZE: 2G
       CHEVERETO_MAX_UPLOAD_SIZE: 2G
       CHEVERETO_SESSION_SAVE_HANDLER: redis
-      CHEVERETO_SESSION_SAVE_PATH: tcp://redis:6379
+      CHEVERETO_SESSION_SAVE_PATH: tcp://redis:6379?auth[]=redis_password
       CHEVERETO_ERROR_LOG_CLI: /proc/1/fd/2
       CHEVERETO_ERROR_LOG_CRON: /proc/1/fd/2
       CHEVERETO_ERROR_LOG: /dev/stderr
@@ -61,6 +61,7 @@ services:
       CHEVERETO_CACHE_DRIVER: redis
       CHEVERETO_CACHE_HOST: redis
       CHEVERETO_CACHE_PORT: 6379
+      CHEVERETO_CACHE_USER:
       CHEVERETO_CACHE_PASSWORD: redis_password
 
   redis:
