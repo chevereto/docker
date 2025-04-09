@@ -1,7 +1,7 @@
 services:
   database:
     container_name: ${CONTAINER_BASENAME}_database
-    image: mariadb:jammy
+    image: mysql:8 #evergreen
     networks:
       - chevereto
     volumes:
@@ -10,7 +10,7 @@ services:
       - ${DB_PORT}:3306
     restart: always
     healthcheck:
-      test: ["CMD", "healthcheck.sh", "--su-mysql", "--connect"] # MariaDB
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"] # MySQL
       interval: 10s
       timeout: 5s
       retries: 3
