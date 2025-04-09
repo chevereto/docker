@@ -27,7 +27,10 @@ PROTOCOL ?= https
 SERVICE ?= php
 ENCRYPTION_KEY ?=
 EMAIL_HTTPS ?= mail@yourdomain.tld
+# dev ports, none of these exposed on production
 DB_PORT ?= 8836
+REDIS_PORT ?= 8869
+# http ports
 HTTP_PORT ?= 80
 HTTPS_PORT ?= 443
 PORT = $(shell [ "${PROTOCOL}" = "http" ] && echo \${HTTP_PORT} || echo \${HTTPS_PORT})
@@ -52,6 +55,7 @@ CHEVERETO_LICENSE ?= $(shell stty -echo; read -p "Chevereto V4 License key (for 
 DOCKER_COMPOSE = $(shell echo @CONTAINER_BASENAME=\${CONTAINER_BASENAME} \
 	SOURCE=\${SOURCE} \
 	DB_PORT=\${DB_PORT} \
+	REDIS_PORT=\${REDIS_PORT} \
 	HTTP_PORT=\${HTTP_PORT} \
 	HTTPS_PORT=\${HTTPS_PORT} \
 	HTTPS_CERT=\${HTTPS_CERT} \
