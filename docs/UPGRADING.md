@@ -10,10 +10,10 @@ Sync this repository to get the latest changes.
 make sync
 ```
 
-**Note:** If there's a new branch (for example 4.2) switch to that branch running the following command:
+**Note:** If there's a new branch (for example 4.3) switch to that branch running the following command:
 
 ```sh
-git switch 4.2
+git switch 4.3
 ```
 
 ## Step 2: Re-build the container image

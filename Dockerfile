@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y \
     && php -m \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=4.2
+ARG VERSION=4.3
 ARG SERVICING=docker
 
 ENV CHEVERETO_ERROR_LOG=/dev/stderr \

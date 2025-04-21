@@ -13,7 +13,7 @@ make <command> <options>
 ## Options
 
 * NAMESPACE=chevereto
-* VERSION=4.2
+* VERSION=4.3
 * EDITION=pro
 * HTTP_PORT=80
 * HTTPS_PORT=443

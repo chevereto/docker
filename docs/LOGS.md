@@ -8,7 +8,7 @@ make <command> <options>
 
 * NAMESPACE=yourproject
 * SERVICE=php
-* VERSION=4.2
+* VERSION=4.3
 
 (*) For `SERVICE` you can use `php` and `database` respectively to get the logs for the PHP Apache and the MariaDB database.
 
