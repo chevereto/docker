@@ -42,21 +42,22 @@ ENV CHEVERETO_ERROR_LOG=/dev/stderr \
     CHEVERETO_SESSION_SAVE_HANDLER=files \
     CHEVERETO_SESSION_SAVE_PATH=/tmp
 
-RUN set -eux; \
-    { \
-    echo "default_charset = UTF-8"; \
-    echo "display_errors = Off"; \
-    echo "error_log = \${CHEVERETO_ERROR_LOG}"; \
-    echo "expose_php = Off"; \
-    echo "log_errors = On"; \
-    echo "max_execution_time = \${CHEVERETO_MAX_EXECUTION_TIME_SECONDS}"; \
-    echo "memory_limit = \${CHEVERETO_MAX_MEMORY_SIZE}"; \
-    echo "post_max_size = \${CHEVERETO_MAX_POST_SIZE}"; \
-    echo "session.cookie_httponly = On"; \
-    echo "session.save_handler = \${CHEVERETO_SESSION_SAVE_HANDLER}"; \
-    echo "session.save_path = \${CHEVERETO_SESSION_SAVE_PATH}"; \
-    echo "upload_max_filesize = \${CHEVERETO_MAX_UPLOAD_SIZE}"; \
-    } > $PHP_INI_DIR/conf.d/php.ini
+RUN printf "%s\n" \
+    "default_charset = UTF-8" \
+    "display_errors = Off" \
+    "error_log = \${CHEVERETO_ERROR_LOG}" \
+    "expose_php = Off" \
+    "log_errors = On" \
+    "max_execution_time = \${CHEVERETO_MAX_EXECUTION_TIME_SECONDS}" \
+    "memory_limit = \${CHEVERETO_MAX_MEMORY_SIZE}" \
+    "post_max_size = \${CHEVERETO_MAX_POST_SIZE}" \
+    "session.cookie_httponly = On" \
+    "session.save_handler = \${CHEVERETO_SESSION_SAVE_HANDLER}" \
+    "session.save_path = \${CHEVERETO_SESSION_SAVE_PATH}" \
+    "upload_max_filesize = \${CHEVERETO_MAX_UPLOAD_SIZE}" \
+    "opcache.preload = /var/www/html/app/legacy/load/php-boot.php" \
+    "opcache.preload_user = www-data" \
+    > $PHP_INI_DIR/conf.d/php.ini
 
 WORKDIR /var/www/html
 
