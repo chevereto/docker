@@ -46,7 +46,6 @@ services:
       CHEVERETO_HOSTNAME_PATH: ${HOSTNAME_PATH}
       CHEVERETO_HTTPS: ${HTTPS}
       CHEVERETO_ENCRYPTION_KEY: ${ENCRYPTION_KEY}
-      CHEVERETO_MAX_POST_SIZE: 2G
       CHEVERETO_MAX_UPLOAD_SIZE: 2G
       #CHEVERETO_SERVICING: server # uncomment to enable application filesystem upgrades
 
