@@ -55,8 +55,6 @@ RUN printf "%s\n" \
     "session.save_handler = \${CHEVERETO_SESSION_SAVE_HANDLER}" \
     "session.save_path = \${CHEVERETO_SESSION_SAVE_PATH}" \
     "upload_max_filesize = \${CHEVERETO_MAX_UPLOAD_SIZE}" \
-    "opcache.preload = /var/www/html/app/legacy/load/php-boot.php" \
-    "opcache.preload_user = www-data" \
     > $PHP_INI_DIR/conf.d/php.ini
 
 WORKDIR /var/www/html
