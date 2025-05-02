@@ -35,9 +35,9 @@ ARG SERVICING=docker
 
 ENV CHEVERETO_ERROR_LOG=/dev/stderr \
     CHEVERETO_MAX_EXECUTION_TIME_SECONDS=30 \
-    CHEVERETO_MAX_MEMORY_SIZE=512M \
-    CHEVERETO_MAX_POST_SIZE=100M \
-    CHEVERETO_MAX_UPLOAD_SIZE=100M \
+    CHEVERETO_MAX_MEMORY_SIZE=1G \
+    CHEVERETO_MAX_POST_SIZE=64M \
+    CHEVERETO_MAX_UPLOAD_FILE_SIZE=64M \
     CHEVERETO_SERVICING=docker \
     CHEVERETO_SESSION_SAVE_HANDLER=files \
     CHEVERETO_SESSION_SAVE_PATH=/tmp
@@ -54,7 +54,7 @@ RUN printf "%s\n" \
     "session.cookie_httponly = On" \
     "session.save_handler = \${CHEVERETO_SESSION_SAVE_HANDLER}" \
     "session.save_path = \${CHEVERETO_SESSION_SAVE_PATH}" \
-    "upload_max_filesize = \${CHEVERETO_MAX_UPLOAD_SIZE}" \
+    "upload_max_filesize = \${CHEVERETO_MAX_UPLOAD_FILE_SIZE}" \
     > $PHP_INI_DIR/conf.d/php.ini
 
 WORKDIR /var/www/html
