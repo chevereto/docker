@@ -64,8 +64,6 @@ services:
     volumes:
       - redis:/data
     restart: always
-    ports:
-      - ${REDIS_PORT}:6379
     command: redis-server --appendonly yes --requirepass redis_password
 
 volumes:
