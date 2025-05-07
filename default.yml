@@ -47,11 +47,31 @@ services:
       CHEVERETO_HTTPS: ${HTTPS}
       CHEVERETO_ENCRYPTION_KEY: ${ENCRYPTION_KEY}
       CHEVERETO_MAX_UPLOAD_SIZE: 2G
+      CHEVERETO_SESSION_SAVE_HANDLER: redis
+      CHEVERETO_SESSION_SAVE_PATH: "tcp://redis:6379?auth[]=redis_password&prefix=chv:SESSION:"
       #CHEVERETO_SERVICING: server # uncomment to enable application filesystem upgrades
+      CHEVERETO_CACHE_DRIVER: redis
+      CHEVERETO_CACHE_HOST: redis
+      CHEVERETO_CACHE_PORT: 6379
+      CHEVERETO_CACHE_USER:
+      CHEVERETO_CACHE_PASSWORD: redis_password
+
+  redis:
+    container_name: ${CONTAINER_BASENAME}_redis
+    image: redis:7
+    networks:
+      - chevereto
+    volumes:
+      - redis:/data
+    restart: always
+    ports:
+      - ${REDIS_PORT}:6379
+    command: redis-server --appendonly yes --requirepass redis_password
 
 volumes:
   database:
   storage:
+  redis:
   #app: uncomment when using CHEVERETO_SERVICING=server
 
 networks:
