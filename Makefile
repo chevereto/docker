@@ -240,7 +240,7 @@ destroy: feedback--compose cloudflare--delete
 install: feedback--short
 	docker exec -it --user ${DOCKER_USER} \
 		${CONTAINER_BASENAME}_${SERVICE} \
-		app/bin/legacy -C install -u "${ADMIN_USER}" -e "${ADMIN_EMAIL}" -x "${ADMIN_PASSWORD}"
+		app/bin/cli -C install -u "${ADMIN_USER}" -e "${ADMIN_EMAIL}" -x "${ADMIN_PASSWORD}"
 
 # nginx-proxy
 

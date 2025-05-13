@@ -23,7 +23,7 @@ for file in "$NAMESPACE_DIRECTORY"*; do
 
     make down NAMESPACE=$NAMESPACE
     make up-d NAMESPACE=$NAMESPACE EDITION=${EDITION:-"pro"} ENCRYPTION_KEY=${ENCRYPTION_KEY}
-    make exec NAMESPACE=$NAMESPACE COMMAND="app/bin/legacy -C update"
+    make exec NAMESPACE=$NAMESPACE COMMAND="app/bin/cli -C update"
 
     echo "✔ Updated ${NAMESPACE}"
     echo ""

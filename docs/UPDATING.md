@@ -12,12 +12,12 @@ make update
 
 ## Manual Chevereto updating
 
-Swap to the new container image by down plus up-d by passing the `NAMESPACE` of your project. Once done, execute the `app/bin/legacy -C update` command to perform the necessary database updates.
+Swap to the new container image by down plus up-d by passing the `NAMESPACE` of your project. Once done, execute the `app/bin/cli -C update` command to perform the necessary database updates.
 
 ```sh
 make down NAMESPACE=yourproject
 make up-d NAMESPACE=yourproject
-make exec NAMESPACE=yourproject COMMAND="app/bin/legacy -C update"
+make exec NAMESPACE=yourproject COMMAND="app/bin/cli -C update"
 ```
 
 ## Troubleshooting
