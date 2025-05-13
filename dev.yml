@@ -65,7 +65,7 @@ services:
 
   redis:
     container_name: ${CONTAINER_BASENAME}_redis
-    image: redis:7
+    image: redis:8
     networks:
       - chevereto
     volumes:
