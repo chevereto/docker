@@ -30,6 +30,8 @@ services:
     depends_on:
       database:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     expose:
       - 80
       - 443
@@ -65,6 +67,11 @@ services:
       - redis:/data
     restart: always
     command: redis-server --appendonly yes --requirepass redis_password
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "redis_password", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
 volumes:
   database:
