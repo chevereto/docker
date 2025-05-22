@@ -132,7 +132,14 @@ volume-cp:
 	@docker run --rm -it -v ${VOLUME_FROM}:/from -v ${VOLUME_TO}:/to alpine ash -c "cd /from ; cp -av . /to"
 
 volume-rm:
+	${DOCKER_COMPOSE} down
 	@docker volume rm ${VOLUME}
+	${DOCKER_COMPOSE} up -d
+
+volume-rm--service:
+	${DOCKER_COMPOSE} down
+	@docker volume rm ${CONTAINER_BASENAME}_${SERVICE}
+	${DOCKER_COMPOSE} up -d
 
 # Logs
 
