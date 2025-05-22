@@ -42,7 +42,6 @@ URL_PORT = ${PROTOCOL}://${HOSTNAME}:${PORT}${HOSTNAME_PATH}
 URL = $(shell [ "${PORT}" = 80 -o "${PORT}" = 443 ] && echo ${URL_BARE} || echo ${URL_PORT})
 PROJECT = ${NAMESPACE}_chevereto$(shell [ ! "${TARGET}" = "default" ] && echo -\${TARGET})
 CONTAINER_BASENAME = ${PROJECT}-${VERSION}
-VOLUME_BASENAME = ${PROJECT}_
 IMAGE_EDITION_FREE_BASE = ghcr.io/chevereto/chevereto
 IMAGE_NAME = chevereto$(shell [ ! "${TARGET}" = "default" ] && echo -\${TARGET})
 IMAGE ?= $(shell [ "${EDITION}" = "free" ] && echo \${IMAGE_EDITION_FREE_BASE} || echo \${IMAGE_NAME}):${VERSION}
@@ -139,7 +138,7 @@ volume-rm:
 
 volume-rm--service:
 	${DOCKER_COMPOSE} down
-	@docker volume rm ${VOLUME_BASENAME}_${SERVICE}
+	@docker volume rm ${PROJECT}_${SERVICE}
 	${DOCKER_COMPOSE} up -d
 
 # Logs
