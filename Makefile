@@ -136,7 +136,7 @@ volume-rm:
 	@docker volume rm ${VOLUME}
 	${DOCKER_COMPOSE} up -d
 
-volume-rm--service:
+volume-rm-service:
 	${DOCKER_COMPOSE} down
 	@docker volume rm ${PROJECT}_${SERVICE}
 	${DOCKER_COMPOSE} up -d
@@ -213,14 +213,14 @@ setup: cron proxy
 up: feedback--compose feedback--url
 	${DOCKER_COMPOSE} up
 
-reup: feedback--compose feedback--url
+re-up: feedback--compose feedback--url
 	${DOCKER_COMPOSE} down
 	${DOCKER_COMPOSE} up -d
 
 up-d: feedback--compose feedback--url
 	${DOCKER_COMPOSE} up -d
 
-reup-d: feedback--compose feedback--url
+re-up-d: feedback--compose feedback--url
 	${DOCKER_COMPOSE} down
 	${DOCKER_COMPOSE} up -d
 

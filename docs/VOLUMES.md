@@ -15,3 +15,9 @@ make volume-cp VOLUME_FROM=<from_volume> VOLUME_TO=<to_volume>
 ```sh
 make volume-rm VOLUME=<volume_name>
 ```
+
+## Volume remove (service)
+
+```sh
+make volume-rm-service SERVICE=<service_name>
+```
