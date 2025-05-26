@@ -213,7 +213,15 @@ setup: cron proxy
 up: feedback--compose feedback--url
 	${DOCKER_COMPOSE} up
 
+reup: feedback--compose feedback--url
+	${DOCKER_COMPOSE} down
+	${DOCKER_COMPOSE} up -d
+
 up-d: feedback--compose feedback--url
+	${DOCKER_COMPOSE} up -d
+
+reup-d: feedback--compose feedback--url
+	${DOCKER_COMPOSE} down
 	${DOCKER_COMPOSE} up -d
 
 stop: feedback--compose

@@ -65,6 +65,18 @@ make up
 make up-d
 ```
 
+## Re-up
+
+```sh
+make re-up
+```
+
+## Re-up (daemon)
+
+```sh
+make re-up-d
+```
+
 ## Stop
 
 ```sh
