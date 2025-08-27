@@ -296,18 +296,7 @@ database-restore:
 	@ls -lh ./backup/${NAMESPACE}_chevereto.sql.gz
 	@echo "🔍 First 20 lines of decompressed dump:"
 	@gzip -dc ./backup/${NAMESPACE}_chevereto.sql.gz | head -n 20
-	@echo "🔍 Checking which client is available inside the container..."
 	@docker exec ${CONTAINER_BASENAME}_database sh -c 'command -v mysql || command -v mariadb || echo "no client found"'
-	@echo "🔍 Ensuring database 'chevereto' exists..."
-# 	@docker exec ${CONTAINER_BASENAME}_database sh -c '\
-# 		if command -v mysql >/dev/null 2>&1; then \
-# 			set -x; mysql -u root -ppassword -e "CREATE DATABASE IF NOT EXISTS chevereto;"; \
-# 		elif command -v mariadb >/dev/null 2>&1; then \
-# 			set -x; mariadb -u root -ppassword -e "CREATE DATABASE IF NOT EXISTS chevereto;"; \
-# 		else \
-# 			echo "Neither mysql nor mariadb client found" >&2; exit 1; \
-# 		fi'
-	@echo "🔍 Restoring dump into database 'chevereto'..."
 	@gzip -dc ./backup/${NAMESPACE}_chevereto.sql.gz | \
 		docker exec -i ${CONTAINER_BASENAME}_database \
 		sh -c 'set -x; \
@@ -318,6 +307,11 @@ database-restore:
 			else \
 				echo "Neither mysql nor mariadb client found in container" >&2; exit 1; \
 			fi'
+
+# kv
+
+redis-flush:
+	@docker exec -e REDISCLI_AUTH=redis_password -it ${CONTAINER_BASENAME}_redis redis-cli FLUSHALL
 
 # nginx-proxy
 
