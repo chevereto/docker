@@ -141,6 +141,24 @@ volume-rm-service:
 	@docker volume rm ${PROJECT}_${SERVICE}
 	${DOCKER_COMPOSE} up -d
 
+volume-backup-service:
+	@mkdir -p ./backup
+	${DOCKER_COMPOSE} down
+	@docker run --rm -it -v ${PROJECT}_${SERVICE}:/volume -v ./backup:/backup alpine ash -c "cd /volume ; tar czvf /backup/${PROJECT}_${SERVICE}.tar.gz ."
+	${DOCKER_COMPOSE} up -d
+	@echo "📦 Backup created at ./backup/${PROJECT}_${SERVICE}.tar.gz"
+
+volume-restore-service:
+	@mkdir -p ./backup
+	@if [ ! -f "./backup/${PROJECT}_${SERVICE}.tar.gz" ]; then \
+			echo "Backup file ./backup/${PROJECT}_${SERVICE}.tar.gz not found"; \
+			exit 1; \
+		fi
+		@echo "📦 Using backup file ./backup/${PROJECT}_${SERVICE}.tar.gz"
+	${DOCKER_COMPOSE} down
+	@docker run --rm -it -v ${PROJECT}_${SERVICE}:/volume -v ./backup:/backup alpine ash -c "cd /volume ; tar xzvf /backup/${PROJECT}_${SERVICE}.tar.gz -C /volume"
+	${DOCKER_COMPOSE} up -d
+
 # Logs
 
 log: feedback
