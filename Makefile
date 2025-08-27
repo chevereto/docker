@@ -275,6 +275,21 @@ install: feedback--short
 		${CONTAINER_BASENAME}_${SERVICE} \
 		app/bin/cli -C install -u "${ADMIN_USER}" -e "${ADMIN_EMAIL}" -x "${ADMIN_PASSWORD}"
 
+# Database
+
+database-backup:
+	@mkdir -p ./backup
+	@docker exec -i ${CONTAINER_BASENAME}_database \
+		sh -c "mysqldump -u root -ppassword --databases chevereto | gzip" > ./backup/${NAMESPACE}_chevereto.sql.tar.gz
+	@echo "🐬 Database backup created at ./backup/${NAMESPACE}_chevereto.sql.tar.gz"
+
+database-restore:
+	@mkdir -p ./backup
+	@gunzip -c ./backup/${NAMESPACE}_chevereto.sql.tar.gz > ./backup/${NAMESPACE}_chevereto.sql
+	@docker exec -i ${CONTAINER_BASENAME}_database \
+		mysql -u root -ppassword chevereto < ./backup/${NAMESPACE}_chevereto.sql
+	@echo "🐬 Database restored from ./backup/${NAMESPACE}_chevereto.sql"
+
 # nginx-proxy
 
 proxy:
