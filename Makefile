@@ -287,7 +287,14 @@ database-restore:
 	@mkdir -p ./backup
 	@gunzip -c ./backup/${NAMESPACE}_chevereto.sql.tar.gz > ./backup/${NAMESPACE}_chevereto.sql
 	@docker exec -i ${CONTAINER_BASENAME}_database \
-		mysql -u root -ppassword chevereto < ./backup/${NAMESPACE}_chevereto.sql
+		sh -c 'if command -v mysql >/dev/null 2>&1; then \
+			mysql -u root -ppassword chevereto; \
+		elif command -v mariadb >/dev/null 2>&1; then \
+			mariadb -u root -ppassword chevereto; \
+		else \
+			echo "Neither mysql nor mariadb client found in container" >&2; exit 1; \
+		fi' \
+		< ./backup/${NAMESPACE}_chevereto.sql
 	@echo "🐬 Database restored from ./backup/${NAMESPACE}_chevereto.sql"
 
 # nginx-proxy
