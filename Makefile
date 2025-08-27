@@ -279,23 +279,29 @@ install: feedback--short
 
 database-backup:
 	@mkdir -p ./backup
-	@docker exec -i ${CONTAINER_BASENAME}_database \
-		sh -c "mysqldump -u root -ppassword --databases chevereto | gzip" > ./backup/${NAMESPACE}_chevereto.sql.tar.gz
-	@echo "🐬 Database backup created at ./backup/${NAMESPACE}_chevereto.sql.tar.gz"
+	@docker exec ${CONTAINER_BASENAME}_database \
+		sh -c 'if command -v mysqldump >/dev/null 2>&1; then \
+			mysqldump -u root -ppassword chevereto; \
+		elif command -v mariadb-dump >/dev/null 2>&1; then \
+			mariadb-dump -u root -ppassword chevereto; \
+		else \
+			echo "No dump tool found in container" >&2; exit 1; \
+		fi' \
+	| gzip > ./backup/${NAMESPACE}_chevereto.sql.gz
+	@echo "🐬 Database backup created at ./backup/${NAMESPACE}_chevereto.sql.gz"
 
 database-restore:
 	@mkdir -p ./backup
-	@gunzip -c ./backup/${NAMESPACE}_chevereto.sql.tar.gz > ./backup/${NAMESPACE}_chevereto.sql
-	@docker exec -i ${CONTAINER_BASENAME}_database \
+	@gzip -dc ./backup/${NAMESPACE}_chevereto.sql.gz | \
+		docker exec -i ${CONTAINER_BASENAME}_database \
 		sh -c 'if command -v mysql >/dev/null 2>&1; then \
 			mysql -u root -ppassword chevereto; \
 		elif command -v mariadb >/dev/null 2>&1; then \
 			mariadb -u root -ppassword chevereto; \
 		else \
 			echo "Neither mysql nor mariadb client found in container" >&2; exit 1; \
-		fi' \
-		< ./backup/${NAMESPACE}_chevereto.sql
-	@echo "🐬 Database restored from ./backup/${NAMESPACE}_chevereto.sql"
+		fi'
+	@echo "🐬 Database restored from ./backup/${NAMESPACE}_chevereto.sql.gz"
 
 # nginx-proxy
 
