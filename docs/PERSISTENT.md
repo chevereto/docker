@@ -53,7 +53,7 @@ This volume is for storing user uploaded images and assets namely user avatars, 
 
 Chevereto supports external storage providers for user generated content and website assets. It support any mixture of configurations as you may need to customize. Refer to the following reference for more information on service providers for storage:
 
-* [External storage](https://v4-admin.chevereto.com/features/external-storage.html) documentation
+* [External storage](https://v4-admin.chevereto.com/features/upload-storage.html) documentation
 * Assets storage (work in progress)
 
 ## Troubleshoot
