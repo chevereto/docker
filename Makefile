@@ -292,23 +292,16 @@ database-backup:
 
 database-restore:
 	@mkdir -p ./backup
-	@echo "🔍 Checking dump size..."
-	@ls -lh ./backup/${NAMESPACE}_chevereto.sql.gz
-	@echo "🔍 Preview of dump (first 20 lines after decompression):"
-	@gzip -dc ./backup/${NAMESPACE}_chevereto.sql.gz | head -n 20
-	@echo "🔍 Testing which client is available inside the container..."
-	@docker exec ${CONTAINER_BASENAME}_database sh -c 'command -v mysql || command -v mariadb || echo "no client found"'
-	@echo "🔍 Running restore..."
 	@gzip -dc ./backup/${NAMESPACE}_chevereto.sql.gz | \
 		docker exec -i ${CONTAINER_BASENAME}_database \
-		sh -c 'set -x; \
-			if command -v mysql >/dev/null 2>&1; then \
-				mysql -u root -ppassword chevereto; \
-			elif command -v mariadb >/dev/null 2>&1; then \
-				mariadb -u root -ppassword chevereto; \
-			else \
-				echo "Neither mysql nor mariadb client found in container" >&2; exit 1; \
-			fi'
+		sh -c 'if command -v mysql >/dev/null 2>&1; then \
+			mysql -u root -ppassword chevereto; \
+		elif command -v mariadb >/dev/null 2>&1; then \
+			mariadb -u root -ppassword chevereto; \
+		else \
+			echo "Neither mysql nor mariadb client found in container" >&2; exit 1; \
+		fi'
+	@echo "🐬 Database restored into 'chevereto' from ./backup/${NAMESPACE}_chevereto.sql.gz"
 
 # nginx-proxy
 
