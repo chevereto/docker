@@ -176,6 +176,8 @@ make namespace NAMESPACE=yourproject HOSTNAME=yourdomain.tld
 * [UPGRADING](./docs/UPGRADING.md)
 * [DOCKER-COMPOSE](./docs/DOCKER-COMPOSE.md)
 * [VOLUMES](./docs/VOLUMES.md)
+* [DATABASE](./docs/DATABASE.md)
+* [REDIS](./docs/REDIS.md)
 * [PERSISTENT](./docs/PERSISTENT.md)
 * [LOGS](./docs/LOGS.md)
 * [HTTPS](./docs/HTTPS.md)

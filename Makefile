@@ -277,7 +277,7 @@ install: feedback--short
 
 # Database
 
-database-backup:
+database-backup: feedback--short
 	@mkdir -p ./backup
 	@docker exec ${CONTAINER_BASENAME}_database \
 		sh -c 'if command -v mysqldump >/dev/null 2>&1; then \
@@ -287,16 +287,13 @@ database-backup:
 		else \
 			echo "No dump tool found in container" >&2; exit 1; \
 		fi' \
-	| gzip > ./backup/${NAMESPACE}_chevereto.sql.gz
-	@echo "🐬 Database backup created at ./backup/${NAMESPACE}_chevereto.sql.gz"
+	| gzip > ./backup/${NAMESPACE}_chevereto.sql.gz && \
+	echo "🐬 Database backup created at ./backup/${NAMESPACE}_chevereto.sql.gz"
 
-database-restore:
+database-restore: feedback--short
 	@mkdir -p ./backup
-	@echo "🔍 Checking dump file..."
 	@ls -lh ./backup/${NAMESPACE}_chevereto.sql.gz
-	@echo "🔍 First 20 lines of decompressed dump:"
-	@gzip -dc ./backup/${NAMESPACE}_chevereto.sql.gz | head -n 20
-	@docker exec ${CONTAINER_BASENAME}_database sh -c 'command -v mysql || command -v mariadb || echo "no client found"'
+	@gzip -dc ./backup/${NAMESPACE}_chevereto.sql.gz | head -n 10
 	@gzip -dc ./backup/${NAMESPACE}_chevereto.sql.gz | \
 		docker exec -i ${CONTAINER_BASENAME}_database \
 		sh -c 'set -x; \
@@ -306,12 +303,15 @@ database-restore:
 				mariadb -u root -ppassword chevereto; \
 			else \
 				echo "Neither mysql nor mariadb client found in container" >&2; exit 1; \
-			fi'
+			fi' && \
+		echo "🐬 Database restored from ./backup/${NAMESPACE}_chevereto.sql.gz" && \
+		echo "🐬 Flushing Redis cache..." && \
+		$(MAKE) redis-flush
 
-# kv
+# redis
 
 redis-flush:
-	@docker exec -e REDISCLI_AUTH=redis_password -it ${CONTAINER_BASENAME}_redis redis-cli FLUSHALL
+	@docker exec -e REDISCLI_AUTH=redis_password -i ${CONTAINER_BASENAME}_redis redis-cli FLUSHALL
 
 # nginx-proxy
 
