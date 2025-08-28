@@ -36,7 +36,6 @@ make volume-rm-service NAMESPACE=yourproject SERVICE=storage
 Backup a volume by `NAMESPACE` and `SERVICE` at the `./backup` directory.
 
 ```sh
-make volume-backup-service NAMESPACE=yourproject SERVICE=database
 make volume-backup-service NAMESPACE=yourproject SERVICE=storage
 ```
 
@@ -45,6 +44,5 @@ make volume-backup-service NAMESPACE=yourproject SERVICE=storage
 Restore a volume by `NAMESPACE` and `SERVICE` at the `./backup` directory.
 
 ```sh
-make volume-restore-service NAMESPACE=yourproject SERVICE=database
 make volume-restore-service NAMESPACE=yourproject SERVICE=storage
 ```
