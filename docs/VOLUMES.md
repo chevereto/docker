@@ -27,7 +27,6 @@ make volume-rm VOLUME=<volume_name>
 Remove a volume by `NAMESPACE` and `SERVICE`.
 
 ```sh
-make volume-rm-service NAMESPACE=yourproject SERVICE=database
 make volume-rm-service NAMESPACE=yourproject SERVICE=storage
 ```
 
