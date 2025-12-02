@@ -1,0 +1,87 @@
+services:
+  database:
+    container_name: ${CONTAINER_BASENAME}_database
+    image: mysql:8 #evergreen
+    networks:
+      - chevereto
+    volumes:
+      - database:/var/lib/mysql
+    ports:
+      - ${DB_PORT}:3306
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"] # MySQL
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: chevereto
+      MYSQL_USER: chevereto
+      MYSQL_PASSWORD: user_database_password
+
+  php:
+    container_name: ${CONTAINER_BASENAME}_php
+    image: ${IMAGE}
+    networks:
+      - chevereto
+      - nginx-proxy
+    volumes:
+      - storage:/var/www/html/images/
+    restart: always
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    expose:
+      - 80
+      - 443
+    environment:
+      VIRTUAL_HOST: ${HOSTNAME}
+      LETSENCRYPT_HOST: ${HOSTNAME}
+      CHEVERETO_DB_HOST: database
+      CHEVERETO_DB_USER: chevereto
+      CHEVERETO_DB_PASS: user_database_password
+      CHEVERETO_DB_PORT: 3306
+      CHEVERETO_DB_NAME: chevereto
+      CHEVERETO_HEADER_CLIENT_IP: X-Real-IP
+      CHEVERETO_HOSTNAME: ${HOSTNAME}
+      CHEVERETO_HOSTNAME_PATH: ${HOSTNAME_PATH}
+      CHEVERETO_HTTPS: ${HTTPS}
+      CHEVERETO_ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      CHEVERETO_MAX_UPLOAD_SIZE: 2G
+      CHEVERETO_SESSION_SAVE_HANDLER: redis
+      CHEVERETO_SESSION_SAVE_PATH: "tcp://redis:6379?auth[]=redis_password&prefix=chv:SESSION:"
+      #CHEVERETO_SERVICING: server # uncomment to enable application filesystem upgrades
+      CHEVERETO_CACHE_DRIVER: redis
+      CHEVERETO_CACHE_HOST: redis
+      CHEVERETO_CACHE_PORT: 6379
+      CHEVERETO_CACHE_USER:
+      CHEVERETO_CACHE_PASSWORD: redis_password
+
+  redis:
+    container_name: ${CONTAINER_BASENAME}_redis
+    image: redis:8
+    networks:
+      - chevereto
+    volumes:
+      - redis:/data
+    restart: always
+    command: redis-server --appendonly yes --requirepass redis_password
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "redis_password", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  database:
+  storage:
+  redis:
+  #app: uncomment when using CHEVERETO_SERVICING=server
+
+networks:
+  chevereto:
+  nginx-proxy:
+    external: true
