@@ -4,7 +4,7 @@ Image building is **recommended** for Chevereto **paid edition**. If this is not
 
 ## Make image
 
-This command creates the Docker image for Chevereto by downloading the software at `./chevereto` and then build from [Dockerfile](../Dockerfile). It will generate multiple semantic version tags `4.3.0`, `4.3` and `4`.
+This command creates the Docker image for Chevereto by downloading the software at `./chevereto` and then build from [Dockerfile](../Dockerfile). It will generate multiple semantic version tags `4.4.0`, `4.4` and `4`.
 
 ```sh
 make image <options>
@@ -14,14 +14,14 @@ make image <options>
 
 | Option  | Example          | Description                  |
 | ------- | ---------------- | ---------------------------- |
-| VERSION | `VERSION=4.3`    | System version (4.x)         |
+| VERSION | `VERSION=4.4`    | System version (4.x)         |
 | EDITION | `EDITION=pro`    | System edition (pro,free)    |
 | TARGET  | `TARGET=default` | Image base name suffix (any) |
 
 Example:
 
 ```sh
-make image VERSION=4.3
+make image VERSION=4.4
 ```
 
 ### Notes on TARGET
@@ -30,9 +30,9 @@ Images will have a tag named following this convention:
 
 | Target  | Naming                | Example           |
 | ------- | --------------------- | ----------------- |
-| default | chevereto:VERSION     | chevereto:4.3     |
-| dev     | chevereto-dev:VERSION | chevereto-dev:4.3 |
-| any     | chevereto-any:VERSION | chevereto-any:4.3 |
+| default | chevereto:VERSION     | chevereto:4.4     |
+| dev     | chevereto-dev:VERSION | chevereto-dev:4.4 |
+| any     | chevereto-any:VERSION | chevereto-any:4.4 |
 
 ## Make custom images
 
@@ -44,11 +44,11 @@ make image-custom <options>
 
 Available options:
 
-* VERSION=4.3
+* VERSION=4.4
 * TARGET=default
 
 Example:
 
 ```sh
-make image-custom VERSION=4.3
+make image-custom VERSION=4.4
 ```
