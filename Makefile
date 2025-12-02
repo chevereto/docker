@@ -283,7 +283,7 @@ database-backup: feedback--short
 		sh -c 'if command -v mysqldump >/dev/null 2>&1; then \
 			mysqldump -u root -ppassword chevereto; \
 		elif command -v mariadb-dump >/dev/null 2>&1; then \
-			mariadb-dump --skip-generated-columns -u root -ppassword chevereto; \
+			mariadb-dump -u root -ppassword chevereto; \
 		else \
 			echo "No dump tool found in container" >&2; exit 1; \
 		fi' \
