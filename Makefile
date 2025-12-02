@@ -16,8 +16,10 @@ ifneq ("$(wildcard ${ENV_FILE})","")
 	export $(shell sed 's/=.*//' ${ENV_FILE})
 endif
 SOURCE ?= ~/git/chevereto/v4
+# For legacy reasons, default uses mariadb.
+# Newer installations recommend TARGET=default-mysql instead.
 TARGET ?= default# default|dev
-VERSION ?= 4.3
+VERSION ?= 4.4
 PHP ?= 8.2
 EDITION ?= $(shell [ "${CHEVERETO_LICENSE_KEY}" = "" ] && echo free || echo pro)
 DOCKER_USER ?= www-data
@@ -216,6 +218,7 @@ namespace:
 	NAMESPACE_EXISTS=${NAMESPACE_EXISTS} \
 	NAMESPACE_FILE=${NAMESPACE_FILE} \
 	HOSTNAME=${HOSTNAME} \
+	COMPOSE=${COMPOSE} \
 	ENCRYPTION_KEY=${ENCRYPTION_KEY} \
 	./scripts/system/namespace.sh
 

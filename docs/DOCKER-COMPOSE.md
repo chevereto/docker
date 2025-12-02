@@ -2,6 +2,8 @@
 
 This project includes shortcuts for running `docker compose` commands. It uses `default.yml` but it can also use your own compose file.
 
+**Note:** For legacy reasons this project uses `default.yml` (MariaDB) as the default compose file. We recommend using `default-mysql.yml` for MySQL setups.
+
 * Requires [Compose V2](https://docs.docker.com/compose/cli-command/)
 * Place a `docker-compose.yml` file to use your own instead of [default.yml](../default.yml)
 * Pass `COMPOSE=my-compose` to use `my-compose.yml`
