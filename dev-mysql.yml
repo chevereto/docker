@@ -26,17 +26,22 @@ services:
     networks:
       - chevereto
     volumes:
-      - storage:/var/www/html/images/
-      - chevereto:/var/www/html/
+      - storage:/var/www/html/images
+      - chevereto:/var/www/html
       - type: bind
         source: ${SOURCE}
         target: /var/www/chevereto
+      - type: bind
+        source: ./conf.d/dev.ini
+        target: /usr/local/etc/php/conf.d/99-dev.ini
     ports:
       - ${HTTP_PORT}:80
       - ${HTTPS_PORT}:443
     restart: always
     depends_on:
       database:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     environment:
       CHEVERETO_ENVIRONMENT: dev
@@ -62,7 +67,31 @@ services:
       CHEVERETO_CACHE_PORT: 6379
       CHEVERETO_CACHE_USER:
       CHEVERETO_CACHE_PASSWORD: redis_password
-
+      CHEVERETO_PROVIDER_NAME: "Chevereto Cloud"
+      CHEVERETO_PROVIDER_URL: "https://cloud.chevereto.com"
+      CHEVERETO_CONTEXT: "saas"
+      CHEVERETO_ENABLE_TENANTS: "1"
+      CHEVERETO_TENANTS_API_ALLOW_LIST: ""
+      CHEVERETO_TENANTS_API_KEY_SECRET: "my_tenants_api_key_secret"
+      CHEVERETO_TENANTS_API_REQUEST_SECRET: "my_tenants_api_request_secret"
+      CHEVERETO_TENANT_ENFORCED: >
+        {
+          "CHEVERETO_CONTEXT":"saas",
+          "CHEVERETO_ENABLE_BULK_IMPORTER":"0",
+          "CHEVERETO_ENABLE_CDN":"0",
+          "CHEVERETO_ENABLE_DEBUG":"0",
+          "CHEVERETO_ENABLE_NEWS_CHECK":"1",
+          "CHEVERETO_ENABLE_PHP_PAGES":"0",
+          "CHEVERETO_ENABLE_POWERED_BY_SETTING":"1",
+          "CHEVERETO_ENABLE_FORCE_POWERED_BY_FOOTER":"0",
+          "CHEVERETO_ENABLE_PUP_CUSTOM_URL":"0",
+          "CHEVERETO_ENABLE_UPDATE_CHECK":"0",
+          "CHEVERETO_ENABLE_UPDATE_HTTP":"0",
+          "CHEVERETO_ENABLE_UPLOAD_URL":"0",
+          "CHEVERETO_ENABLE_SERVICE_MODERATECONTENT":"0",
+          "CHEVERETO_MAX_LISTING_ITEMS_PER_PAGE":"48",
+          "CHEVERETO_MAX_CACHE_TTL":"3600"
+        }
   redis:
     container_name: ${CONTAINER_BASENAME}_redis
     image: redis:8
@@ -74,6 +103,11 @@ services:
     ports:
       - ${REDIS_PORT}:6379
     command: redis-server --appendonly yes --requirepass redis_password
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "redis_password", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
 volumes:
   database:
