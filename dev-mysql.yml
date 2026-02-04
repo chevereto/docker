@@ -72,8 +72,8 @@ services:
       CHEVERETO_CONTEXT: "saas"
       CHEVERETO_ENABLE_TENANTS: "1"
       CHEVERETO_TENANTS_API_ALLOW_LIST: ""
-      CHEVERETO_TENANTS_API_KEY_SECRET: "my_tenants_api_key_secret"
-      CHEVERETO_TENANTS_API_REQUEST_SECRET: "my_tenants_api_request_secret"
+      CHEVERETO_TENANTS_API_KEY_SECRET: "tenants_api_key_secret"
+      CHEVERETO_TENANTS_API_REQUEST_SECRET: "tenants_api_request_secret"
       CHEVERETO_TENANT_ENFORCED: >
         {
           "CHEVERETO_CONTEXT":"saas",
