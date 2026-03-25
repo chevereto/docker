@@ -30,6 +30,10 @@ RUN apt-get update && apt-get install -y \
     && php -m \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf \
+    && sed -i 's/<VirtualHost \*:80>/<VirtualHost *:8080>/' /etc/apache2/sites-available/000-default.conf \
+    && chown -R www-data:www-data /var/run/apache2 /var/lock/apache2 /var/log/apache2 /var/www/html
+
 ARG VERSION=4.4
 ARG SERVICING=docker
 
@@ -70,8 +74,11 @@ RUN chmod +x \
 RUN mkdir -p images/_assets \
     importing/no-parse \
     importing/parse-albums \
-    importing/parse-users
+    importing/parse-users \
+    && chown -R www-data:www-data /var/scripts /var/www/html
 
 COPY --chown=www-data chevereto/ .
 
-RUN chown www-data: . -R && ls -la
+USER www-data
+
+EXPOSE 8080

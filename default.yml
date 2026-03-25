@@ -33,10 +33,10 @@ services:
       redis:
         condition: service_healthy
     expose:
-      - 80
-      - 443
+      - 8080
     environment:
       VIRTUAL_HOST: ${HOSTNAME}
+      VIRTUAL_PORT: "8080"
       LETSENCRYPT_HOST: ${HOSTNAME}
       CHEVERETO_DB_HOST: database
       CHEVERETO_DB_USER: chevereto
