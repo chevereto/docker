@@ -29,8 +29,8 @@ By running the above command you will generate the following tags:
 
 * `chevereto:latest`
 * `chevereto:4`
-* `chevereto:4.4`
-* `chevereto:4.4.0`
+* `chevereto:4.5`
+* `chevereto:4.5.0`
 
 ## Upgrading
 
@@ -44,10 +44,10 @@ Sync latest changes from [chevereto/docker](https://github.com/chevereto/docker)
 make sync
 ```
 
-**Note:** If there's a new branch (for example 4.4) switch to that branch running the following command:
+**Note:** If there's a new branch (for example 4.5) switch to that branch running the following command:
 
 ```sh
-git switch 4.4
+git switch 4.5
 ```
 
 ### Step 2: Re-build the container image

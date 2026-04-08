@@ -19,7 +19,7 @@ SOURCE ?= ~/git/chevereto/v4
 # For legacy reasons, default uses mariadb.
 # Newer installations recommend TARGET=default-mysql instead.
 TARGET ?= default# default|dev
-VERSION ?= 4.4
+VERSION ?= 4.5
 PHP ?= 8.2
 EDITION ?= $(shell [ "${CHEVERETO_LICENSE_KEY}" = "" ] && echo free || echo pro)
 DOCKER_USER ?= www-data

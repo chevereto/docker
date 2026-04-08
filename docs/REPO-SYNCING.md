@@ -17,7 +17,7 @@ make sync
 If needed, switch to the new branch/tag.
 
 ```sh
-git switch 4.4
+git switch 4.5
 ```
 
 ## Manual repo updating
@@ -31,7 +31,7 @@ git fetch --tags -f && git pull --rebase --autostash
 Then switch to the new branch/tag if needed.
 
 ```sh
-git switch 4.4
+git switch 4.5
 ```
 
 ## GitHub one-click repo updating
