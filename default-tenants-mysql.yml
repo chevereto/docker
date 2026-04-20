@@ -1,0 +1,167 @@
+services:
+  database:
+    container_name: ${CONTAINER_BASENAME}_database
+    image: mysql:8
+    networks:
+      - chevereto
+    volumes:
+      - database:/var/lib/mysql
+    restart: always
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: chevereto
+      MYSQL_USER: chevereto
+      MYSQL_PASSWORD: user_database_password
+
+  traefik:
+    container_name: ${CONTAINER_BASENAME}_traefik
+    image: traefik:v3
+    networks:
+      - chevereto
+    ports:
+      - ${HTTP_PORT}:80
+      - ${HTTPS_PORT}:443
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./certs/server.crt:/certs/server.crt:ro
+      - ./certs/server.key:/certs/server.key:ro
+      - ./certs/tenants.crt:/certs/tenants.crt:ro
+      - ./certs/tenants.key:/certs/tenants.key:ro
+      - ./tenants-tls.yml:/traefik-tls.yml:ro
+    restart: always
+    healthcheck:
+      test: [ "CMD", "traefik", "healthcheck", "--ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    command:
+      - --providers.http.endpoint=http://php:8080/_/api/4/config/traefik
+      - --providers.http.pollInterval=30s
+      - --providers.http.headers.X-API-Key=${TENANTS_API_KEY}
+      - --providers.file.filename=/traefik-tls.yml
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.web.http.redirections.entrypoint.permanent=true
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls=true
+      - --ping
+      # - --api.insecure=true
+      # - --api.dashboard=true
+      # - --accesslog=true
+      # - --accesslog.format=json
+
+  php:
+    container_name: ${CONTAINER_BASENAME}_php
+    image: ${IMAGE}
+    networks:
+      - chevereto
+    volumes:
+      - storage:/var/www/html/images
+      - chevereto:/var/www/html
+      - type: bind
+        source: ${SOURCE}
+        target: /var/www/chevereto
+      - type: bind
+        source: ./conf.d/dev.ini
+        target: /usr/local/etc/php/conf.d/99-dev.ini
+    restart: always
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      CHEVERETO_DB_HOST: database
+      CHEVERETO_DB_USER: chevereto
+      CHEVERETO_DB_PASS: user_database_password
+      CHEVERETO_DB_PORT: 3306
+      CHEVERETO_DB_NAME: chevereto
+      CHEVERETO_HOSTNAME: ${HOSTNAME}
+      CHEVERETO_HOSTNAME_PATH: ${HOSTNAME_PATH}
+      CHEVERETO_HTTPS: ${HTTPS}
+      CHEVERETO_ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      CHEVERETO_MAX_UPLOAD_SIZE: 8G
+      CHEVERETO_SESSION_SAVE_HANDLER: redis
+      CHEVERETO_SESSION_SAVE_PATH: "tcp://redis:6379?auth[]=redis_password&prefix=chv:SESSION:"
+      CHEVERETO_ERROR_LOG: /dev/stderr
+      CHEVERETO_SERVICING: docker
+      CHEVERETO_CACHE_DRIVER: redis
+      CHEVERETO_CACHE_HOST: redis
+      CHEVERETO_CACHE_PORT: 6379
+      CHEVERETO_CACHE_USER:
+      CHEVERETO_CACHE_PASSWORD: redis_password
+      CHEVERETO_PROVIDER_NAME: ${PROVIDER_NAME}
+      CHEVERETO_PROVIDER_URL: ${PROVIDER_URL}
+      CHEVERETO_CONTEXT: saas
+      CHEVERETO_ENABLE_LOCAL_STORAGE: 0
+      CHEVERETO_MIN_STORAGES_ACTIVE: 1
+      CHEVERETO_ENABLE_TENANTS: 1
+      CHEVERETO_TENANTS_API_IP_ALLOW_LIST: ${TENANTS_API_IP_ALLOW_LIST}
+      CHEVERETO_TENANTS_API_KEY_SECRET: ${TENANTS_API_KEY_SECRET}
+      CHEVERETO_TENANTS_API_REQUEST_SECRET: ${TENANTS_API_REQUEST_SECRET}
+      CHEVERETO_SERVICE_NAME: php
+      CHEVERETO_INTERNAL_HOSTNAME: php
+      CHEVERETO_ROUTER_SECRET: ${ROUTER_SECRET}
+      CHEVERETO_PROXY_IP_ALLOW_LIST: ${PROXY_IP_ALLOW_LIST}
+      CHEVERETO_PROXY_ENTRYPOINTS: ${PROXY_ENTRYPOINTS}
+      CHEVERETO_TENANT_ENFORCED: >
+        {
+          "CHEVERETO_CONTEXT":"saas",
+          "CHEVERETO_ENABLE_LOCAL_STORAGE":"0",
+          "CHEVERETO_ENABLE_BULK_IMPORTER":"0",
+          "CHEVERETO_ENABLE_CDN":"0",
+          "CHEVERETO_ENABLE_DEBUG":"0",
+          "CHEVERETO_ENABLE_NEWS_CHECK":"1",
+          "CHEVERETO_ENABLE_PHP_PAGES":"0",
+          "CHEVERETO_ENABLE_POWERED_BY_SETTING":"1",
+          "CHEVERETO_ENABLE_FORCE_POWERED_BY_FOOTER":"0",
+          "CHEVERETO_ENABLE_PUP_CUSTOM_URL":"0",
+          "CHEVERETO_ENABLE_UPDATE_CHECK":"0",
+          "CHEVERETO_ENABLE_UPDATE_HTTP":"0",
+          "CHEVERETO_ENABLE_UPLOAD_URL":"0",
+          "CHEVERETO_ENABLE_SERVICE_MODERATECONTENT":"0",
+          "CHEVERETO_MAX_LISTING_ITEMS_PER_PAGE":"48",
+          "CHEVERETO_MAX_CACHE_TTL":"3600",
+          "CHEVERETO_TRIAL_MAX_ADMINS":"5",
+          "CHEVERETO_TRIAL_MAX_ALBUMS":"100",
+          "CHEVERETO_TRIAL_MAX_CATEGORIES":"25",
+          "CHEVERETO_TRIAL_MAX_FILES":"500",
+          "CHEVERETO_TRIAL_MAX_LOGIN_PROVIDERS":"5",
+          "CHEVERETO_TRIAL_MAX_MANAGERS":"5",
+          "CHEVERETO_TRIAL_MAX_PAGES":"10",
+          "CHEVERETO_TRIAL_MAX_STORAGES":"5",
+          "CHEVERETO_TRIAL_MAX_TAGS":"100",
+          "CHEVERETO_TRIAL_MAX_USERS":"10",
+          "CHEVERETO_TRIAL_ENABLE_GUESTS":"0"
+        }
+
+  redis:
+    container_name: ${CONTAINER_BASENAME}_redis
+    image: redis:8
+    networks:
+      - chevereto
+    volumes:
+      - redis:/data
+    restart: always
+    command: redis-server --appendonly yes --requirepass redis_password
+    healthcheck:
+      test: [ "CMD", "redis-cli", "-a", "redis_password", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  database:
+  storage:
+  chevereto:
+  redis:
+
+networks:
+  chevereto:

@@ -28,6 +28,12 @@ HOSTNAME_PATH ?= /
 PROTOCOL ?= https
 SERVICE ?= php
 ENCRYPTION_KEY ?=
+PROVIDER_NAME ?=
+PROVIDER_URL ?=
+TENANTS_API_IP_ALLOW_LIST ?=
+TENANTS_API_KEY_SECRET ?=
+TENANTS_API_REQUEST_SECRET ?=
+ROUTER_SECRET ?=
 EMAIL_HTTPS ?= mail@yourdomain.tld
 # dev ports, none of these exposed on production
 DB_PORT ?= 8836
