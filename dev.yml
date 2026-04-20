@@ -10,7 +10,7 @@ services:
       - ${DB_PORT}:3306
     restart: always
     healthcheck:
-      test: ["CMD", "healthcheck.sh", "--su-mysql", "--connect"] # MariaDB
+      test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect" ] # MariaDB
       interval: 10s
       timeout: 5s
       retries: 3
@@ -71,7 +71,7 @@ services:
       CHEVERETO_PROVIDER_URL: "https://cloud.chevereto.com"
       # CHEVERETO_CONTEXT: "saas"
       # CHEVERETO_ENABLE_TENANTS: "1"
-      # CHEVERETO_TENANTS_API_ALLOW_LIST: "172.18.0.1"
+      # CHEVERETO_TENANTS_API_IP_ALLOW_LIST: "172.18.0.1"
       # CHEVERETO_TENANTS_API_KEY_SECRET: "my_tenants_api_key_secret"
       # CHEVERETO_TENANTS_API_REQUEST_SECRET: "my_tenants_api_request_secret"
       # CHEVERETO_TENANT_ENFORCED: >
@@ -104,7 +104,7 @@ services:
       - ${REDIS_PORT}:6379
     command: redis-server --appendonly yes --requirepass redis_password
     healthcheck:
-      test: ["CMD", "redis-cli", "-a", "redis_password", "ping"]
+      test: [ "CMD", "redis-cli", "-a", "redis_password", "ping" ]
       interval: 5s
       timeout: 3s
       retries: 5
