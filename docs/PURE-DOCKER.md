@@ -30,7 +30,7 @@ By running the above command you will generate the following tags:
 * `chevereto:latest`
 * `chevereto:4`
 * `chevereto:4.5`
-* `chevereto:4.5.0`
+* `chevereto:4.5.2`
 
 ## Upgrading
 
