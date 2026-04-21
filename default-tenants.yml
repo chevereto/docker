@@ -62,15 +62,6 @@ services:
     image: ${IMAGE}
     networks:
       - chevereto
-    volumes:
-      - storage:/var/www/html/images
-      - chevereto:/var/www/html
-      - type: bind
-        source: ${SOURCE}
-        target: /var/www/chevereto
-      - type: bind
-        source: ./conf.d/dev.ini
-        target: /usr/local/etc/php/conf.d/99-dev.ini
     restart: always
     depends_on:
       database:
