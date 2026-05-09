@@ -1,7 +1,8 @@
 ARG PHP=8.2
-FROM composer:latest AS composer
-FROM php:${PHP}-apache
-COPY --from=composer /usr/bin/composer /usr/local/bin/composer
+
+FROM composer:2 AS composer
+
+FROM php:${PHP}-apache AS builder
 
 RUN apt-get update && apt-get install -y \
     libssl-dev \
@@ -11,15 +12,14 @@ RUN apt-get update && apt-get install -y \
     libwebp-dev \
     libgd-dev \
     libzip-dev \
+    libicu-dev \
+    libmagickwand-dev \
     zip unzip \
-    rsync \
-    inotify-tools \
-    imagemagick libmagickwand-dev --no-install-recommends \
-    ffmpeg \
-    exiftool \
-    exiftran \
-    && a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb \
-    && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ --with-webp=/usr/include/ \
+    --no-install-recommends \
+    && docker-php-ext-configure gd \
+    --with-freetype=/usr/include/ \
+    --with-jpeg=/usr/include/ \
+    --with-webp=/usr/include/ \
     && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-configure ftp --with-openssl-dir=/usr \
     && docker-php-ext-configure exif \
@@ -27,12 +27,34 @@ RUN apt-get update && apt-get install -y \
     && pecl install imagick \
     && pecl install redis \
     && docker-php-ext-enable exif imagick opcache redis \
-    && php -m \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf \
+FROM php:${PHP}-apache AS runtime
+
+COPY --from=composer /usr/bin/composer /usr/local/bin/composer
+COPY --from=builder /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
+COPY --from=builder /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
+
+RUN apt-get update && apt-get install -y \
+    libfreetype6 \
+    libjpeg62-turbo \
+    libpng16-16 \
+    libwebp7 \
+    libgd3 \
+    libzip5 \
+    libicu76 \
+    rsync \
+    inotify-tools \
+    imagemagick \
+    ffmpeg \
+    exiftool \
+    exiftran \
+    --no-install-recommends \
+    && a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb \
+    && sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf \
     && sed -i 's/<VirtualHost \*:80>/<VirtualHost *:8080>/' /etc/apache2/sites-available/000-default.conf \
-    && chown -R www-data:www-data /var/run/apache2 /var/lock/apache2 /var/log/apache2 /var/www/html
+    && chown -R www-data:www-data /var/run/apache2 /var/lock/apache2 /var/log/apache2 /var/www/html \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ARG VERSION=4.5
 ARG SERVICING=docker
