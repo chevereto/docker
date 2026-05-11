@@ -2,7 +2,7 @@ ARG PHP=8.2
 
 FROM composer:2 AS composer
 
-FROM php:${PHP}-apache AS builder
+FROM php:${PHP}-apache-trixie AS builder
 
 RUN apt-get update && apt-get install -y \
     libssl-dev \
@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-enable exif imagick opcache redis \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-FROM php:${PHP}-apache AS runtime
+FROM php:${PHP}-apache-trixie AS runtime
 
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 COPY --from=builder /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
