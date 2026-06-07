@@ -76,7 +76,7 @@ To run [chevereto.com](https://chevereto.com/pricing) (paid edition) you need to
 ```sh
 docker run -d \
   --name chevereto \
-  -p 80:80 \
+  -p 80:8080 \
   -e CHEVERETO_DB_HOST=database \
   -e CHEVERETO_DB_USER=chevereto \
   -e CHEVERETO_DB_PASS=user_database_password \
@@ -102,7 +102,7 @@ When using `CHEVERETO_SERVICING=docker` (default) it behaves as a pure docker co
 ```sh
 docker run -d \
   --name chevereto \
-  -p 80:80 \
+  -p 80:8080 \
   -e CHEVERETO_DB_HOST=database \
   -e CHEVERETO_DB_USER=chevereto \
   -e CHEVERETO_DB_PASS=user_database_password \
@@ -123,7 +123,7 @@ If you want to run the free edition and manage the application upgrade within th
 ```sh
 docker run -d \
   --name chevereto \
-  -p 80:80 \
+  -p 80:8080 \
   -e CHEVERETO_DB_HOST=database \
   -e CHEVERETO_DB_USER=chevereto \
   -e CHEVERETO_DB_PASS=user_database_password \

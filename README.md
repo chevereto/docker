@@ -101,7 +101,7 @@ If you want full control of the container provisioning you can get the container
 ```sh
 docker run -d \
   --name chevereto \
-  -p 80:80 \
+  -p 80:8080 \
   -e CHEVERETO_DB_HOST=database \
   -e CHEVERETO_DB_USER=chevereto \
   -e CHEVERETO_DB_PASS=user_database_password \
