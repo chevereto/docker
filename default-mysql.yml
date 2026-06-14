@@ -35,8 +35,7 @@ services:
       redis:
         condition: service_healthy
     expose:
-      - 80
-      - 443
+      - 8080
     environment:
       VIRTUAL_HOST: ${HOSTNAME}
       LETSENCRYPT_HOST: ${HOSTNAME}

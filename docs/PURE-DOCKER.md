@@ -173,7 +173,7 @@ services:
       database:
         condition: service_healthy
     expose:
-      - 80
+      - 8080
     environment:
       CHEVERETO_DB_HOST: database
       CHEVERETO_DB_USER: chevereto
