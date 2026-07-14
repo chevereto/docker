@@ -8,7 +8,7 @@ services:
       - database:/var/lib/mysql
     restart: always
     healthcheck:
-      test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect" ]
+      test: ["CMD", "healthcheck.sh", "--su-mysql", "--connect"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -26,6 +26,7 @@ services:
       - nginx-proxy
     volumes:
       - storage:/var/www/html/images/
+      # - app:/var/www/html/ # uncomment when using CHEVERETO_SERVICING=server
     restart: always
     depends_on:
       database:
@@ -68,7 +69,7 @@ services:
     restart: always
     command: redis-server --appendonly yes --requirepass redis_password
     healthcheck:
-      test: [ "CMD", "redis-cli", "-a", "redis_password", "ping" ]
+      test: ["CMD", "redis-cli", "-a", "redis_password", "ping"]
       interval: 5s
       timeout: 3s
       retries: 5
