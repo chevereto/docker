@@ -137,6 +137,8 @@ You may also check [Docker for Desktop](https://docs.docker.com/get-docker/) and
 make env
 ```
 
+**NOTE**: On multi-tenant setup you must ignore running `make cron` and `make proxy`.
+
 * Create Cron (see [SETUP](docs/SETUP.md#cron))
 
 ```sh
