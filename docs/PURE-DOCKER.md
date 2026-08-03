@@ -92,8 +92,8 @@ docker run -d \
 
 To run [chevereto/chevereto](https://github.com/chevereto/chevereto) (Chevereto free edition) you need to pass the environment targeting one of its container image mirrors:
 
-* `ghcr.io/chevereto/chevereto:latest` ([GitHub Container Registry](https://github.com/chevereto/chevereto/pkgs/container/chevereto))
 * `chevereto/chevereto:latest` ([DockerHub](https://hub.docker.com/r/chevereto/chevereto))
+* `ghcr.io/chevereto/chevereto:latest` ([GitHub Container Registry](https://github.com/chevereto/chevereto/pkgs/container/chevereto))
 
 When using `CHEVERETO_SERVICING=docker` (default) it behaves as a pure docker container, meaning that the application filesystem persists. When using `CHEVERETO_SERVICING=server` you need to mount the application directory to persist the filesystem upgrades.
 
@@ -111,7 +111,7 @@ docker run -d \
   -e CHEVERETO_MAX_POST_SIZE=2G \
   -e CHEVERETO_MAX_UPLOAD_SIZE=2G \
   -v /var/www/html/images/ \
-  ghcr.io/chevereto/chevereto:latest
+  chevereto/chevereto:latest
 ```
 
 ## Run free edition with application upgrade
@@ -134,7 +134,7 @@ docker run -d \
   -e CHEVERETO_SERVICING=server \
   -v /var/www/html/images/ \
   -v /var/www/html/ \
-  ghcr.io/chevereto/chevereto:latest
+  chevereto/chevereto:latest
 ```
 
 ## Using compose

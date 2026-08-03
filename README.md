@@ -110,7 +110,7 @@ docker run -d \
   -e CHEVERETO_MAX_POST_SIZE=2G \
   -e CHEVERETO_MAX_UPLOAD_SIZE=2G \
   -v /var/www/html/images/ \
-  ghcr.io/chevereto/chevereto:latest
+  chevereto/chevereto:latest
 ```
 
 See [PURE-DOCKER](docs/PURE-DOCKER.md) for a complete pure Docker command reference, including how to [run Chevereto paid edition](./docs/PURE-DOCKER.md#build-image-paid-edition).
