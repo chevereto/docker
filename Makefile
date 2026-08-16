@@ -15,7 +15,7 @@ ifneq ("$(wildcard ${ENV_FILE})","")
 	include ${ENV_FILE}
 	export $(shell sed 's/=.*//' ${ENV_FILE})
 endif
-SOURCE ?= ~/git/chevereto/v4
+SOURCE ?= ~/git/chevereto/source
 # For legacy reasons, default uses mariadb.
 # Newer installations recommend TARGET=default-mysql instead.
 TARGET ?= default# default|dev

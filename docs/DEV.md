@@ -29,5 +29,5 @@ make up-d NAMESPACE=dev
 Run the following command to live update changes (made on local) to the running containers.
 
 ```sh
-make run SCRIPT=observe NAMESPACE=dev SOURCE=~/git/chevereto/v4
+make run SCRIPT=observe NAMESPACE=dev SOURCE=~/git/chevereto/source
 ```
