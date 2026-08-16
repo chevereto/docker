@@ -1,14 +1,14 @@
 services:
   database:
     container_name: ${CONTAINER_BASENAME}_database
-    image: mariadb:jammy
+    image: mysql:8 #evergreen
     networks:
       - chevereto
     volumes:
       - database:/var/lib/mysql
     restart: always
     healthcheck:
-      test: ["CMD", "healthcheck.sh", "--su-mysql", "--connect"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"] # MySQL
       interval: 10s
       timeout: 5s
       retries: 3
@@ -44,7 +44,7 @@ services:
       CHEVERETO_DB_PASS: user_database_password
       CHEVERETO_DB_PORT: 3306
       CHEVERETO_DB_NAME: chevereto
-      CHEVERETO_HEADER_CLIENT_IP: X-Real-IP
+      CHEVERETO_HEADER_CLIENT_IP: ${HEADER_CLIENT_IP}
       CHEVERETO_HOSTNAME: ${HOSTNAME}
       CHEVERETO_HOSTNAME_PATH: ${HOSTNAME_PATH}
       CHEVERETO_HTTPS: ${HTTPS}
@@ -78,7 +78,7 @@ volumes:
   database:
   storage:
   redis:
-    #app: uncomment when using CHEVERETO_SERVICING=server
+  #app: uncomment when using CHEVERETO_SERVICING=server
 
 networks:
   chevereto:

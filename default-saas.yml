@@ -1,11 +1,15 @@
 services:
   database:
     container_name: ${CONTAINER_BASENAME}_database
-    image: mysql:8
+    image: mysql:8 #evergreen
     networks:
       - chevereto
     volumes:
       - database:/var/lib/mysql
+      - type: bind
+        source: ./scripts/mysql/saas-grants.sql
+        target: /docker-entrypoint-initdb.d/10-saas-grants.sql
+        read_only: true
     restart: always
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
@@ -26,7 +30,6 @@ services:
     ports:
       - ${HTTP_PORT}:80
       - ${HTTPS_PORT}:443
-      # - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./certs/server.crt:/certs/server.crt:ro
@@ -74,6 +77,7 @@ services:
       CHEVERETO_DB_PASS: user_database_password
       CHEVERETO_DB_PORT: 3306
       CHEVERETO_DB_NAME: chevereto
+      CHEVERETO_HEADER_CLIENT_IP: ${HEADER_CLIENT_IP}
       CHEVERETO_HOSTNAME: ${HOSTNAME}
       CHEVERETO_HOSTNAME_PATH: ${HOSTNAME_PATH}
       CHEVERETO_HTTPS: ${HTTPS}
@@ -82,7 +86,10 @@ services:
       CHEVERETO_SESSION_SAVE_HANDLER: redis
       CHEVERETO_SESSION_SAVE_PATH: "tcp://redis:6379?auth[]=redis_password&prefix=chv:SESSION:"
       CHEVERETO_ERROR_LOG: /dev/stderr
+      CHEVERETO_ERROR_LOG_CLI: /proc/1/fd/2
+      CHEVERETO_ERROR_LOG_CRON: /proc/1/fd/2
       CHEVERETO_SERVICING: docker
+      # CHEVERETO_SERVICING: server # uncomment to enable application filesystem upgrades
       CHEVERETO_CACHE_DRIVER: redis
       CHEVERETO_CACHE_HOST: redis
       CHEVERETO_CACHE_PORT: 6379

@@ -166,7 +166,7 @@ make image
 * Setup a [NAMESPACE](docs/NAMESPACE.md) for your website project
 
 ```sh
-make namespace NAMESPACE=yourproject HOSTNAME=yourdomain.tld COMPOSE=default-mysql
+make namespace NAMESPACE=yourproject HOSTNAME=yourdomain.tld COMPOSE=default
 ```
 
 ## Documentation

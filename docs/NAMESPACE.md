@@ -12,12 +12,12 @@ Required options:
 
 * NAMESPACE=chevereto
 * HOSTNAME=localhost
-* COMPOSE=default-mysql
+* COMPOSE=default
 
-For example, to create the `nasa` namespace for `photos.nasa.gov` and using the `default-mysql` compose file run:
+For example, to create the `nasa` namespace for `photos.nasa.gov` and using the `default` compose file run:
 
 ```sh
-make namespace NAMESPACE=nasa HOSTNAME=photos.nasa.gov COMPOSE=default-mysql
+make namespace NAMESPACE=nasa HOSTNAME=photos.nasa.gov COMPOSE=default
 ```
 
 This will create `./namespace/nasa` with the minimum namespaced scoped variables required:

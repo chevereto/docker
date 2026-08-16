@@ -1,16 +1,14 @@
 services:
   database:
     container_name: ${CONTAINER_BASENAME}_database
-    image: mysql:8 #evergreen
+    image: mariadb:jammy
     networks:
       - chevereto
     volumes:
       - database:/var/lib/mysql
-    ports:
-      - ${DB_PORT}:3306
     restart: always
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"] # MySQL
+      test: ["CMD", "healthcheck.sh", "--su-mysql", "--connect"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -28,6 +26,7 @@ services:
       - nginx-proxy
     volumes:
       - storage:/var/www/html/images/
+      # - app:/var/www/html/ # uncomment when using CHEVERETO_SERVICING=server
     restart: always
     depends_on:
       database:
@@ -38,13 +37,14 @@ services:
       - 8080
     environment:
       VIRTUAL_HOST: ${HOSTNAME}
+      VIRTUAL_PORT: "8080"
       LETSENCRYPT_HOST: ${HOSTNAME}
       CHEVERETO_DB_HOST: database
       CHEVERETO_DB_USER: chevereto
       CHEVERETO_DB_PASS: user_database_password
       CHEVERETO_DB_PORT: 3306
       CHEVERETO_DB_NAME: chevereto
-      CHEVERETO_HEADER_CLIENT_IP: X-Real-IP
+      CHEVERETO_HEADER_CLIENT_IP: ${HEADER_CLIENT_IP}
       CHEVERETO_HOSTNAME: ${HOSTNAME}
       CHEVERETO_HOSTNAME_PATH: ${HOSTNAME_PATH}
       CHEVERETO_HTTPS: ${HTTPS}

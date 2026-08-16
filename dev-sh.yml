@@ -35,8 +35,7 @@ services:
         source: ./conf.d/dev.ini
         target: /usr/local/etc/php/conf.d/99-dev.ini
     ports:
-      - ${HTTP_PORT}:80
-      - ${HTTPS_PORT}:443
+      - ${HTTP_PORT}:8080
     restart: always
     depends_on:
       database:
@@ -61,50 +60,12 @@ services:
       CHEVERETO_ERROR_LOG_CRON: /proc/1/fd/2
       CHEVERETO_ERROR_LOG: /dev/stderr
       CHEVERETO_SERVICING: docker
-      # CHEVERETO_SERVICING: server # uncomment to enable application filesystem upgrades
       CHEVERETO_CACHE_DRIVER: redis
       CHEVERETO_CACHE_HOST: redis
       CHEVERETO_CACHE_PORT: 6379
       CHEVERETO_CACHE_USER:
       CHEVERETO_CACHE_PASSWORD: redis_password
-      CHEVERETO_PROVIDER_NAME: "Chevereto Cloud"
-      CHEVERETO_PROVIDER_URL: "https://cloud.chevereto.com"
-      CHEVERETO_CONTEXT: "saas"
-      CHEVERETO_ENABLE_LOCAL_STORAGE: "0"
-      CHEVERETO_ENABLE_TENANTS: "1"
-      CHEVERETO_TENANTS_API_ALLOW_LIST: ""
-      CHEVERETO_TENANTS_API_KEY_SECRET: "tenants_api_key_secret"
-      CHEVERETO_TENANTS_API_REQUEST_SECRET: "tenants_api_request_secret"
-      CHEVERETO_TENANT_ENFORCED: >
-        {
-          "CHEVERETO_CONTEXT":"saas",
-          "CHEVERETO_ENABLE_LOCAL_STORAGE":"0",
-          "CHEVERETO_ENABLE_BULK_IMPORTER":"0",
-          "CHEVERETO_ENABLE_CDN":"0",
-          "CHEVERETO_ENABLE_DEBUG":"0",
-          "CHEVERETO_ENABLE_NEWS_CHECK":"1",
-          "CHEVERETO_ENABLE_PHP_PAGES":"0",
-          "CHEVERETO_ENABLE_POWERED_BY_SETTING":"1",
-          "CHEVERETO_ENABLE_FORCE_POWERED_BY_FOOTER":"0",
-          "CHEVERETO_ENABLE_PUP_CUSTOM_URL":"0",
-          "CHEVERETO_ENABLE_UPDATE_CHECK":"0",
-          "CHEVERETO_ENABLE_UPDATE_HTTP":"0",
-          "CHEVERETO_ENABLE_UPLOAD_URL":"0",
-          "CHEVERETO_ENABLE_SERVICE_MODERATECONTENT":"0",
-          "CHEVERETO_MAX_LISTING_ITEMS_PER_PAGE":"48",
-          "CHEVERETO_MAX_CACHE_TTL":"3600",
-          "CHEVERETO_TRIAL_MAX_ADMINS":"5",
-          "CHEVERETO_TRIAL_MAX_ALBUMS":"100",
-          "CHEVERETO_TRIAL_MAX_CATEGORIES":"25",
-          "CHEVERETO_TRIAL_MAX_FILES":"500",
-          "CHEVERETO_TRIAL_MAX_LOGIN_PROVIDERS":"5",
-          "CHEVERETO_TRIAL_MAX_MANAGERS":"5",
-          "CHEVERETO_TRIAL_MAX_PAGES":"10",
-          "CHEVERETO_TRIAL_MAX_STORAGES":"5",
-          "CHEVERETO_TRIAL_MAX_TAGS":"100",
-          "CHEVERETO_TRIAL_MAX_USERS":"10",
-          "CHEVERETO_TRIAL_ENABLE_GUESTS":"0"
-        }
+
   redis:
     container_name: ${CONTAINER_BASENAME}_redis
     image: redis:8

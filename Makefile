@@ -16,8 +16,6 @@ ifneq ("$(wildcard ${ENV_FILE})","")
 	export $(shell sed 's/=.*//' ${ENV_FILE})
 endif
 SOURCE ?= ~/git/chevereto/source
-# For legacy reasons, default uses mariadb.
-# Newer installations recommend TARGET=default-mysql instead.
 TARGET ?= default# default|dev
 VERSION ?= 4.5
 PHP ?= 8.2
@@ -327,7 +325,10 @@ redis-flush:
 	@docker exec -e REDISCLI_AUTH=redis_password -i ${CONTAINER_BASENAME}_redis redis-cli FLUSHALL
 
 # nginx-proxy
-
+# Will require the following environment variables to be set:
+# VIRTUAL_HOST: ${HOSTNAME}
+# VIRTUAL_PORT: "8080"
+# LETSENCRYPT_HOST: ${HOSTNAME}
 proxy:
 	@docker network create nginx-proxy || true
 	@docker run \
