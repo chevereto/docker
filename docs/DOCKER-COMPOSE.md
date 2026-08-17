@@ -2,7 +2,7 @@
 
 This project includes shortcuts for running `docker compose` commands. It uses `default.yml` but it can also use your own compose file.
 
-**Note:** For legacy setups use `default-mariadb.yml` (MariaDB) as the default compose file.
+**Note:** For legacy setups use `default-mariadb.yml` (MariaDB) as the default compose file. This can be achieved by adding `COMPOSE=default-mariadb` in your project namespace file.
 
 * Requires [Compose V2](https://docs.docker.com/compose/cli-command/)
 * Place a `docker-compose.yml` file to use your own instead of [default.yml](../default.yml)
