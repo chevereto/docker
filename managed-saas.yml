@@ -44,8 +44,6 @@ services:
       - chevereto
     restart: always
     depends_on:
-      database:
-        condition: service_healthy
       redis:
         condition: service_healthy
     environment:
@@ -135,7 +133,6 @@ services:
       retries: 5
 
 volumes:
-  storage:
   chevereto:
   redis:
 
