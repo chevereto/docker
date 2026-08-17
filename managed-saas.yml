@@ -42,6 +42,8 @@ services:
     image: ${IMAGE}
     networks:
       - chevereto
+    volumes:
+      - ./ca-certificate.crt:/app/certs/ca-certificate.crt:ro
     restart: always
     depends_on:
       redis:
@@ -52,6 +54,7 @@ services:
       CHEVERETO_DB_PASS: ${DB_PASS}
       CHEVERETO_DB_PORT: ${DB_PORT}
       CHEVERETO_DB_NAME: ${DB_NAME}
+      CHEVERETO_DB_PDO_ATTRS: ${DB_PDO_ATTRS}
       CHEVERETO_HEADER_CLIENT_IP: ${HEADER_CLIENT_IP}
       CHEVERETO_HOSTNAME: ${HOSTNAME}
       CHEVERETO_HOSTNAME_PATH: ${HOSTNAME_PATH}
