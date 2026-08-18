@@ -244,7 +244,7 @@ up: feedback--compose feedback--url
 
 re-up: feedback--compose feedback--url
 	${DOCKER_COMPOSE} down
-	${DOCKER_COMPOSE} up -d
+	${DOCKER_COMPOSE} up
 
 up-d: feedback--compose feedback--url
 	${DOCKER_COMPOSE} up -d
@@ -265,7 +265,7 @@ restart: feedback--compose
 restart-service: feedback--compose
 	${DOCKER_COMPOSE} restart ${SERVICE}
 
-re-up-service: feedback--compose
+re-up-service-d: feedback--compose
 	${DOCKER_COMPOSE} rm -sf ${SERVICE}
 	${DOCKER_COMPOSE} up -d ${SERVICE}
 
