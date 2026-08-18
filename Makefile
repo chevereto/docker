@@ -262,9 +262,6 @@ start: feedback--compose
 restart: feedback--compose
 	${DOCKER_COMPOSE} restart
 
-restart-service: feedback--compose
-	${DOCKER_COMPOSE} restart ${SERVICE}
-
 down: feedback--compose
 	${DOCKER_COMPOSE} down
 
