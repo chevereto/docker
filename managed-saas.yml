@@ -48,7 +48,7 @@ services:
     depends_on:
       redis:
         condition: service_healthy
-    environment:
+    environment: &php-environment
       CHEVERETO_DB_HOST: ${DB_HOST}
       CHEVERETO_DB_USER: ${DB_USER}
       CHEVERETO_DB_PASS: ${DB_PASS}
@@ -119,6 +119,20 @@ services:
           "CHEVERETO_TRIAL_MAX_USERS":"10",
           "CHEVERETO_TRIAL_ENABLE_GUESTS":"0"
         }
+
+  tenants-worker:
+    container_name: ${CONTAINER_BASENAME}_tenants-worker
+    image: ${IMAGE}
+    networks:
+      - chevereto
+    volumes:
+      - ./ca-certificate.crt:/app/certs/ca-certificate.crt:ro
+    restart: always
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment: *php-environment
+    command: ["php", "app/bin/tenants", "-C", "jobs:worker"]
 
   redis:
     container_name: ${CONTAINER_BASENAME}_redis
