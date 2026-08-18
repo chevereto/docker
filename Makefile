@@ -262,6 +262,13 @@ start: feedback--compose
 restart: feedback--compose
 	${DOCKER_COMPOSE} restart
 
+restart-service: feedback--compose
+	${DOCKER_COMPOSE} restart ${SERVICE}
+
+re-up-service: feedback--compose
+	${DOCKER_COMPOSE} rm -sf ${SERVICE}
+	${DOCKER_COMPOSE} up -d ${SERVICE}
+
 down: feedback--compose
 	${DOCKER_COMPOSE} down
 
