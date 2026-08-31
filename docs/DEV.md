@@ -4,7 +4,6 @@ To develop Chevereto we implement this workflow:
 
 * Create dev image
 * Start containers
-* Run filesystem watcher
 
 ## Create dev image
 
@@ -22,12 +21,4 @@ Run the following command to run docker compose on the Chevereto containers.
 
 ```sh
 make up-d NAMESPACE=dev
-```
-
-## Run filesystem watcher
-
-Run the following command to live update changes (made on local) to the running containers.
-
-```sh
-make run SCRIPT=observe NAMESPACE=dev SOURCE=~/git/chevereto/source
 ```

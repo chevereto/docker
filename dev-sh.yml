@@ -30,7 +30,7 @@ services:
       - chevereto:/var/www/html
       - type: bind
         source: ${SOURCE}
-        target: /var/www/chevereto
+        target: /var/www/html
       - type: bind
         source: ./conf.d/dev.ini
         target: /usr/local/etc/php/conf.d/99-dev.ini

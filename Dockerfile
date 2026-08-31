@@ -89,17 +89,13 @@ COPY scripts/chevereto /var/scripts
 
 RUN chmod +x \
     /var/scripts/demo-importing.sh \
-    /var/scripts/logo.sh \
-    /var/scripts/observe.sh \
-    /var/scripts/sync.sh
+    /var/scripts/logo.sh
 
 RUN mkdir -p images/_assets \
     importing/no-parse \
     importing/parse-albums \
     importing/parse-users \
     && chown -R www-data:www-data /var/scripts /var/www/html
-
-COPY --chown=www-data chevereto/ .
 
 USER www-data
 

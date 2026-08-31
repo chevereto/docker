@@ -17,7 +17,7 @@ ifneq ("$(wildcard ${ENV_FILE})","")
 endif
 SOURCE ?= ~/git/chevereto/source
 TARGET ?= default# default|dev
-VERSION ?= 4.5
+VERSION ?= 5.0
 PHP ?= 8.2
 EDITION ?= $(shell [ "${CHEVERETO_LICENSE_KEY}" = "" ] && echo free || echo pro)
 DOCKER_USER ?= www-data
