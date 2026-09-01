@@ -4,10 +4,16 @@
 
 <img alt="Chevereto" src="chevereto.svg" width="100%">
 
-[![Chevereto Docs](https://img.shields.io/badge/chevereto-docs-50C878?style=flat-square)](https://v4-docs.chevereto.com/)
-[![Chevereto Community](https://img.shields.io/badge/chevereto-community-blue?style=flat-square)](https://chevereto.com/community)
-[![Chevereto Discord](https://img.shields.io/badge/chevereto-discord-5865F2?style=flat-square)](https://chevereto.com/go/discord)
-[![Chevereto Demo](https://img.shields.io/badge/chevereto-demo-d4af37?style=flat-square)](https://demo.chevereto.com)
+[![Docs](https://img.shields.io/badge/docs-50C878?style=flat-square)](https://docs.chevereto.com/)
+[![Blog](https://img.shields.io/badge/blog-coral?style=flat-square)](https://blog.chevereto.com/)
+[![Community](https://img.shields.io/badge/community-dodgerblue?style=flat-square)](https://chevereto.com/community)
+[![Demo](https://img.shields.io/badge/demo-hotpink?style=flat-square)](https://demo.chevereto.com)
+[![Editions](https://img.shields.io/badge/editions-goldenrod?style=flat-square)](https://docs.chevereto.com/introduction/editions/compare.html)
+[![Chevereto Cloud](https://img.shields.io/badge/cloud-deepskyblue?style=flat-square)](https://cloud.chevereto.com)
+[![Youtube](https://img.shields.io/badge/YouTube-red?style=flat-square)](https://www.youtube.com/@cheveretocms)
+[![Awesome F/OSS](https://img.shields.io/badge/Awesome_F%2FOSS-Certified-black?colorA=&colorB=874efe&style=flat-square)](https://awsmfoss.com/chevereto/)
+
+> 🔔 [Stay updated](https://chevereto.com/go/newsletter) with the latest news from Chevereto.
 
 Dockerfile driven template project for building images and manage containers for **Chevereto V4** projects. Go to [GitHub Container Registry](https://github.com/chevereto/chevereto/pkgs/container/chevereto/versions) or [Docker Hub](https://hub.docker.com/r/chevereto/chevereto/tags) for ready to use tagged images/versions.
 
