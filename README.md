@@ -1,7 +1,5 @@
 # Docker
 
-> 🔔 [Subscribe](https://chevereto.com/go/newsletter) to don't miss any update regarding Chevereto.
-
 <img alt="Chevereto" src="chevereto.svg" width="100%">
 
 [![Docs](https://img.shields.io/badge/docs-50C878?style=flat-square)](https://docs.chevereto.com/)
