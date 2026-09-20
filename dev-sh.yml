@@ -10,7 +10,7 @@ services:
       - ${DB_PORT}:3306
     restart: always
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"] # MySQL
+      test: ["CMD", "healthcheck.sh", "--su-mysql", "--connect"] # MariaDB
       interval: 10s
       timeout: 5s
       retries: 3
@@ -36,6 +36,7 @@ services:
         target: /usr/local/etc/php/conf.d/99-dev.ini
     ports:
       - ${HTTP_PORT}:8080
+      - ${HTTPS_PORT}:443
     restart: always
     depends_on:
       database:
