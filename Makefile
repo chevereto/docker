@@ -125,6 +125,7 @@ image: feedback--image feedback--short
 	IMAGE_NAME=${IMAGE_NAME} \
 	./scripts/system/chevereto.sh \
 	docker build . \
+		--pull \
 		--cache-from ${IMAGE_EDITION_FREE_BASE}:${VERSION} \
 		--network host \
 		-f Dockerfile
@@ -133,6 +134,7 @@ image-custom: feedback--image feedback--short
 	@mkdir -p chevereto
 	echo "* Building custom image ${IMAGE}"
 	@docker build . \
+		--pull \
 		--network host \
 		--build-arg PHP=${PHP} \
 		-f Dockerfile \
