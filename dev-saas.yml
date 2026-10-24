@@ -31,7 +31,6 @@ services:
       - chevereto
     volumes:
       - storage:/var/www/html/images
-      - chevereto:/var/www/html
       - type: bind
         source: ${SOURCE}
         target: /var/www/html
@@ -139,7 +138,6 @@ services:
 volumes:
   database:
   storage:
-  chevereto:
   redis:
 
 networks:
