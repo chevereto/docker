@@ -18,7 +18,7 @@ endif
 SOURCE ?= ~/git/chevereto/source
 TARGET ?= default# default|dev
 VERSION ?= 4.5
-PHP ?= 8.2
+PHP ?= 8.4
 EDITION ?= $(shell [ "${CHEVERETO_LICENSE_KEY}" = "" ] && echo free || echo pro)
 DOCKER_USER ?= www-data
 HOSTNAME ?= localhost

@@ -1,4 +1,4 @@
-ARG PHP=8.2
+ARG PHP=8.4
 
 FROM composer:2 AS composer
 
@@ -10,7 +10,6 @@ RUN apt-get update && apt-get install -y \
     libjpeg62-turbo-dev \
     libpng-dev \
     libwebp-dev \
-    libgd-dev \
     libzip-dev \
     libicu-dev \
     libmagickwand-dev \
@@ -21,7 +20,7 @@ RUN apt-get update && apt-get install -y \
     --with-jpeg=/usr/include/ \
     --with-webp=/usr/include/ \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-configure ftp --with-openssl-dir=/usr \
+    && docker-php-ext-configure ftp --with-ftp-ssl \
     && docker-php-ext-configure exif \
     && docker-php-ext-install -j$(nproc) exif gd pdo_mysql zip opcache bcmath ftp intl \
     && pecl install imagick \
@@ -35,12 +34,16 @@ COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 COPY --from=builder /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
 COPY --from=builder /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
 
-RUN apt-get update && apt-get install -y \
+# Upgrade base packages to pick up Debian security fixes newer than the base
+# image, and purge the compiler toolchain ($PHPIZE_DEPS) shipped by the
+# official PHP image: extensions are compiled in the builder stage, so it is
+# not needed at runtime and only adds attack surface (gcc, linux-libc-dev...).
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get install -y \
     libfreetype6 \
     libjpeg62-turbo \
     libpng16-16 \
     libwebp7 \
-    libgd3 \
     libzip5 \
     libicu76 \
     rsync \
@@ -50,6 +53,8 @@ RUN apt-get update && apt-get install -y \
     exiftool \
     exiftran \
     --no-install-recommends \
+    && apt-get purge -y --auto-remove \
+    autoconf dpkg-dev file g++ gcc libc6-dev make pkg-config re2c \
     && a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb \
     && sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf \
     && sed -i 's/<VirtualHost \*:80>/<VirtualHost *:8080>/' /etc/apache2/sites-available/000-default.conf \
@@ -72,6 +77,7 @@ RUN printf "%s\n" \
     "default_charset = UTF-8" \
     "display_errors = Off" \
     "error_log = \${CHEVERETO_ERROR_LOG}" \
+    "error_reporting = E_ALL & ~E_DEPRECATED" \
     "expose_php = Off" \
     "log_errors = On" \
     "max_execution_time = \${CHEVERETO_MAX_EXECUTION_TIME_SECONDS}" \

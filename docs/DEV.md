@@ -13,7 +13,7 @@ Dev image is required once and for every change on `Dockerfile`. It is an image 
 Run the following command to create the dev image.
 
 ```sh
-make image-custom TARGET=dev PHP=8.2
+make image-custom TARGET=dev PHP=8.4
 ```
 
 ## Start containers
