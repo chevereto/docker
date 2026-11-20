@@ -34,10 +34,6 @@ COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 COPY --from=builder /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
 COPY --from=builder /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
 
-# Upgrade base packages to pick up Debian security fixes newer than the base
-# image, and purge the compiler toolchain ($PHPIZE_DEPS) shipped by the
-# official PHP image: extensions are compiled in the builder stage, so it is
-# not needed at runtime and only adds attack surface (gcc, linux-libc-dev...).
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
     libfreetype6 \
@@ -106,6 +102,11 @@ RUN mkdir -p images/_assets \
     && chown -R www-data:www-data /var/scripts /var/www/html
 
 COPY --chown=www-data chevereto/ .
+
+RUN if [ -d app/vendor/intervention/image/src ]; then \
+    find app/vendor/intervention/image/src -name '*.php' -exec sed -i -E \
+    '/function[[:space:]]/ s/([(,][[:space:]]*)([A-Za-z_\\][A-Za-z0-9_\\]*)[[:space:]]+(\$[A-Za-z_][A-Za-z0-9_]*[[:space:]]*=[[:space:]]*null)/\1?\2 \3/g' {} + ; \
+    fi
 
 USER www-data
 
